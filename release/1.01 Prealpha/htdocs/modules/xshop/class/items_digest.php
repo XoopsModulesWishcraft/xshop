@@ -9,6 +9,7 @@ class xshopItems_disgest extends XoopsObject
     function __construct($type)
     {
         $this->initVar('lang_item_id', XOBJ_DTYPE_INT);
+        $this->initVar('item_id', XOBJ_DTYPE_INT);
         $this->initVar('uid', XOBJ_DTYPE_INT);
         $this->initVar('product_id', XOBJ_DTYPE_INT);
         $this->initVar('manu_id', XOBJ_DTYPE_INT);
