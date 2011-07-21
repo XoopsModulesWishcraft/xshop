@@ -8,8 +8,8 @@ class xshopDays extends XoopsObject
 {
     function __construct($type)
     {
-        $this->initVar('days_id', XOBJ_DTYPE_INT);
-        $this->initVar('item_id', XOBJ_DTYPE_INT);
+        $this->initVar('days_id', XOBJ_DTYPE_INT, 0);
+        $this->initVar('item_id', XOBJ_DTYPE_INT, 0);
         $this->initVar('monday', XOBJ_DTYPE_ENUM, '_SHOP_MI_DAYS_CLOSED', false, false, false, array('_SHOP_MI_DAYS_OPEN','_SHOP_MI_DAYS_CLOSED','_SHOP_MI_DAYS_DISPLAYONLY','_SHOP_MI_DAYS_NOSALE','_SHOP_MI_DAYS_DISCOUNT','_SHOP_MI_DAYS_CALL','_SHOP_MI_DAYS_EMAIL','_SHOP_MI_DAYS_OTHER'));
         $this->initVar('tuesday', XOBJ_DTYPE_ENUM, '_SHOP_MI_DAYS_CLOSED', false, false, false, array('_SHOP_MI_DAYS_OPEN','_SHOP_MI_DAYS_CLOSED','_SHOP_MI_DAYS_DISPLAYONLY','_SHOP_MI_DAYS_NOSALE','_SHOP_MI_DAYS_DISCOUNT','_SHOP_MI_DAYS_CALL','_SHOP_MI_DAYS_EMAIL','_SHOP_MI_DAYS_OTHER'));
         $this->initVar('wednesday', XOBJ_DTYPE_ENUM, '_SHOP_MI_DAYS_CLOSED', false, false, false, array('_SHOP_MI_DAYS_OPEN','_SHOP_MI_DAYS_CLOSED','_SHOP_MI_DAYS_DISPLAYONLY','_SHOP_MI_DAYS_NOSALE','_SHOP_MI_DAYS_DISCOUNT','_SHOP_MI_DAYS_CALL','_SHOP_MI_DAYS_EMAIL','_SHOP_MI_DAYS_OTHER'));
@@ -22,6 +22,30 @@ class xshopDays extends XoopsObject
         $this->initVar('updated', XOBJ_DTYPE_INT);
         $this->initVar('actioned', XOBJ_DTYPE_INT);
         
+    }
+    
+    function getFormTray($querystring, $captions=true, $index='', $mode=false) {
+    	xoops_loadLanguage('forms', 'xshop');
+   		if (!empty($index))
+    		$id = $index . '['. $this->getVar('days_id') . ']';
+    	else 
+    		$id = $this->getVar('days_id');
+    		
+    	if ($captions==true) {
+    		$frmobj = new XoopsFormElementTray(_SHOP_FRM_DAYS);
+    		$frmobj->setDescription(_SHOP_FRM_DAYS_DESC);
+    	} else {
+    		$frmobj = new XoopsFormElementTray();
+    	}	
+    	
+    	$frmobj->addElement(new XoopsFormSelectDays(_SHOP_FRM_DAYS_MONDAY, $id.'[monday]', $this->getVar('monday'), 1, false, $mode));
+    	$frmobj->addElement(new XoopsFormSelectDays(_SHOP_FRM_DAYS_TUESDAY, $id.'[tuesday]', $this->getVar('tuesday'), 1, false, $mode));
+    	$frmobj->addElement(new XoopsFormSelectDays(_SHOP_FRM_DAYS_WEDNESDAY, $id.'[wednesday]', $this->getVar('wednesday'), 1, false, $mode));
+    	$frmobj->addElement(new XoopsFormSelectDays(_SHOP_FRM_DAYS_THURSDAY, $id.'[thursday]', $this->getVar('thursday'), 1, false, $mode));
+    	$frmobj->addElement(new XoopsFormSelectDays(_SHOP_FRM_DAYS_FRIDAY, $id.'[friday]', $this->getVar('friday'), 1, false, $mode));
+    	$frmobj->addElement(new XoopsFormSelectDays(_SHOP_FRM_DAYS_SATURDAY, $id.'[saturday]', $this->getVar('saturday'), 1, false, $mode));
+    	$frmobj->addElement(new XoopsFormSelectDays(_SHOP_FRM_DAYS_SUNDAY, $id.'[sunday]', $this->getVar('sunday'), 1, false, $mode));
+    	return $frmobj;
     }
     
     function runPreInsertPlugin() {
@@ -246,6 +270,13 @@ class xshopDaysHandler extends XoopsPersistableObjectHandler
 		} else {
 			return parent::insert($object, $force);
 		}
+    }
+    
+    function getItem($days_id=0) {
+    	if ($days_id==0)
+    		return $this->create();
+    	else 
+    		return $this->get($days_id);
     }
 }
 ?>

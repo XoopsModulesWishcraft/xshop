@@ -37,8 +37,11 @@ class xshopContacts extends XoopsObject
         $this->initVar('actioned', XOBJ_DTYPE_INT);
     }
     
- 	function getForm($querystring, $captions = true, $render = true, $index = '', $prefix = '') {
+    function getForm($querystring, $captions = true, $render = true, $index = '', $cursor = 'form', $frmobj = array()) {
         xoops_loadLanguage('forms', 'xshop');
+    	
+        $frmobj['required'][] = 'name';
+		$frmobj['required'][] = 'value';
     	
         if (!empty($index))
     		$id = $index . '['. $this->getVar('contact_id') . ']';
@@ -46,93 +49,93 @@ class xshopContacts extends XoopsObject
     		$id = $this->getVar('contact_id');
     		
     	if ($render==true||$captions==true) {
-	    	$frmobj = array();
-	    	$frmobj['type'] = new XoopsFormSelectContactsType(_SHOP_FRM_CONTACTS_TYPE, $id.'[type]', $this->getVar('type'));
-	    	$frmobj['type']->setDescription(_SHOP_FRM_CONTACTS_TYPE_DESC);
-	    	$frmobj['citation'] = new XoopsFormText(_SHOP_FRM_CONTACTS_CITATION, $id.'[citation]', 35, 35, $this->getVar('citation'));
-	    	$frmobj['citation']->setDescription(_SHOP_FRM_CONTACTS_CITATION_DESC);
+	    	$frmobj[$cursor]['type'] = new XoopsFormSelectContactsType(_SHOP_FRM_CONTACTS_TYPE, $id.'[type]', $this->getVar('type'));
+	    	$frmobj[$cursor]['type']->setDescription(_SHOP_FRM_CONTACTS_TYPE_DESC);
+	    	$frmobj[$cursor]['citation'] = new XoopsFormText(_SHOP_FRM_CONTACTS_CITATION, $id.'[citation]', 35, 35, $this->getVar('citation'));
+	    	$frmobj[$cursor]['citation']->setDescription(_SHOP_FRM_CONTACTS_CITATION_DESC);
 	    	if (in_array($this->getVar('type'), array('_SHOP_MI_CONTACTS_PHONE','_SHOP_MI_CONTACTS_MOBILE','_SHOP_MI_CONTACTS_FAX'))) {
-		    	$frmobj['country_code'] = new XoopsFormText(_SHOP_FRM_CONTACTS_COUNTRY_CODE, $id.'[country_code]', 5, 5, $this->getVar('country_code'));
-		    	$frmobj['country_code']->setDescription(_SHOP_FRM_CONTACTS_COUNTRY_CODE_DESC);
-		    	$frmobj['area_code'] = new XoopsFormText(_SHOP_FRM_CONTACTS_AREA_CODE, $id.'[area_code]', 5, 5, $this->getVar('area_code'));
-		    	$frmobj['area_code']->setDescription(_SHOP_FRM_CONTACTS_AREA_CODE_DESC);
+		    	$frmobj[$cursor]['country_code'] = new XoopsFormText(_SHOP_FRM_CONTACTS_COUNTRY_CODE, $id.'[country_code]', 5, 5, $this->getVar('country_code'));
+		    	$frmobj[$cursor]['country_code']->setDescription(_SHOP_FRM_CONTACTS_COUNTRY_CODE_DESC);
+		    	$frmobj[$cursor]['area_code'] = new XoopsFormText(_SHOP_FRM_CONTACTS_AREA_CODE, $id.'[area_code]', 5, 5, $this->getVar('area_code'));
+		    	$frmobj[$cursor]['area_code']->setDescription(_SHOP_FRM_CONTACTS_AREA_CODE_DESC);
 	    	}
-	    	$frmobj['value'] = new XoopsFormText(_SHOP_FRM_CONTACTS_VALUE, $id.'[value]', 35, 255, $this->getVar('value'));
-	    	$frmobj['value']->setDescription(_SHOP_FRM_CONTACTS_VALUE_DESC);
-	    	$frmobj['name'] = new XoopsFormText(_SHOP_FRM_CONTACTS_NAME, $id.'[name]', 35, 128, $this->getVar('name'));
-	    	$frmobj['name']->setDescription(_SHOP_FRM_CONTACTS_NAME_DESC);
-	    	$frmobj['opening'] = new XoopsFormSelectTime(_SHOP_FRM_CONTACTS_OPENING, $id.'[opening]', $this->getVar('opening'));
-	    	$frmobj['opening']->setDescription(_SHOP_FRM_CONTACTS_OPENING_DESC);
-	    	$frmobj['closing'] = new XoopsFormSelectTime(_SHOP_FRM_CONTACTS_CLOSING, $id.'[closing]', $this->getVar('closing'));
-	    	$frmobj['closing']->setDescription(_SHOP_FRM_CONTACTS_CLOSING_DESC);
-	    	$frmobj['timezone'] = new XoopsFormSelectTimezone(_SHOP_FRM_CONTACTS_TIMEZONE, $id.'[timezone]', $this->getVar('timezone'));
-	    	$frmobj['timezone']->setDescription(_SHOP_FRM_CONTACTS_TIMEZONE_DESC);
+	    	$frmobj[$cursor]['value'] = new XoopsFormText(_SHOP_FRM_CONTACTS_VALUE, $id.'[value]', 35, 255, $this->getVar('value'));
+	    	$frmobj[$cursor]['value']->setDescription(_SHOP_FRM_CONTACTS_VALUE_DESC);
+	    	$frmobj[$cursor]['name'] = new XoopsFormText(_SHOP_FRM_CONTACTS_NAME, $id.'[name]', 35, 128, $this->getVar('name'));
+	    	$frmobj[$cursor]['name']->setDescription(_SHOP_FRM_CONTACTS_NAME_DESC);
+	    	$frmobj[$cursor]['opening'] = new XoopsFormSelectTime(_SHOP_FRM_CONTACTS_OPENING, $id.'[opening]', $this->getVar('opening'));
+	    	$frmobj[$cursor]['opening']->setDescription(_SHOP_FRM_CONTACTS_OPENING_DESC);
+	    	$frmobj[$cursor]['closing'] = new XoopsFormSelectTime(_SHOP_FRM_CONTACTS_CLOSING, $id.'[closing]', $this->getVar('closing'));
+	    	$frmobj[$cursor]['closing']->setDescription(_SHOP_FRM_CONTACTS_CLOSING_DESC);
+	    	$frmobj[$cursor]['timezone'] = new XoopsFormSelectTimezone(_SHOP_FRM_CONTACTS_TIMEZONE, $id.'[timezone]', $this->getVar('timezone'));
+	    	$frmobj[$cursor]['timezone']->setDescription(_SHOP_FRM_CONTACTS_TIMEZONE_DESC);
 	    	
 	    	$days_handler = xoops_getmodulehandler('days', 'xshop');
 	    	$days = $days_handler->getItem($this->getVar('days_id'));
-	    	$frmobj['days_id'] = $days->getFormTray($querystring);
-	    	$frmobj['days_id']->setDescription(_SHOP_FRM_CONTACTS_DAYS_DESC);    	
+	    	$frmobj[$cursor]['days_id'] = $days->getFormTray($querystring, true, $id.'[days]');
+	    	$frmobj[$cursor]['days_id']->setDescription(_SHOP_FRM_CONTACTS_DAYS_DESC);    	
 
-	    	$frmobj['manu_id'] = new XoopsFormHidden($id.'[manu_id]', $this->getVar('manu_id'));
-			$frmobj['shipping_id'] = new XoopsFormHidden($id.'[shipping_id]', $this->getVar('shipping_id'));
-			$frmobj['order_id'] = new XoopsFormHidden($id.'[order_id]', $this->getVar('order_id'));
+	    	$frmobj[$cursor]['manu_id'] = new XoopsFormHidden($id.'[manu_id]', $this->getVar('manu_id'));
+			$frmobj[$cursor]['shipping_id'] = new XoopsFormHidden($id.'[shipping_id]', $this->getVar('shipping_id'));
+			$frmobj[$cursor]['order_id'] = new XoopsFormHidden($id.'[order_id]', $this->getVar('order_id'));
 			
 		    if (!empty($index))		    
-	    		$frmobj['contact_id'] = new XoopsFormHidden($index.'[id]['.$this->getVar('contact_id').']', 'contacts');
+	    		$frmobj[$cursor]['contact_id'] = new XoopsFormHidden($index.'[id]['.$this->getVar('contact_id').']', 'contacts');
 	    	else 
-	    		$frmobj['contact_id'] = new XoopsFormHidden('id['.$this->getVar('contact_id').']', 'contacts');
+	    		$frmobj[$cursor]['contact_id'] = new XoopsFormHidden('id['.$this->getVar('contact_id').']', 'contacts');
 	    		
 	    	if ($render==false)
 	    		return $frmobj;
 	    		
-	    	$frmobj['op'] = new XoopsFormHidden('op', 'save');
-	    	$frmobj['fct'] = new XoopsFormHidden('fct', 'contacts');
+	    	$frmobj[$cursor]['op'] = new XoopsFormHidden('op', 'save');
+	    	$frmobj[$cursor]['fct'] = new XoopsFormHidden('fct', 'contacts');
     	} else {
-	    	$frmobj = array();
-	    	$frmobj['type'] = new XoopsFormSelectContactsType('', $id.'[type]', $this->getVar('type'));
-	    	$frmobj['citation'] = new XoopsFormText('', $id.'[citation]', 35, 35, $this->getVar('citation'));
+	    	$frmobj[$cursor]['type'] = new XoopsFormSelectContactsType('', $id.'[type]', $this->getVar('type'));
+	    	$frmobj[$cursor]['citation'] = new XoopsFormText('', $id.'[citation]', 35, 35, $this->getVar('citation'));
 	    	if (in_array($this->getVar('type'), array('_SHOP_MI_CONTACTS_PHONE','_SHOP_MI_CONTACTS_MOBILE','_SHOP_MI_CONTACTS_FAX'))) {
-		    	$frmobj['country_code'] = new XoopsFormText('', $id.'[country_code]', 5, 5, $this->getVar('country_code'));
-		    	$frmobj['area_code'] = new XoopsFormText('', $id.'[area_code]', 5, 5, $this->getVar('area_code'));
+		    	$frmobj[$cursor]['country_code'] = new XoopsFormText('', $id.'[country_code]', 5, 5, $this->getVar('country_code'));
+		    	$frmobj[$cursor]['area_code'] = new XoopsFormText('', $id.'[area_code]', 5, 5, $this->getVar('area_code'));
 		    }
-	    	$frmobj['value'] = new XoopsFormText('', $id.'[value]', 35, 255, $this->getVar('value'));
-	    	$frmobj['name'] = new XoopsFormText('', $id.'[name]', 35, 128, $this->getVar('name'));
-	    	$frmobj['opening'] = new XoopsFormSelectTime('', $id.'[opening]', $this->getVar('opening'));
-	    	$frmobj['closing'] = new XoopsFormSelectTime('', $id.'[closing]', $this->getVar('closing'));
-	    	$frmobj['timezone'] = new XoopsFormSelectTimezone('', $id.'[timezone]', $this->getVar('timezone'));
+	    	$frmobj[$cursor]['value'] = new XoopsFormText('', $id.'[value]', 35, 255, $this->getVar('value'));
+	    	$frmobj[$cursor]['name'] = new XoopsFormText('', $id.'[name]', 35, 128, $this->getVar('name'));
+	    	$frmobj[$cursor]['opening'] = new XoopsFormSelectTime('', $id.'[opening]', $this->getVar('opening'));
+	    	$frmobj[$cursor]['closing'] = new XoopsFormSelectTime('', $id.'[closing]', $this->getVar('closing'));
+	    	$frmobj[$cursor]['timezone'] = new XoopsFormSelectTimezone('', $id.'[timezone]', $this->getVar('timezone'));
 	    	
 	    	$days_handler = xoops_getmodulehandler('days', 'xshop');
 	    	$days = $days_handler->getItem($this->getVar('days_id'));
-	    	$frmobj['days_id'] = $days->getFormTray($querystring);
+	    	$frmobj[$cursor]['days_id'] = $days->getFormTray($querystring, false, $id.'[days]');
 
-	    	$frmobj['manu_id'] = new XoopsFormHidden($id.'[manu_id]', $this->getVar('manu_id'));
-			$frmobj['shipping_id'] = new XoopsFormHidden($id.'[shipping_id]', $this->getVar('shipping_id'));
-			$frmobj['order_id'] = new XoopsFormHidden($id.'[order_id]', $this->getVar('order_id'));
+	    	$frmobj[$cursor]['manu_id'] = new XoopsFormHidden($id.'[manu_id]', $this->getVar('manu_id'));
+			$frmobj[$cursor]['shipping_id'] = new XoopsFormHidden($id.'[shipping_id]', $this->getVar('shipping_id'));
+			$frmobj[$cursor]['order_id'] = new XoopsFormHidden($id.'[order_id]', $this->getVar('order_id'));
 	    	
 			if (!empty($index))		    
-	    		$frmobj['contact_id'] = new XoopsFormHidden($index.'[id]['.$this->getVar('contact_id').']', 'contacts');
+	    		$frmobj[$cursor]['contact_id'] = new XoopsFormHidden($index.'[id]['.$this->getVar('contact_id').']', 'contacts');
 	    	else 
-	    		$frmobj['contact_id'] = new XoopsFormHidden('id['.$this->getVar('contact_id').']', 'contacts');
+	    		$frmobj[$cursor]['contact_id'] = new XoopsFormHidden('id['.$this->getVar('contact_id').']', 'contacts');
 	    	
 	    	return $frmobj;
     	}
     	
     	if ($this->isNew()) {
-    		$form = new XoopsThemeForm(_SHOP_FRM_NEW_ITEM, 'items_digest', $_SERVER['PHP_SELF'], 'post');
+    		$form = new XoopsThemeForm(_SHOP_FRM_NEW_CONTACT, 'contacts', $_SERVER['PHP_SELF'], 'post');
     	} else {
-    		$form = new XoopsThemeForm(_SHOP_FRM_EDIT_ITEM, 'items_digest', $_SERVER['PHP_SELF'], 'post');
+    		$form = new XoopsThemeForm(_SHOP_FRM_EDIT_CONTACT, 'contacts', $_SERVER['PHP_SELF'], 'post');
     	}
-
-    	$required = array('name', 'value');
     	
     	foreach($frmobj as $key => $value) {
-    		if (!in_array($key, $required)) {
-    			$form->addElement($frmobj[$key], false);
-    		} else {
-    			$form->addElement($frmobj[$key], true);
+    		if ($key!='required') {
+   	 			foreach($value as $field => $valueb) {
+		    		if (!in_array($field, $frmobj['required'])) {
+		    			$form->addElement($frmobj[$key][$field], false);
+		    		} else {
+		    			$form->addElement($frmobj[$key][$field], true);
+		    		}
+    			}
     		}
     	}
-    	
+    	    	
     	return $form->render();	
     	
     }
@@ -223,6 +226,24 @@ class xshopContactsHandler extends XoopsPersistableObjectHandler
 		} else {
 			return parent::insert($object, $force);
 		}
+    }
+    
+    function getItem($contact_id=0, $type = '') {
+    	if ($contact_id=0) {
+    		$obj = $this->create();
+    		if (!empty($type))
+    			$obj->setVar('type', $type);
+    		return $obj;
+    	} else {
+    		$obj = $this->get($contact_id);
+    		if (is_object($obj)) {	
+    			return $obj;
+    		}
+    		$obj = $this->create();
+    		if (!empty($type))
+    			$obj->setVar('type', $type);
+    		return $obj;
+    	}
     }
 }
 ?>

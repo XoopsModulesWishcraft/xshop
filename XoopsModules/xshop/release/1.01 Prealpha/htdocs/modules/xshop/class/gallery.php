@@ -8,25 +8,106 @@ class xshopGallery extends XoopsObject
 {
     function __construct($type)
     {
-        $this->initVar('picture_id', XOBJ_DTYPE_INT);
+        $this->initVar('picture_id', XOBJ_DTYPE_INT, 0);
         $this->initVar('type', XOBJ_DTYPE_ENUM, '_SHOP_MI_GALLERY_PRODUCT', false, false, false, array('_SHOP_MI_GALLERY_CAT_LOGO','_SHOP_MI_GALLERY_MANU_LOGO','_SHOP_MI_GALLERY_PRODUCT','_SHOP_MI_GALLERY_SHOP_LOGO','_SHOP_MI_GALLERY_SHIPPING_LOGO','_SHOP_MI_GALLERY_DISCOUNT_LOGO','_SHOP_MI_GALLERY_ORDER_LOGO','_SHOP_MI_GALLERY_WATERMARK'));
-        $this->initVar('shipping_id', XOBJ_DTYPE_INT);
-        $this->initVar('product_id', XOBJ_DTYPE_INT);
-        $this->initVar('cat_id', XOBJ_DTYPE_INT);
-        $this->initVar('manu_id', XOBJ_DTYPE_INT);
-        $this->initVar('shop_id', XOBJ_DTYPE_INT);
-        $this->initVar('item_id', XOBJ_DTYPE_INT);
-        $this->initVar('weight', XOBJ_DTYPE_INT);
+        $this->initVar('shipping_id', XOBJ_DTYPE_INT, 0);
+        $this->initVar('product_id', XOBJ_DTYPE_INT, 0);
+        $this->initVar('cat_id', XOBJ_DTYPE_INT, 0);
+        $this->initVar('manu_id', XOBJ_DTYPE_INT, 0);
+        $this->initVar('shop_id', XOBJ_DTYPE_INT, 0);
+        $this->initVar('item_id', XOBJ_DTYPE_INT, 0);
+        $this->initVar('weight', XOBJ_DTYPE_INT, 0);
         $this->initVar('path', XOBJ_DTYPE_TXTBOX, false, 255);
         $this->initVar('filename', XOBJ_DTYPE_TXTBOX, false, 255);
-        $this->initVar('width', XOBJ_DTYPE_INT);
-        $this->initVar('height', XOBJ_DTYPE_INT);
+        $this->initVar('width', XOBJ_DTYPE_INT, 0);
+        $this->initVar('height', XOBJ_DTYPE_INT, 0);
         $this->initVar('extension', XOBJ_DTYPE_TXTBOX, false, 5);
         $this->initVar('md5', XOBJ_DTYPE_TXTBOX, '', 32);
         $this->initVar('created', XOBJ_DTYPE_INT);
         $this->initVar('updated', XOBJ_DTYPE_INT);
         $this->initVar('actioned', XOBJ_DTYPE_INT);
         
+    }
+    
+    function getForm($querystring, $captions = true, $render = true, $index = '', $cursor = 'form', $frmobj = array()) {
+    
+    	xoops_loadLanguage('forms', 'xshop');
+    	    	
+    	$items_digest_handler =& xoops_getmodulehandler('items_digest', 'xshop');
+    	$digest = $items_digest_handler->getItem($this->getVar('item_id'));
+    	    	
+    	if (!empty($index))
+    		$id = $index . '['. $this->getVar('picture_id') . ']';
+    	else 
+    		$id = $this->getVar('picture_id');
+    	
+    	if ($render = true||$captions==true) {
+	    	
+	    	$frmobj[$cursor]['type'] = new XoopsFormSelectGalleryType(_SHOP_FRM_GALLERY_TYPE,  $id.'[type]', $this->getVar('type'));
+	    	$frmobj[$cursor]['type']->setDescription(_SHOP_FRM_GALLERY_TYPE_DESC);
+	    	$frmobj[$cursor]['weight'] = new XoopsFormText(_SHOP_FRM_GALLERY_WEIGHT, $id.'[weight]', 10, 15, $this->getVar('weight'));
+	    	$frmobj[$cursor]['weight']->setDescription(_SHOP_FRM_GALLERY_WEIGHT_DESC);
+	    	$frmobj = $digest->getForm($querystring, true, false, $id.'[item]','item',$frmobj);
+	    	$frmobj[$cursor]['path'] = new XoopsFormLabel(_SHOP_FRM_GALLERY_PATH, $this->getVar('path'));
+	    	$frmobj[$cursor]['path']->setDescription(_SHOP_FRM_GALLERY_PATH_DESC);
+	    	$frmobj[$cursor]['filename'] = new XoopsFormLabel(_SHOP_FRM_GALLERY_FILENAME, $this->getVar('filename'));
+	    	$frmobj[$cursor]['filename']->setDescription(_SHOP_FRM_GALLERY_FILENAME_DESC);
+	    	$frmobj[$cursor]['width'] = new XoopsFormLabel(_SHOP_FRM_GALLERY_WIDTH, $this->getVar('width'));
+	    	$frmobj[$cursor]['width']->setDescription(_SHOP_FRM_GALLERY_WIDTH_DESC);
+	    	$frmobj[$cursor]['height'] = new XoopsFormLabel(_SHOP_FRM_GALLERY_HEIGHT, $this->getVar('height'));
+	    	$frmobj[$cursor]['height']->setDescription(_SHOP_FRM_GALLERY_HEIGHT_DESC);
+	    	$frmobj[$cursor]['extension'] = new XoopsFormLabel(_SHOP_FRM_GALLERY_EXTENSION, $this->getVar('extension'));
+	    	$frmobj[$cursor]['extension']->setDescription(_SHOP_FRM_GALLERY_EXTENSION_DESC);
+	    	$frmobj[$cursor]['upload'] = new XoopsFormFile(_SHOP_FRM_GALLERY_UPLOAD_FILE, $id.'[upload]', $GLOBALS['xoopsModuleConfig']['max_file_size']);
+	    	$frmobj[$cursor]['upload']->setDescription(_SHOP_FRM_GALLERY_UPLOAD_FILE_DESC);
+	    	if (!empty($index))	
+	    		$frmobj[$cursor]['picture_id'] = new XoopsFormHidden($index.'[id]['.$this->getVar('picture_id').']', 'gallery');
+	    	else 
+	    		$frmobj[$cursor]['picture_id'] = new XoopsFormHidden('id['.$this->getVar('picture_id').']', 'gallery');
+	    	
+	    	if ($render==false)
+	    		return $frmobj;
+	    		
+	    	$frmobj[$cursor]['op'] = new XoopsFormHidden('op', 'save');
+	    	$frmobj[$cursor]['fct'] = new XoopsFormHidden('fct', 'gallery');
+    	} else {
+    	
+	    	$frmobj[$cursor]['type'] = new XoopsFormSelectGalleryType('',  $id.'[type]', $this->getVar('type'));
+	    	$frmobj[$cursor]['weight'] = new XoopsFormText('', $id.'[weight]', 10, 15, $this->getVar('weight'));
+	    	$frmobj = $digest->getForm($querystring, false, false, $id.'[item]', 'item', $frmobj);
+	    	$frmobj[$cursor]['path'] = new XoopsFormLabel('', $this->getVar('path'));
+	    	$frmobj[$cursor]['filename'] = new XoopsFormLabel('', $this->getVar('filename'));
+	    	$frmobj[$cursor]['width'] = new XoopsFormLabel('', $this->getVar('width'));
+	    	$frmobj[$cursor]['height'] = new XoopsFormLabel('', $this->getVar('height'));
+	    	$frmobj[$cursor]['extension'] = new XoopsFormLabel('', $this->getVar('extension'));
+	    	$frmobj[$cursor]['upload'] = new XoopsFormFile('', $id.'[upload]', $GLOBALS['xoopsModuleConfig']['max_file_size']);
+	    	if (!empty($index))	
+	    		$frmobj[$cursor]['picture_id'] = new XoopsFormHidden($index.'[id]['.$this->getVar('picture_id').']', 'gallery');
+	    	else 
+	    		$frmobj[$cursor]['picture_id'] = new XoopsFormHidden('id['.$this->getVar('picture_id').']', 'gallery');
+	    	
+    		return $frmobj;
+    	}
+    	
+    	if ($this->isNew()) {
+    		$form = new XoopsThemeForm(_SHOP_FRM_NEW_GALLERY, 'gallery', $_SERVER['PHP_SELF'], 'post');
+    	} else {
+    		$form = new XoopsThemeForm(_SHOP_FRM_EDIT_GALLERY, 'gallery', $_SERVER['PHP_SELF'], 'post');
+    	}
+    	
+    	foreach($frmobj as $key => $value) {
+    		if ($key!='required') {
+   	 			foreach($value as $field => $valueb) {
+		    		if (!in_array($field, $frmobj['required'])) {
+		    			$form->addElement($frmobj[$key][$field], false);
+		    		} else {
+		    			$form->addElement($frmobj[$key][$field], true);
+		    		}
+    			}
+    		}
+    	}
+    	
+    	return $form->render();
     }
     
     function runPreInsertPlugin() {

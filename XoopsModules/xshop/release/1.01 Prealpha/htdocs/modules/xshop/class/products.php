@@ -47,6 +47,133 @@ class xshopProducts extends XoopsObject
         $this->initVar('actioned', XOBJ_DTYPE_INT);
     }
     
+    function getForm($querystring, $captions = true, $render = true, $index = '', $cursor = 'form', $frmobj = array()) {
+    	xoops_loadLanguage('forms', 'xshop');
+    	    	
+    	$addresses_handler =& xoops_getmodulehandler('addresses', 'xshop');
+    	$contacts_handler =& xoops_getmodulehandler('contacts', 'xshop');
+
+    	$items_digest_handler =& xoops_getmodulehandler('items_digest', 'xshop');
+    	$digest = $items_digest_handler->getItem($this->getVar('item_id'));
+    	
+    	if (!empty($index))
+    		$id = $index . '['. $this->getVar('product_id') . ']';
+    	else 
+    		$id = $this->getVar('product_id');
+    	
+    	if ($render = true||$captions==true) {
+	    	$frmobj[$cursor]['stock'] = new XoopsFormSelectProductsStock(_SHOP_FRM_PRODUCTS_STOCK,  $id.'[stock]', $this->getVar('stock'));
+	    	$frmobj[$cursor]['stock']->setDescription(_SHOP_FRM_PRODUCTS_STOCK_DESC);
+	    	$frmobj[$cursor]['type'] = new XoopsFormSelectProductType(_SHOP_FRM_PRODUCTS_TYPE,  $id.'[type]', $this->getVar('type'));
+	    	$frmobj[$cursor]['type']->setDescription(_SHOP_FRM_PRODUCTS_TYPE_DESC);
+	    	$frmobj[$cursor]['sales_uid'] = new XoopsFormSelectGroupedUser(_SHOP_FRM_PRODUCTS_SALES_CLERK, 'sales_uid', $this->getVar('sales_uid'), 1, false, $GLOBALS['xoopsModuleConfig']['sales']);
+	    	$frmobj[$cursor]['sales_uid']->setDescription(_SHOP_FRM_PRODUCTS_SALES_CLERK_DESC);
+	    	$frmobj[$cursor]['broker_uid'] = new XoopsFormSelectGroupedUser(_SHOP_FRM_PRODUCTS_BROKER, 'broker_uid', $this->getVar('broker_uid'), 1, false, $GLOBALS['xoopsModuleConfig']['broker']);
+	    	$frmobj[$cursor]['broker_uid']->setDescription(_SHOP_FRM_PRODUCTS_BROKER_DESC);
+	    	$frmobj[$cursor]['shop_id'] = new XoopsFormSelectShops(_SHOP_FRM_PRODUCTS_SHOP, 'shop_id', $this->getVar('shop_id'));
+	    	$frmobj[$cursor]['shop_id']->setDescription(_SHOP_FRM_PRODUCTS_SHOP_DESC);
+	    	$frmobj[$cursor]['cat_id'] = new XoopsFormSelectCategory(_SHOP_FRM_PRODUCTS_CATEGORY, 'cat_id', $this->getVar('cat_id'));
+	    	$frmobj[$cursor]['cat_id']->setDescription(_SHOP_FRM_PRODUCTS_CATEGORY_DESC);
+	    	$frmobj[$cursor]['manu_id'] = new XoopsFormSelectManufactures(_SHOP_FRM_PRODUCTS_MANUFACTURES, 'manu_id', $this->getVar('manu_id'));
+	    	$frmobj[$cursor]['manu_id']->setDescription(_SHOP_FRM_PRODUCTS_MANUFACTURES_DESC);
+	    	$frmobj[$cursor]['currency_id'] = new XoopsFormSelectCurrency(_SHOP_FRM_PRODUCTS_CURRENCY, 'currency_id', $this->getVar('currency_id'));
+	    	$frmobj[$cursor]['currency_id']->setDescription(_SHOP_FRM_PRODUCTS_CURRENCY_DESC);
+	    	$frmobj[$cursor]['shipping_id'] = new XoopsFormSelectShipping(_SHOP_FRM_PRODUCTS_SHIPPING, 'shipping_id', $this->getVar('shipping_id'), 1, false, true);
+	    	$frmobj[$cursor]['shipping_id']->setDescription(_SHOP_FRM_PRODUCTS_SHIPPING_DESC);
+	    	$frmobj[$cursor]['discount_id'] = new XoopsFormSelectDiscount(_SHOP_FRM_PRODUCTS_DISCOUNT, 'discount_id', $this->getVar('discount_id'), 1, false, true);
+	    	$frmobj[$cursor]['discount_id']->setDescription(_SHOP_FRM_PRODUCTS_DISCOUNT_DESC);
+	    	$frmobj[$cursor]['wholesale_discount_id'] = new XoopsFormSelectDiscount(_SHOP_FRM_PRODUCTS_WHOLESALEDISCOUNT, 'wholesale_discount_id', $this->getVar('wholesale_discount_id'), 1, false, true);
+	    	$frmobj[$cursor]['wholesale_discount_id']->setDescription(_SHOP_FRM_PRODUCTS_WHOLESALEDISCOUNT_DESC);
+	    	$frmobj = $digest->getForm($querystring, true, false, $id.'[item]', 'item', $frmobj);
+	    	$frmobj[$cursor]['cat_prefix'] = new XoopsFormText(_SHOP_FRM_PRODUCTS_CATALOGUENUMBER_PREFIX, 'cat_prefix', 3, 5, $this->getVar('cat_prefix'));
+	    	$frmobj[$cursor]['cat_prefix']->setDescription(_SHOP_FRM_PRODUCTS_CATALOGUENUMBER_PREFIX_DESC);
+	    	$frmobj[$cursor]['cat_number'] = new XoopsFormText(_SHOP_FRM_PRODUCTS_CATALOGUENUMBER, 'cat_number', 20, 25, $this->getVar('cat_number'));
+	    	$frmobj[$cursor]['cat_number']->setDescription(_SHOP_FRM_PRODUCTS_CATALOGUENUMBER_DESC);
+	    	$frmobj[$cursor]['cat_subfix'] = new XoopsFormText(_SHOP_FRM_PRODUCTS_CATALOGUENUMBER_SUFFIX, 'cat_subfix', 3, 5, $this->getVar('cat_subfix'));
+	    	$frmobj[$cursor]['cat_subfix']->setDescription(_SHOP_FRM_PRODUCTS_CATALOGUENUMBER_SUFFIX_DESC);
+	    	$frmobj[$cursor]['sub_model'] = new XoopsFormText(_SHOP_FRM_PRODUCTS_SUBMODEL, 'sub_model', 25, 35, $this->getVar('sub_model'));
+	    	$frmobj[$cursor]['sub_model']->setDescription(_SHOP_FRM_PRODUCTS_SUBMODEL_DESC);
+	    	$frmobj[$cursor]['unit_price'] = new XoopsFormText(_SHOP_FRM_PRODUCTS_UNIT_PRICE, 'unit_price', 25, 35, $this->getVar('unit_price'));
+	    	$frmobj[$cursor]['unit_price']->setDescription(_SHOP_FRM_PRODUCTS_UNIT_PRICE_DESC);
+	    	$frmobj[$cursor]['unit_wholesale_price'] = new XoopsFormText(_SHOP_FRM_PRODUCTS_WHOLESALE_PRICE, 'unit_wholesale_price', 25, 35, $this->getVar('unit_wholesale_price'));
+	    	$frmobj[$cursor]['unit_wholesale_price']->setDescription(_SHOP_FRM_PRODUCTS_WHOLESALE_PRICE_DESC);
+	    	$frmobj[$cursor]['weight_per_unit'] = new XoopsFormText(_SHOP_FRM_PRODUCTS_WEIGHT_PER_UNIT, 'weight_per_unit', 25, 35, $this->getVar('weight_per_unit'));
+	    	$frmobj[$cursor]['weight_per_unit']->setDescription(_SHOP_FRM_PRODUCTS_WEIGHT_PER_UNIT_DESC);
+	    	$frmobj[$cursor]['weight_measurement'] = new XoopsFormSelectMeasurement(_SHOP_FRM_PRODUCTS_WEIGHT_MEASUREMENT, 'weight_measurement', $this->getVar('weight_measurement'));
+	    	$frmobj[$cursor]['weight_measurement']->setDescription(_SHOP_FRM_PRODUCTS_WEIGHT_MEASUREMENT_DESC);
+	    	$frmobj[$cursor]['quanity_in_unit'] = new XoopsFormText(_SHOP_FRM_PRODUCTS_QUANITY_IN_UNIT, 'quanity_in_unit', 25, 35, $this->getVar('quanity_in_unit'));
+	    	$frmobj[$cursor]['quanity_in_unit']->setDescription(_SHOP_FRM_PRODUCTS_QUANITY_IN_UNIT_DESC);
+	    	$frmobj[$cursor]['quanity_for_wholesale'] = new XoopsFormText(_SHOP_FRM_PRODUCTS_QUANITY_FOR_WHOLESALE, 'quanity_for_wholesale', 25, 35, $this->getVar('quanity_for_wholesale'));
+	    	$frmobj[$cursor]['quanity_for_wholesale']->setDescription(_SHOP_FRM_PRODUCTS_QUANITY_FOR_WHOLESALE_DESC);
+	    	$frmobj[$cursor]['quanity_in_warehouse'] = new XoopsFormText(_SHOP_FRM_PRODUCTS_QUANITY_IN_WAREHOUSE, 'quanity_in_warehouse', 25, 35, $this->getVar('quanity_in_warehouse'));
+	    	$frmobj[$cursor]['quanity_in_warehouse']->setDescription(_SHOP_FRM_PRODUCTS_QUANITY_IN_WAREHOUSE_DESC);
+	    	$frmobj[$cursor]['quanity_to_order'] = new XoopsFormText(_SHOP_FRM_PRODUCTS_QUANITY_TO_ORDER, 'quanity_to_order', 25, 35, $this->getVar('quanity_to_order'));
+	    	$frmobj[$cursor]['quanity_to_order']->setDescription(_SHOP_FRM_PRODUCTS_QUANITY_TO_ORDER_DESC);
+	    	
+	    	if (!empty($index))	
+	    		$frmobj[$cursor]['product_id'] = new XoopsFormHidden($index.'[id]['.$this->getVar('product_id').']', 'products');
+	    	else 
+	    		$frmobj[$cursor]['product_id'] = new XoopsFormHidden('id['.$this->getVar('product_id').']', 'products');
+	    	
+	    	if ($render==false)
+	    		return $frmobj;
+	    		
+	    	$frmobj[$cursor]['op'] = new XoopsFormHidden('op', 'save');
+	    	$frmobj[$cursor]['fct'] = new XoopsFormHidden('fct', 'products');
+    	} else {
+	    	$frmobj[$cursor]['stock'] = new XoopsFormSelectProductsStock('',  $id.'[stock]', $this->getVar('stock'));
+	    	$frmobj[$cursor]['type'] = new XoopsFormSelectProductType('',  $id.'[type]', $this->getVar('type'));
+	    	$frmobj[$cursor]['sales_uid'] = new XoopsFormSelectGroupedUser('', 'sales_uid', $this->getVar('sales_uid'), 1, false, $GLOBALS['xoopsModuleConfig']['sales']);
+	    	$frmobj[$cursor]['broker_uid'] = new XoopsFormSelectGroupedUser('', 'broker_uid', $this->getVar('broker_uid'), 1, false, $GLOBALS['xoopsModuleConfig']['broker']);
+	    	$frmobj[$cursor]['shop_id'] = new XoopsFormSelectShops('', 'shop_id', $this->getVar('shop_id'));
+	    	$frmobj[$cursor]['cat_id'] = new XoopsFormSelectCategory('', 'cat_id', $this->getVar('cat_id'));
+	    	$frmobj[$cursor]['manu_id'] = new XoopsFormSelectManufactures('', 'manu_id', $this->getVar('manu_id'));
+	    	$frmobj[$cursor]['currency_id'] = new XoopsFormSelectCurrency('', 'currency_id', $this->getVar('currency_id'));
+	    	$frmobj[$cursor]['shipping_id'] = new XoopsFormSelectShipping('', 'shipping_id', $this->getVar('shipping_id'), 1, false, true);
+	    	$frmobj[$cursor]['discount_id'] = new XoopsFormSelectDiscount('', 'discount_id', $this->getVar('discount_id'), 1, false, true);
+	    	$frmobj[$cursor]['wholesale_discount_id'] = new XoopsFormSelectDiscount('', 'wholesale_discount_id', $this->getVar('wholesale_discount_id'), 1, false, true);
+	    	$frmobj = $digest->getForm($querystring, false, false, $id.'[item]', 'item', $frmobj);
+	    	$frmobj[$cursor]['cat_prefix'] = new XoopsFormText('', 'cat_prefix', 3, 5, $this->getVar('cat_prefix'));
+	    	$frmobj[$cursor]['cat_number'] = new XoopsFormText('', 'cat_number', 20, 25, $this->getVar('cat_number'));
+	    	$frmobj[$cursor]['cat_subfix'] = new XoopsFormText('', 'cat_subfix', 3, 5, $this->getVar('cat_subfix'));
+	    	$frmobj[$cursor]['sub_model'] = new XoopsFormText('', 'sub_model', 25, 35, $this->getVar('sub_model'));
+	    	$frmobj[$cursor]['unit_price'] = new XoopsFormText('', 'unit_price', 25, 35, $this->getVar('unit_price'));
+	    	$frmobj[$cursor]['unit_wholesale_price'] = new XoopsFormText('', 'unit_wholesale_price', 25, 35, $this->getVar('unit_wholesale_price'));
+	    	$frmobj[$cursor]['weight_per_unit'] = new XoopsFormText('', 'weight_per_unit', 25, 35, $this->getVar('weight_per_unit'));
+	    	$frmobj[$cursor]['weight_measurement'] = new XoopsFormSelectMeasurement('', 'weight_measurement', $this->getVar('weight_measurement'));
+	    	$frmobj[$cursor]['quanity_in_unit'] = new XoopsFormText('', 'quanity_in_unit', 25, 35, $this->getVar('quanity_in_unit'));
+	    	$frmobj[$cursor]['quanity_for_wholesale'] = new XoopsFormText('', 'quanity_for_wholesale', 25, 35, $this->getVar('quanity_for_wholesale'));
+	    	$frmobj[$cursor]['quanity_in_warehouse'] = new XoopsFormText('', 'quanity_in_warehouse', 25, 35, $this->getVar('quanity_in_warehouse'));
+	    	$frmobj[$cursor]['quanity_to_order'] = new XoopsFormText('', 'quanity_to_order', 25, 35, $this->getVar('quanity_to_order'));
+	    	if (!empty($index))	
+	    		$frmobj[$cursor]['product_id'] = new XoopsFormHidden($index.'[id]['.$this->getVar('product_id').']', 'products');
+	    	else 
+	    		$frmobj[$cursor]['product_id'] = new XoopsFormHidden('id['.$this->getVar('product_id').']', 'products');
+	    	
+    		return $frmobj;
+    	}
+    	
+    	if ($this->isNew()) {
+    		$form = new XoopsThemeForm(_SHOP_FRM_NEW_PRODUCTS, 'products', $_SERVER['PHP_SELF'], 'post');
+    	} else {
+    		$form = new XoopsThemeForm(_SHOP_FRM_EDIT_PRODUCTS, 'products', $_SERVER['PHP_SELF'], 'post');
+    	}
+    	
+    	foreach($frmobj as $key => $value) {
+    		if ($key!='required') {
+   	 			foreach($value as $field => $valueb) {
+		    		if (!in_array($field, $frmobj['required'])) {
+		    			$form->addElement($frmobj[$key][$field], false);
+		    		} else {
+		    			$form->addElement($frmobj[$key][$field], true);
+		    		}
+    			}
+    		}
+    	}
+    	
+    	return $form->render();
+    }
+    
     function runPreInsertPlugin() {
 		
 		include_once($GLOBALS['xoops']->path('/modules/xshop/plugin/'.basename(__FILE__)));
