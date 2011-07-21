@@ -40,42 +40,46 @@ class xshopItems_disgest extends XoopsObject
         
     }
     
-    function getForm($querystring, $captions = true, $render = true, $index = '') {
+    function getForm($querystring, $captions = true, $render = true, $index = '', $cursor = 'form', $frmobj = array()) {
+    
         xoops_loadLanguage('forms', 'xshop');
     	
+        $frmobj['required'][] = 'menu_title';
+		$frmobj['required'][] = 'menu_description';
+        
         if (!empty($index))
     		$id = $index . '['. $this->getVar('lang_item_id') . ']';
     	else 
     		$id = $this->getVar('lang_item_id');
     		
     	if ($render==true||$captions==true) {
-	    	$frmobj = array();
-	    	$frmobj['type'] = new XoopsFormSelectItemDigestType(_SHOP_FRM_ITEM_DIGEST_TYPE, $id.'[type]', $this->getVar('type'));
-	    	$frmobj['type']->setDescription(_SHOP_FRM_ITEM_DIGEST_TYPE_DESC);
+	    	
+	    	$frmobj[$cursor]['type'] = new XoopsFormSelectItemDigestType(_SHOP_FRM_ITEM_DIGEST_TYPE, $id.'[type]', $this->getVar('type'));
+	    	$frmobj[$cursor]['type']->setDescription(_SHOP_FRM_ITEM_DIGEST_TYPE_DESC);
 	    	if ($render==false) {
-		    	$frmobj['language'] = new XoopsFormSelectLanguage('_SHOP_FRM_ITEM_DIGEST_LANGUAGE', $id.'[language]', $this->getVar('language'));
-		    	$frmobj['language']->setDescription(_SHOP_FRM_ITEM_DIGEST_LANGUAGE_DESC);
-		    	$frmobj['language']->setExtra('onchange="window.open(\''.$_SERVER['PHP_SELF'].'?'.filter_querystring($querystring, 'language').'&language=\'+this.options[this.selectedIndex].value,\'_self\')"');
+		    	$frmobj[$cursor]['language'] = new XoopsFormSelectLanguage('_SHOP_FRM_ITEM_DIGEST_LANGUAGE', $id.'[language]', $this->getVar('language'));
+		    	$frmobj[$cursor]['language']->setDescription(_SHOP_FRM_ITEM_DIGEST_LANGUAGE_DESC);
+		    	$frmobj[$cursor]['language']->setExtra('onchange="window.open(\''.$_SERVER['PHP_SELF'].'?'.filter_querystring($querystring, 'language').'&language=\'+this.options[this.selectedIndex].value,\'_self\')"');
 	    	} else {
-	    		$frmobj['language'] = new XoopsFormLabel('_SHOP_FRM_ITEM_DIGEST_LANGUAGE', $this->getVar('language'));
-	    		$frmobj['language']->setDescription(_SHOP_FRM_ITEM_DIGEST_LANGUAGE_DESC);
+	    		$frmobj[$cursor]['language'] = new XoopsFormLabel('_SHOP_FRM_ITEM_DIGEST_LANGUAGE', $this->getVar('language'));
+	    		$frmobj[$cursor]['language']->setDescription(_SHOP_FRM_ITEM_DIGEST_LANGUAGE_DESC);
 	    	}
-	    	$frmobj['menu_title'] = new XoopsFormText(_SHOP_FRM_ITEM_DIGEST_MENU_TITLE, $id.'[menu_title]', 35, 128, $this->getVar('menu_title'));
-	    	$frmobj['menu_title']->setDescription(_SHOP_FRM_ITEM_DIGEST_MENU_TITLE_DESC);
-	    	$frmobj['long_title'] = new XoopsFormText(_SHOP_FRM_ITEM_DIGEST_LONG_TITLE, $id.'[long_title]', 35, 255, $this->getVar('long_title'));
-	    	$frmobj['long_title']->setDescription(_SHOP_FRM_ITEM_DIGEST_LONG_TITLE_DESC);
-	    	$frmobj['rss_title'] = new XoopsFormText(_SHOP_FRM_ITEM_DIGEST_RSS_TITLE, $id.'[rss_title]', 35, 255, $this->getVar('rss_title'));
-	    	$frmobj['rss_title']->setDescription(_SHOP_FRM_ITEM_DIGEST_RSS_TITLE_DESC);
-	    	$frmobj['menu_subtitle'] = new XoopsFormText(_SHOP_FRM_ITEM_DIGEST_MENU_SUBTITLE, $id.'[menu_subtitle]', 35, 128, $this->getVar('menu_subtitle'));
-	    	$frmobj['menu_subtitle']->setDescription(_SHOP_FRM_ITEM_DIGEST_MENU_SUBTITLE_DESC);
-	    	$frmobj['long_subtitle'] = new XoopsFormText(_SHOP_FRM_ITEM_DIGEST_LONG_SUBTITLE, $id.'[long_subtitle]', 35, 255, $this->getVar('long_subtitle'));
-	    	$frmobj['long_subtitle']->setDescription(_SHOP_FRM_ITEM_DIGEST_LONG_SUBTITLE_DESC);
-	    	$frmobj['menu_description'] = new XoopsFormText(_SHOP_FRM_ITEM_DIGEST_MENU_DESCRIPTION, $id.'[menu_description]', 35, 255, $this->getVar('menu_description'));
-	    	$frmobj['menu_description']->setDescription(_SHOP_FRM_ITEM_DIGEST_MENU_DESCRIPTION_DESC);
-	    	$frmobj['meta_description'] = new XoopsFormText(_SHOP_FRM_ITEM_DIGEST_META_DESCRIPTION, $id.'[meta_description]', 35, 255, $this->getVar('meta_description'));
-	    	$frmobj['meta_description']->setDescription(_SHOP_FRM_ITEM_DIGEST_META_DESCRIPTION_DESC);
-	    	$frmobj['meta_keywords'] = new XoopsFormText(_SHOP_FRM_ITEM_DIGEST_META_KEYWORDS, $id.'[meta_keywords]', 35, 255, $this->getVar('meta_keywords'));
-	    	$frmobj['meta_keywords']->setDescription(_SHOP_FRM_ITEM_DIGEST_META_KEYWORDS_DESC);
+	    	$frmobj[$cursor]['menu_title'] = new XoopsFormText(_SHOP_FRM_ITEM_DIGEST_MENU_TITLE, $id.'[menu_title]', 35, 128, $this->getVar('menu_title'));
+	    	$frmobj[$cursor]['menu_title']->setDescription(_SHOP_FRM_ITEM_DIGEST_MENU_TITLE_DESC);
+	    	$frmobj[$cursor]['long_title'] = new XoopsFormText(_SHOP_FRM_ITEM_DIGEST_LONG_TITLE, $id.'[long_title]', 35, 255, $this->getVar('long_title'));
+	    	$frmobj[$cursor]['long_title']->setDescription(_SHOP_FRM_ITEM_DIGEST_LONG_TITLE_DESC);
+	    	$frmobj[$cursor]['rss_title'] = new XoopsFormText(_SHOP_FRM_ITEM_DIGEST_RSS_TITLE, $id.'[rss_title]', 35, 255, $this->getVar('rss_title'));
+	    	$frmobj[$cursor]['rss_title']->setDescription(_SHOP_FRM_ITEM_DIGEST_RSS_TITLE_DESC);
+	    	$frmobj[$cursor]['menu_subtitle'] = new XoopsFormText(_SHOP_FRM_ITEM_DIGEST_MENU_SUBTITLE, $id.'[menu_subtitle]', 35, 128, $this->getVar('menu_subtitle'));
+	    	$frmobj[$cursor]['menu_subtitle']->setDescription(_SHOP_FRM_ITEM_DIGEST_MENU_SUBTITLE_DESC);
+	    	$frmobj[$cursor]['long_subtitle'] = new XoopsFormText(_SHOP_FRM_ITEM_DIGEST_LONG_SUBTITLE, $id.'[long_subtitle]', 35, 255, $this->getVar('long_subtitle'));
+	    	$frmobj[$cursor]['long_subtitle']->setDescription(_SHOP_FRM_ITEM_DIGEST_LONG_SUBTITLE_DESC);
+	    	$frmobj[$cursor]['menu_description'] = new XoopsFormText(_SHOP_FRM_ITEM_DIGEST_MENU_DESCRIPTION, $id.'[menu_description]', 35, 255, $this->getVar('menu_description'));
+	    	$frmobj[$cursor]['menu_description']->setDescription(_SHOP_FRM_ITEM_DIGEST_MENU_DESCRIPTION_DESC);
+	    	$frmobj[$cursor]['meta_description'] = new XoopsFormText(_SHOP_FRM_ITEM_DIGEST_META_DESCRIPTION, $id.'[meta_description]', 35, 255, $this->getVar('meta_description'));
+	    	$frmobj[$cursor]['meta_description']->setDescription(_SHOP_FRM_ITEM_DIGEST_META_DESCRIPTION_DESC);
+	    	$frmobj[$cursor]['meta_keywords'] = new XoopsFormText(_SHOP_FRM_ITEM_DIGEST_META_KEYWORDS, $id.'[meta_keywords]', 35, 255, $this->getVar('meta_keywords'));
+	    	$frmobj[$cursor]['meta_keywords']->setDescription(_SHOP_FRM_ITEM_DIGEST_META_KEYWORDS_DESC);
 			$long_description_configs = array();
 			$long_description_configs['name'] = $id.'[long_description]';
 			$long_description_configs['value'] = $this->getVar('long_description');
@@ -84,8 +88,8 @@ class xshopItems_disgest extends XoopsObject
 			$long_description_configs['width'] = "100%";
 			$long_description_configs['height'] = "400px";
 			$long_description_configs['editor'] = $GLOBALS['xoopsModuleConfig']['editor'];
-			$frmobj['long_description'] = new XoopsFormEditor(_SHOP_FRM_ITEM_DIGEST_LONG_DESCRIPTION, $long_description_configs['name'], $long_description_configs);
-			$frmobj['long_description']->setDescription(_SHOP_FRM_ITEM_DIGEST_LONG_DESCRIPTION_DESC);
+			$frmobj[$cursor]['long_description'] = new XoopsFormEditor(_SHOP_FRM_ITEM_DIGEST_LONG_DESCRIPTION, $long_description_configs['name'], $long_description_configs);
+			$frmobj[$cursor]['long_description']->setDescription(_SHOP_FRM_ITEM_DIGEST_LONG_DESCRIPTION_DESC);
 			$rss_description_configs = array();
 			$rss_description_configs['name'] = $id.'[rss_description]';
 			$rss_description_configs['value'] = $this->getVar('rss_description');
@@ -94,42 +98,42 @@ class xshopItems_disgest extends XoopsObject
 			$rss_description_configs['width'] = "100%";
 			$rss_description_configs['height'] = "400px";
 			$rss_description_configs['editor'] = $GLOBALS['xoopsModuleConfig']['editor'];
-			$frmobj['rss_description'] = new XoopsFormEditor(_SHOP_FRM_ITEM_DIGEST_RSS_DESCRIPTION, $rss_description_configs['name'], $rss_description_configs);
-			$frmobj['rss_description']->setDescription(_SHOP_FRM_ITEM_DIGEST_RSS_DESCRIPTION_DESC);				
-		    $frmobj['uid'] = new XoopsFormHidden($id.'[uid]', $this->getVar('uid'));
-			$frmobj['product_id'] = new XoopsFormHidden($id.'[product_id]', $this->getVar('product_id'));
-			$frmobj['manu_id'] = new XoopsFormHidden($id.'[manu_id]', $this->getVar('manu_id'));
-	        $frmobj['cat_id'] = new XoopsFormHidden($id.'[cat_id]', $this->getVar('cat_id'));
-			$frmobj['discount_id'] = new XoopsFormHidden($id.'[discount_id]', $this->getVar('discount_id'));
-			$frmobj['shipping_id'] = new XoopsFormHidden($id.'[shipping_id]', $this->getVar('shipping_id'));
-	        $frmobj['days_id'] = new XoopsFormHidden($id.'[days_id]', $this->getVar('days_id'));
-			$frmobj['picture_id'] = new XoopsFormHidden($id.'[picture_id]', $this->getVar('picture_id'));
-			$frmobj['order_id'] = new XoopsFormHidden($id.'[order_id]', $this->getVar('order_id'));
-	        $frmobj['currency_id'] = new XoopsFormHidden($id.'[currency_id]', $this->getVar('currency_id'));
-			$frmobj['shop_id'] = new XoopsFormHidden($id.'[shop_id]', $this->getVar('shop_id'));
+			$frmobj[$cursor]['rss_description'] = new XoopsFormEditor(_SHOP_FRM_ITEM_DIGEST_RSS_DESCRIPTION, $rss_description_configs['name'], $rss_description_configs);
+			$frmobj[$cursor]['rss_description']->setDescription(_SHOP_FRM_ITEM_DIGEST_RSS_DESCRIPTION_DESC);				
+		    $frmobj[$cursor]['uid'] = new XoopsFormHidden($id.'[uid]', $this->getVar('uid'));
+			$frmobj[$cursor]['product_id'] = new XoopsFormHidden($id.'[product_id]', $this->getVar('product_id'));
+			$frmobj[$cursor]['manu_id'] = new XoopsFormHidden($id.'[manu_id]', $this->getVar('manu_id'));
+	        $frmobj[$cursor]['cat_id'] = new XoopsFormHidden($id.'[cat_id]', $this->getVar('cat_id'));
+			$frmobj[$cursor]['discount_id'] = new XoopsFormHidden($id.'[discount_id]', $this->getVar('discount_id'));
+			$frmobj[$cursor]['shipping_id'] = new XoopsFormHidden($id.'[shipping_id]', $this->getVar('shipping_id'));
+	        $frmobj[$cursor]['days_id'] = new XoopsFormHidden($id.'[days_id]', $this->getVar('days_id'));
+			$frmobj[$cursor]['picture_id'] = new XoopsFormHidden($id.'[picture_id]', $this->getVar('picture_id'));
+			$frmobj[$cursor]['order_id'] = new XoopsFormHidden($id.'[order_id]', $this->getVar('order_id'));
+	        $frmobj[$cursor]['currency_id'] = new XoopsFormHidden($id.'[currency_id]', $this->getVar('currency_id'));
+			$frmobj[$cursor]['shop_id'] = new XoopsFormHidden($id.'[shop_id]', $this->getVar('shop_id'));
 			
 		    if (!empty($index))		    
-	    		$frmobj['lang_item_id'] = new XoopsFormHidden($index.'[id]['.$this->getVar('lang_item_id').']', 'items_digest');
+	    		$frmobj[$cursor]['lang_item_id'] = new XoopsFormHidden($index.'[id]['.$this->getVar('lang_item_id').']', 'items_digest');
 	    	else 
-	    		$frmobj['lang_item_id'] = new XoopsFormHidden('id['.$this->getVar('lang_item_id').']', 'items_digest');
+	    		$frmobj[$cursor]['lang_item_id'] = new XoopsFormHidden('id['.$this->getVar('lang_item_id').']', 'items_digest');
 	    		
 	    	if ($render==false)
 	    		return $frmobj;
 	    		
-	    	$frmobj['op'] = new XoopsFormHidden('op', 'save');
-	    	$frmobj['fct'] = new XoopsFormHidden('fct', 'items_disgest');
+	    	$frmobj[$cursor]['op'] = new XoopsFormHidden('op', 'save');
+	    	$frmobj[$cursor]['fct'] = new XoopsFormHidden('fct', 'items_disgest');
     	} else {
-	    	$frmobj = array();
-	    	$frmobj['type'] = new XoopsFormSelectItemDigestType('', $id.'[type]', $this->getVar('type'));
-    		$frmobj['language'] = new XoopsFormLabel('', $this->getVar('language'));
-	    	$frmobj['menu_title'] = new XoopsFormText('', $id.'[menu_title]', 35, 128, $this->getVar('menu_title'));
-	    	$frmobj['long_title'] = new XoopsFormText('', $id.'[long_title]', 35, 255, $this->getVar('long_title'));
-	    	$frmobj['rss_title'] = new XoopsFormText('', $id.'[rss_title]', 35, 255, $this->getVar('rss_title'));
-	    	$frmobj['menu_subtitle'] = new XoopsFormText('', $id.'[menu_subtitle]', 35, 128, $this->getVar('menu_subtitle'));
-	    	$frmobj['long_subtitle'] = new XoopsFormText('', $id.'[long_subtitle]', 35, 255, $this->getVar('long_subtitle'));
-	    	$frmobj['menu_description'] = new XoopsFormText('', $id.'[menu_description]', 35, 255, $this->getVar('menu_description'));
-	    	$frmobj['meta_description'] = new XoopsFormText('', $id.'[meta_description]', 35, 255, $this->getVar('meta_description'));
-	    	$frmobj['meta_keywords'] = new XoopsFormText('', $id.'[meta_keywords]', 35, 255, $this->getVar('meta_keywords'));
+	    	
+	    	$frmobj[$cursor]['type'] = new XoopsFormSelectItemDigestType('', $id.'[type]', $this->getVar('type'));
+    		$frmobj[$cursor]['language'] = new XoopsFormLabel('', $this->getVar('language'));
+	    	$frmobj[$cursor]['menu_title'] = new XoopsFormText('', $id.'[menu_title]', 35, 128, $this->getVar('menu_title'));
+	    	$frmobj[$cursor]['long_title'] = new XoopsFormText('', $id.'[long_title]', 35, 255, $this->getVar('long_title'));
+	    	$frmobj[$cursor]['rss_title'] = new XoopsFormText('', $id.'[rss_title]', 35, 255, $this->getVar('rss_title'));
+	    	$frmobj[$cursor]['menu_subtitle'] = new XoopsFormText('', $id.'[menu_subtitle]', 35, 128, $this->getVar('menu_subtitle'));
+	    	$frmobj[$cursor]['long_subtitle'] = new XoopsFormText('', $id.'[long_subtitle]', 35, 255, $this->getVar('long_subtitle'));
+	    	$frmobj[$cursor]['menu_description'] = new XoopsFormText('', $id.'[menu_description]', 35, 255, $this->getVar('menu_description'));
+	    	$frmobj[$cursor]['meta_description'] = new XoopsFormText('', $id.'[meta_description]', 35, 255, $this->getVar('meta_description'));
+	    	$frmobj[$cursor]['meta_keywords'] = new XoopsFormText('', $id.'[meta_keywords]', 35, 255, $this->getVar('meta_keywords'));
 			$long_description_configs = array();
 			$long_description_configs['name'] = $id.'[long_description]';
 			$long_description_configs['value'] = $this->getVar('long_description');
@@ -138,7 +142,7 @@ class xshopItems_disgest extends XoopsObject
 			$long_description_configs['width'] = "100%";
 			$long_description_configs['height'] = "400px";
 			$long_description_configs['editor'] = $GLOBALS['xoopsModuleConfig']['editor'];
-			$frmobj['long_description'] = new XoopsFormEditor('', $long_description_configs['name'], $long_description_configs);
+			$frmobj[$cursor]['long_description'] = new XoopsFormEditor('', $long_description_configs['name'], $long_description_configs);
 			$rss_description_configs = array();
 			$rss_description_configs['name'] = $id.'[rss_description]';
 			$rss_description_configs['value'] = $this->getVar('rss_description');
@@ -147,24 +151,24 @@ class xshopItems_disgest extends XoopsObject
 			$rss_description_configs['width'] = "100%";
 			$rss_description_configs['height'] = "400px";
 			$rss_description_configs['editor'] = $GLOBALS['xoopsModuleConfig']['editor'];
-			$frmobj['rss_description'] = new XoopsFormEditor('', $rss_description_configs['name'], $rss_description_configs);
-			$frmobj['uid'] = new XoopsFormHidden($id.'[uid]', $this->getVar('uid'));
-			$frmobj['product_id'] = new XoopsFormHidden($id.'[product_id]', $this->getVar('product_id'));
-			$frmobj['manu_id'] = new XoopsFormHidden($id.'[manu_id]', $this->getVar('manu_id'));
-	        $frmobj['cat_id'] = new XoopsFormHidden($id.'[cat_id]', $this->getVar('cat_id'));
-			$frmobj['discount_id'] = new XoopsFormHidden($id.'[discount_id]', $this->getVar('discount_id'));
-			$frmobj['shipping_id'] = new XoopsFormHidden($id.'[shipping_id]', $this->getVar('shipping_id'));
-	        $frmobj['days_id'] = new XoopsFormHidden($id.'[days_id]', $this->getVar('days_id'));
-			$frmobj['picture_id'] = new XoopsFormHidden($id.'[picture_id]', $this->getVar('picture_id'));
-			$frmobj['order_id'] = new XoopsFormHidden($id.'[order_id]', $this->getVar('order_id'));
-	        $frmobj['currency_id'] = new XoopsFormHidden($id.'[currency_id]', $this->getVar('currency_id'));
-			$frmobj['shop_id'] = new XoopsFormHidden($id.'[shop_id]', $this->getVar('shop_id'));
-			$frmobj['language_id'] = new XoopsFormHidden($id.'[language]', $this->getVar('language'));
+			$frmobj[$cursor]['rss_description'] = new XoopsFormEditor('', $rss_description_configs['name'], $rss_description_configs);
+			$frmobj[$cursor]['uid'] = new XoopsFormHidden($id.'[uid]', $this->getVar('uid'));
+			$frmobj[$cursor]['product_id'] = new XoopsFormHidden($id.'[product_id]', $this->getVar('product_id'));
+			$frmobj[$cursor]['manu_id'] = new XoopsFormHidden($id.'[manu_id]', $this->getVar('manu_id'));
+	        $frmobj[$cursor]['cat_id'] = new XoopsFormHidden($id.'[cat_id]', $this->getVar('cat_id'));
+			$frmobj[$cursor]['discount_id'] = new XoopsFormHidden($id.'[discount_id]', $this->getVar('discount_id'));
+			$frmobj[$cursor]['shipping_id'] = new XoopsFormHidden($id.'[shipping_id]', $this->getVar('shipping_id'));
+	        $frmobj[$cursor]['days_id'] = new XoopsFormHidden($id.'[days_id]', $this->getVar('days_id'));
+			$frmobj[$cursor]['picture_id'] = new XoopsFormHidden($id.'[picture_id]', $this->getVar('picture_id'));
+			$frmobj[$cursor]['order_id'] = new XoopsFormHidden($id.'[order_id]', $this->getVar('order_id'));
+	        $frmobj[$cursor]['currency_id'] = new XoopsFormHidden($id.'[currency_id]', $this->getVar('currency_id'));
+			$frmobj[$cursor]['shop_id'] = new XoopsFormHidden($id.'[shop_id]', $this->getVar('shop_id'));
+			$frmobj[$cursor]['language_id'] = new XoopsFormHidden($id.'[language]', $this->getVar('language'));
 		    
 			if (!empty($index))		    
-	    		$frmobj['lang_item_id'] = new XoopsFormHidden($index.'[id]['.$this->getVar('lang_item_id').']', 'items_digest');
+	    		$frmobj[$cursor]['lang_item_id'] = new XoopsFormHidden($index.'[id]['.$this->getVar('lang_item_id').']', 'items_digest');
 	    	else 
-	    		$frmobj['lang_item_id'] = new XoopsFormHidden('id['.$this->getVar('lang_item_id').']', 'items_digest');
+	    		$frmobj[$cursor]['lang_item_id'] = new XoopsFormHidden('id['.$this->getVar('lang_item_id').']', 'items_digest');
 	    	
 	    	return $frmobj;
     	}
@@ -174,14 +178,16 @@ class xshopItems_disgest extends XoopsObject
     	} else {
     		$form = new XoopsThemeForm(_SHOP_FRM_EDIT_ITEM, 'items_digest', $_SERVER['PHP_SELF'], 'post');
     	}
-
-    	$required = array('menu_title', 'menu_description');
-    	
+   	
     	foreach($frmobj as $key => $value) {
-    		if (!in_array($key, $required)) {
-    			$form->addElement($frmobj[$key], false);
-    		} else {
-    			$form->addElement($frmobj[$key], true);
+    		if ($key!='required') {
+   	 			foreach($value as $field => $valueb) {
+		    		if (!in_array($field, $frmobj['required'])) {
+		    			$form->addElement($frmobj[$key][$field], false);
+		    		} else {
+		    			$form->addElement($frmobj[$key][$field], true);
+		    		}
+    			}
     		}
     	}
     	

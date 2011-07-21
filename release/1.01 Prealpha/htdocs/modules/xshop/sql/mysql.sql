@@ -526,6 +526,7 @@ CREATE TABLE `shop_orders` (
   `shop_ids` varchar(1000) DEFAULT NULL,
   `product_ids` varchar(1000) DEFAULT NULL,
   `shipping_id` int(12) unsigned DEFAULT '0',
+  `currency_id` int(12) unsigned DEFAULT '0',
   `total` decimal(15,4) unsigned DEFAULT '0.0000',
   `tax` decimal(15,4) unsigned DEFAULT '0.0000',
   `shipping` decimal(15,4) unsigned DEFAULT '0.0000',
