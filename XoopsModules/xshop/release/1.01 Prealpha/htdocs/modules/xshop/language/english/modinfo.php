@@ -3,6 +3,7 @@
 	// Header
 	define('_SHOP_MI_DESCRIPTION', 'xShop is a shopping cart for XOOPS which uses X-payment for payment of items.');
 	define('_SHOP_MI_CREDITS', 'Simon Roberts (wishcraft) - simon@chronolabs.coop');
+	define('_SHOP_MI_NONE', 'None');
 	
 	// Administrator Menus
 	define('_SHOP_MI_ADMIN_MENU1', 'Shops Configuration');
@@ -155,7 +156,7 @@
 		
 	//Groups
 	define('_SHOP_MI_GROUP_NAME_BROKER', 'Invoice Broker');
-	define('_SHOP_MI_GROUP_DESC_BROKER', 'This is a group for brokers of an invoice to belong to.');
+	define('_SHOP_MI_GROUP_DESC_BROKER', 'This is a group for brokers of an item belongs to.');
 	define('_SHOP_MI_GROUP_TYPE_BROKER', 'Broker');
 	define('_SHOP_MI_GROUP_NAME_SALES', 'Sales Clerks');
 	define('_SHOP_MI_GROUP_DESC_SALES', 'This is a group for sales managers and clerks.');
@@ -190,5 +191,27 @@
 	define('_SHOP_MI_ENDOFURL_DESC', 'This is the extension at the end of the SEO');
 	define('_SHOP_MI_ENDOFURL_PDF', 'End of PDF SEO URL');
 	define('_SHOP_MI_ENDOFURL_PDF_DESC', 'This is the extension at the end of PDF output with the SEO');
+	define('_SHOP_MI_DEFAULTLANGUAGE', 'Default Language');
+	define('_SHOP_MI_DEFAULTLANGUAGE_DESC', 'Default for the module to provide records with this language type by default.');
+	define('_SHOP_MI_EDITOR', 'Text Editor to Use');
+	define('_SHOP_MI_EDITOR_DESC', 'This is the text editor that will be used on forms');
+	
+	// Template Descriptions
+	define('_SHOP_MI_TEMPLATE_CPANEL_SHOPS_LIST', '');
+	define('_SHOP_MI_TEMPLATE_CPANEL_CATEGORY_LIST', '');
+	define('_SHOP_MI_TEMPLATE_CPANEL_PRODUCTS_LIST', '');
+	define('_SHOP_MI_TEMPLATE_CPANEL_ORDERS_LIST', '');
+	define('_SHOP_MI_TEMPLATE_CPANEL_MANUFACTURES_LIST', '');
+	define('_SHOP_MI_TEMPLATE_CPANEL_SHIPPING_LIST', '');
+	define('_SHOP_MI_TEMPLATE_CPANEL_DISCOUNTS_LIST', '');
+	define('_SHOP_MI_TEMPLATE_CPANEL_CONTACT_LIST', '');
+	define('_SHOP_MI_TEMPLATE_CPANEL_ADDRESSES_LIST', '');
+	define('_SHOP_MI_TEMPLATE_CPANEL_COUNTRY_LIST', '');
+	define('_SHOP_MI_TEMPLATE_CPANEL_REGION_LIST', '');
+	define('_SHOP_MI_TEMPLATE_CPANEL_ITEM_DIGEST_LIST', '');
+	define('_SHOP_MI_TEMPLATE_CPANEL_GALLERY_LIST', '');
+	define('_SHOP_MI_TEMPLATE_CPANEL_AUTOTAX_LIST', '');
+	define('_SHOP_MI_TEMPLATE_CPANEL_DOWNLOADS_LIST', '');
+	define('_SHOP_MI_TEMPLATE_CPANEL_EDIT', '');
 	
 ?>

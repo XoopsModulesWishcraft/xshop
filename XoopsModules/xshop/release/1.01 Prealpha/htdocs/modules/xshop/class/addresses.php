@@ -29,6 +29,78 @@ class xshopAddresses extends XoopsObject
         $this->initVar('actioned', XOBJ_DTYPE_INT);
     }
 	
+    function getForm($querystring, $values, $render = true) {
+    	xoops_loadLanguage('forms', 'xshop');
+    	
+    	$id = $this->getVar('address_id');
+    	if ($render = true) {
+	    	$frmobj = array();
+	    	$frmobj['type'] = new XoopsFormSelectAddressType(_SHOP_FRM_ADDRESSES_TYPE, $id.'[type]', $this->getVar('type'));
+	    	$frmobj['type']->setDescription(_SHOP_FRM_ADDRESSES_TYPE_DESC);
+	    	$frmobj['remittion'] = new XoopsFormSelectAddressRemittion(_SHOP_FRM_ADDRESSES_REMITTION, $id.'[remittion]', $this->getVar('remittion'));
+	    	$frmobj['remittion']->setDescription(_SHOP_FRM_ADDRESSES_REMITTION_DESC);
+	    	$frmobj['care_of'] = new XoopsFormText(_SHOP_FRM_ADDRESSES_CARE_OF, $id.'[care_of]', 35, 128, $this->getVar('care_of'));
+	    	$frmobj['care_of']->setDescription(_SHOP_FRM_ADDRESSES_CARE_OF_DESC);
+	    	$frmobj['address_line_1'] = new XoopsFormText(_SHOP_FRM_ADDRESSES_ADDRESS_LINE_1, $id.'[address_line_1]', 35, 128, $this->getVar('address_line_1'));
+	    	$frmobj['address_line_1']->setDescription(_SHOP_FRM_ADDRESSES_ADDRESS_LINE_1_DESC);
+	    	$frmobj['address_line_2'] = new XoopsFormText(_SHOP_FRM_ADDRESSES_ADDRESS_LINE_2, $id.'[address_line_2]', 35, 128, $this->getVar('address_line_2'));
+	    	$frmobj['address_line_2']->setDescription(_SHOP_FRM_ADDRESSES_ADDRESS_LINE_2_DESC);
+	    	$frmobj['suburb'] = new XoopsFormText(_SHOP_FRM_ADDRESSES_SUBURB, $id.'[suburb]', 35, 128, $this->getVar('suburb'));
+	    	$frmobj['suburb']->setDescription(_SHOP_FRM_ADDRESSES_SUBURB_DESC);
+	    	$frmobj['city'] = new XoopsFormText(_SHOP_FRM_ADDRESSES_CITY, $id.'[city]', 35, 128, $this->getVar('city'));
+	    	$frmobj['city']->setDescription(_SHOP_FRM_ADDRESSES_CITY_DESC);
+	    	$frmobj['postcode'] = new XoopsFormText(_SHOP_FRM_ADDRESSES_POSTCODE, $id.'[postcode]', 15, 15, $this->getVar('postcode'));
+	    	$frmobj['postcode']->setDescription(_SHOP_FRM_ADDRESSES_POSTCODE_DESC);
+	    	$frmobj['region_id'] = new XoopsFormSelectRegion(_SHOP_FRM_ADDRESSES_REGION, $id.'[region_id]', $this->getVar('region_id'));
+	    	$frmobj['region_id']->setDescription(_SHOP_FRM_ADDRESSES_REGION_DESC);
+	    	$frmobj['country_id'] = new XoopsFormSelectCountry(_SHOP_FRM_ADDRESSES_COUNTRY, $id.'[country_id]', $this->getVar('country_id'));
+	    	$frmobj['country_id']->setDescription(_SHOP_FRM_ADDRESSES_COUNTRY_DESC);
+		    $frmobj['manu_id'] = new XoopsFormHidden($id.'[manu_id]', $this->getVar('manu_id'));
+		    $frmobj['shop_id'] = new XoopsFormHidden($id.'[shop_id]', $this->getVar('shop_id'));
+		    $frmobj['order_id'] = new XoopsFormHidden($id.'[order_id]', $this->getVar('order_id'));
+	    	$frmobj['address_id'] = new XoopsFormHidden('id['.$id.']', 'addressses');
+	    	$frmobj['op'] = new XoopsFormHidden('op', 'save');
+	    	$frmobj['fct'] = new XoopsFormHidden('fct', 'addressses');
+    	} else {
+    		$frmobj = array();
+	    	$frmobj['type'] = new XoopsFormSelectAddressType('', $id.'[type]', $this->getVar('type'));
+	    	$frmobj['remittion'] = new XoopsFormSelectAddressRemittion('', $id.'[remittion]', $this->getVar('remittion'));
+	    	$frmobj['care_of'] = new XoopsFormText('', $id.'[care_of]', 35, 128, $this->getVar('care_of'));
+	    	$frmobj['address_line_1'] = new XoopsFormText('', $id.'[address_line_1]', 35, 128, $this->getVar('address_line_1'));
+	    	$frmobj['address_line_2'] = new XoopsFormText('', $id.'[address_line_2]', 35, 128, $this->getVar('address_line_2'));
+	    	$frmobj['suburb'] = new XoopsFormText('', $id.'[suburb]', 35, 128, $this->getVar('suburb'));
+	    	$frmobj['city'] = new XoopsFormText('', $id.'[city]', 35, 128, $this->getVar('city'));
+	    	$frmobj['postcode'] = new XoopsFormText('', $id.'[postcode]', 15, 15, $this->getVar('postcode'));
+	    	$frmobj['region_id'] = new XoopsFormSelectRegion('', $id.'[region_id]', $this->getVar('region_id'));
+	    	$frmobj['country_id'] = new XoopsFormSelectCountry('', $id.'[country_id]', $this->getVar('country_id'));
+		    $frmobj['manu_id'] = new XoopsFormHidden($id.'[manu_id]', $this->getVar('manu_id'));
+		    $frmobj['shop_id'] = new XoopsFormHidden($id.'[shop_id]', $this->getVar('shop_id'));
+		    $frmobj['order_id'] = new XoopsFormHidden($id.'[order_id]', $this->getVar('order_id'));
+	    	$frmobj['address_id'] = new XoopsFormHidden('id['.$id.']', 'addressses');
+	    	$frmobj['op'] = new XoopsFormHidden('op', 'save');
+	    	$frmobj['fct'] = new XoopsFormHidden('fct', 'addressses');
+	    	return $frmobj;
+    	}
+    	
+    	if ($this->isNew()) {
+    		$form = new XoopsThemeForm(_SHOP_FRM_NEW_ADDRESS, 'address', $_SERVER['PHP_SELF'], 'post');
+    	} else {
+    		$form = new XoopsThemeForm(_SHOP_FRM_EDIT_ADDRESS, 'address', $_SERVER['PHP_SELF'], 'post');
+    	}
+
+    	$required = array('address_line_1', 'suburb', 'city', 'postcode', 'country_id');
+    	
+    	foreach($frmobj as $key => $value) {
+    		if (!in_array($key, $required)) {
+    			$form->addElement($frmobj[$key], false);
+    		} else {
+    			$form->addElement($frmobj[$key], true);
+    		}
+    	}
+    	
+    	return $form->render();
+    }
+    
     function runPreInsertPlugin() {
 		
 		include_once($GLOBALS['xoops']->path('/modules/xshop/plugin/'.basename(__FILE__)));
