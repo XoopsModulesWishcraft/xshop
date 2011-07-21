@@ -1,6 +1,8 @@
 <h1><{$smarty.const._SHOP_AM_CATEGORY_LIST_H1}></h1>
 <p><{$smarty.const._SHOP_AM_CATEGORY_LIST_P}></p>
-<div style="float:right;"><{$pagenav}></div>
+<div style='clear:both; height:60px;'>
+	<div style="float:right;"><{$pagenav}></div>
+</div>
 <form action="<{$php_self}>" method="post">
 <table>
 	<tr class="head">
@@ -18,8 +20,8 @@
 	<tr class="<{cycle values="even,odd"}>">
 		<td align='center'><{$item.cat_id}><{$item.form.cat_id}></td>
 		<td align='center'><{$item.form.parent_id}></td>
-		<td align='center'><{$item.item}></td>
-		<td align='center'><{$item.picture.logo}></td>
+		<td align='center'><{$item.item.menu_title}></td>
+		<td align='center'><{$item.picture.thumbnail}></td>
 		<td align='center'><{$item.uid}></td>
 		<td align='right'><{$item.rank}></td>
 		<td align='center'><{$item.when.created}></td>
@@ -34,6 +36,10 @@
 </table>
 <input type="hidden" name="op" value="savelist"/>
 <input type="hidden" name="fct" value="category"/>
+<input type='hidden' value="<{$limit}>" name="limit"/>
+<input type='hidden' value="<{$start}>" name="start"/>
+<input type='hidden' value="<{$order}>" name="order"/>
+<input type='hidden' value="<{$sort}>" name="sort"/>
 </form>
 <h1><{$smarty.const._SHOP_AM_CATEGORY_NEW_H1}></h1>
 <p><{$smarty.const._SHOP_AM_CATEGORY_NEW_P}></p>
