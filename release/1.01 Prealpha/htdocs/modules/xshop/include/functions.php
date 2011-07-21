@@ -12,6 +12,14 @@
 		}
 	}
 	
+	function filter_querystring($string, $element) {
+		foreach(explode('&', $string) as $component) {
+			$value = explode('=', $component);
+			if (strtolower($value[0])!=strtolower($element))
+				$ret[] = $component;
+		}
+		return implode('&', $ret);
+	}
 	
 if (!function_exists("xshop_adminMenu")) {
   function xshop_adminMenu ($currentoption = 0)  {

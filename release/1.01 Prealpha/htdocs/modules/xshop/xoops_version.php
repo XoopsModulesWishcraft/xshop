@@ -64,6 +64,20 @@ $modversion['onUninstall'] = "include/uninstall.php";
 
 $i = 0;
 // Config items
+xoops_load('XoopsEditorHandler');
+$editor_handler = XoopsEditorHandler::getInstance();
+foreach ($editor_handler->getList(false) as $id => $val)
+	$options[$val] = $id;
+	
+$i++;
+$modversion['config'][$i]['name'] = 'editor';
+$modversion['config'][$i]['title'] = "_SHOP_MI_EDITOR";
+$modversion['config'][$i]['description'] = "_SHOP_MI_EDITOR_DESC";
+$modversion['config'][$i]['formtype'] = 'select';
+$modversion['config'][$i]['valuetype'] = 'text';
+$modversion['config'][$i]['default'] = 'tinymce';
+$modversion['config'][$i]['options'] = $options;
+
 $options=array();
 $options[_SHOP_MI_SECONDS_1DAYS] = 60*60*24*1;
 $options[_SHOP_MI_SECONDS_3DAYS] = 60*60*24*3;
@@ -116,6 +130,20 @@ $modversion['config'][$i]['description'] = '_SHOP_MI_ADMINISTRATORS_DESC';
 $modversion['config'][$i]['formtype'] = 'group';
 $modversion['config'][$i]['valuetype'] = 'int';
 $modversion['config'][$i]['default'] = XOOPS_GROUP_ADMIN;
+
+$options = array();
+$xlanguage_handler = xoops_getmodulehandler('xlanguage_ext', 'xshop');
+foreach($xlanguage_handler->getLanguages() as $key => $value) {
+	$options[$value] = $key;
+}
+$i++;
+$modversion['config'][$i]['name'] = 'language';
+$modversion['config'][$i]['title'] = '_SHOP_MI_DEFAULTLANGUAGE';
+$modversion['config'][$i]['description'] = '_SHOP_MI_DEFAULTLANGUAGE_DESC';
+$modversion['config'][$i]['formtype'] = 'select';
+$modversion['config'][$i]['valuetype'] = 'text';
+$modversion['config'][$i]['default'] = 'english';
+$modversion['config'][$i]['options'] = $options;
 
 $i++;
 $modversion['config'][$i]['name'] = 'autotax';
@@ -211,52 +239,52 @@ $modversion['config'][$i]['default'] = '.pdf';
 $i = 0;
 $i++;
 $modversion['templates'][$i]['file'] = 'xshop_cpanel_shops_list.html';
-$modversion['templates'][$i]['description'] = '';
+$modversion['templates'][$i]['description'] = _SHOP_MI_TEMPLATE_CPANEL_SHOPS_LIST;
 $i++;
 $modversion['templates'][$i]['file'] = 'xshop_cpanel_category_list.html';
-$modversion['templates'][$i]['description'] = '';
+$modversion['templates'][$i]['description'] = _SHOP_MI_TEMPLATE_CPANEL_CATEGORY_LIST;
 $i++;
 $modversion['templates'][$i]['file'] = 'xshop_cpanel_products_list.html';
-$modversion['templates'][$i]['description'] = '';
+$modversion['templates'][$i]['description'] = _SHOP_MI_TEMPLATE_CPANEL_PRODUCTS_LIST;
 $i++;
 $modversion['templates'][$i]['file'] = 'xshop_cpanel_orders_list.html';
-$modversion['templates'][$i]['description'] = '';
+$modversion['templates'][$i]['description'] = _SHOP_MI_TEMPLATE_CPANEL_ORDERS_LIST;
 $i++;
 $modversion['templates'][$i]['file'] = 'xshop_cpanel_manufactures_list.html';
-$modversion['templates'][$i]['description'] = '';
+$modversion['templates'][$i]['description'] = _SHOP_MI_TEMPLATE_CPANEL_MANUFACTURES_LIST;
 $i++;
 $modversion['templates'][$i]['file'] = 'xshop_cpanel_shipping_list.html';
-$modversion['templates'][$i]['description'] = '';
+$modversion['templates'][$i]['description'] = _SHOP_MI_TEMPLATE_CPANEL_SHIPPING_LIST;
 $i++;
 $modversion['templates'][$i]['file'] = 'xshop_cpanel_discounts_list.html';
-$modversion['templates'][$i]['description'] = '';
+$modversion['templates'][$i]['description'] = _SHOP_MI_TEMPLATE_CPANEL_DISCOUNTS_LIST;
 $i++;
 $modversion['templates'][$i]['file'] = 'xshop_cpanel_contacts_list.html';
-$modversion['templates'][$i]['description'] = '';
+$modversion['templates'][$i]['description'] = _SHOP_MI_TEMPLATE_CPANEL_CONTACT_LIST;
 $i++;
 $modversion['templates'][$i]['file'] = 'xshop_cpanel_addresses_list.html';
-$modversion['templates'][$i]['description'] = '';
+$modversion['templates'][$i]['description'] = _SHOP_MI_TEMPLATE_CPANEL_ADDRESSES_LIST;
 $i++;
 $modversion['templates'][$i]['file'] = 'xshop_cpanel_country_list.html';
-$modversion['templates'][$i]['description'] = '';
+$modversion['templates'][$i]['description'] = _SHOP_MI_TEMPLATE_CPANEL_COUNTRY_LIST;
 $i++;
 $modversion['templates'][$i]['file'] = 'xshop_cpanel_region_list.html';
-$modversion['templates'][$i]['description'] = '';
+$modversion['templates'][$i]['description'] = _SHOP_MI_TEMPLATE_CPANEL_REGION_LIST;
 $i++;
 $modversion['templates'][$i]['file'] = 'xshop_cpanel_items_digest_list.html';
-$modversion['templates'][$i]['description'] = '';
+$modversion['templates'][$i]['description'] = _SHOP_MI_TEMPLATE_CPANEL_ITEM_DIGEST_LIST;
 $i++;
 $modversion['templates'][$i]['file'] = 'xshop_cpanel_gallery_list.html';
-$modversion['templates'][$i]['description'] = '';
+$modversion['templates'][$i]['description'] = _SHOP_MI_TEMPLATE_CPANEL_GALLERY_LIST;
 $i++;
 $modversion['templates'][$i]['file'] = 'xshop_cpanel_autotax_list.html';
-$modversion['templates'][$i]['description'] = '';
+$modversion['templates'][$i]['description'] = _SHOP_MI_TEMPLATE_CPANEL_AUTOTAX_LIST;
 $i++;
 $modversion['templates'][$i]['file'] = 'xshop_cpanel_downloads_list.html';
-$modversion['templates'][$i]['description'] = '';
+$modversion['templates'][$i]['description'] = _SHOP_MI_TEMPLATE_CPANEL_DOWNLOADS_LIST;
 $i++;
 $modversion['templates'][$i]['file'] = 'xshop_cpanel_edit.html';
-$modversion['templates'][$i]['description'] = '';
+$modversion['templates'][$i]['description'] = _SHOP_MI_TEMPLATE_CPANEL_EDIT;
 
 
 ?>
