@@ -456,6 +456,7 @@ insert  into `shop_items` (`item_id`,`languages`,`created`,`updated`) values (1,
 
 CREATE TABLE `shop_items_digest` (
   `lang_item_id` int(24) unsigned NOT NULL AUTO_INCREMENT,
+  `item_id` int(12) unsigned DEFAULT '0',
   `uid` int(13) unsigned DEFAULT '0',
   `product_id` int(12) unsigned DEFAULT '0',
   `manu_id` int(12) unsigned DEFAULT '0',
@@ -469,7 +470,6 @@ CREATE TABLE `shop_items_digest` (
   `shop_id` int(12) unsigned DEFAULT '0',
   `md5` varchar(32) DEFAULT NULL,
   `type` enum('_SHOP_MI_ITEMS_MENUITEMS','_SHOP_MI_ITEMS_LONGITEMS','_SHOP_MI_ITEMS_BOTHITEMS','_SHOP_MI_ITEMS_RSSITEM','_SHOP_MI_ITEMS_RSSANDLONGITEM','_SHOP_MI_ITEMS_ALLITEMS') DEFAULT '_SHOP_MI_ITEMS_BOTHITEMS',
-  `item_id` int(12) unsigned DEFAULT '0',
   `language` varchar(64) DEFAULT 'english',
   `menu_title` varchar(128) DEFAULT NULL,
   `long_title` varchar(255) DEFAULT NULL,

@@ -215,8 +215,9 @@
 				$pagenav = new XoopsPageNav($ttl, $limit, $start, 'start', 'limit='.$limit.'&sort='.$sort.'&order='.$order.'&op='.$op);
 				$GLOBALS['xshoTpl']->assign('pagenav', $pagenav->renderNav());
 		
-				foreach (array(	'manu_id','ordering','type','broker_uid','item_id','address_id','contact_id','mobile_id', 'email_id', 'last_order_id',
-								'logo_picture_id', 'rating', 'votes', 'created', 'updated', 'actioned') as $id => $key) {
+				foreach (array(	'manu_id','ordering','type','broker_uid','item_id','address_id','contact_id',
+								'mobile_id', 'email_id', 'last_order_id','logo_picture_id', 'rating', 'votes', 
+								'created', 'updated', 'actioned') as $id => $key) {
 					$GLOBALS['xshoTpl']->assign(strtolower(str_replace('-','_',$key).'_th'), '<a href="'.$_SERVER['PHP_SELF'].'?start='.$start.'&limit='.$limit.'&sort='.str_replace('_','-',$key).'&order='.((str_replace('_','-',$key)==$sort)?($order=='DESC'?'ASC':'DESC'):$order).'&op='.$op.'">'.(defined('_SHOP_AM_TH_'.strtoupper(str_replace('-','_',$key)))?constant('_SHOP_AM_TH_'.strtoupper(str_replace('-','_',$key))):'_SHOP_AM_TH_'.strtoupper(str_replace('-','_',$key))).'</a>');
 				}
 					
@@ -254,7 +255,7 @@
 				$pagenav = new XoopsPageNav($ttl, $limit, $start, 'start', 'limit='.$limit.'&sort='.$sort.'&order='.$order.'&op='.$op);
 				$GLOBALS['xshoTpl']->assign('pagenav', $pagenav->renderNav());
 		
-				foreach (array(	'shipping_id','type','method','broker_uid','uid','broker_uids','item_id','address_id', 
+				foreach (array(	'shipping_id','type','method','broker_uids','uid','item_id','address_id', 
 								'contact_id', 'mobile_id', 'email_id', 'logo_picture_id', 'price_per_kilo', 'price_per_pound',
 								'price_per_other', 'country_ids', 'handling_per_unit', 'region_ids', 'opening', 'closing',
 								'days_id', 'rating', 'votes', 'created', 'updated', 'actioned') as $id => $key) {
@@ -295,10 +296,8 @@
 				$pagenav = new XoopsPageNav($ttl, $limit, $start, 'start', 'limit='.$limit.'&sort='.$sort.'&order='.$order.'&op='.$op);
 				$GLOBALS['xshoTpl']->assign('pagenav', $pagenav->renderNav());
 		
-				foreach (array(	'discounts_id','type','method','broker_uid','uid','broker_uids','item_id','address_id', 
-								'contact_id', 'mobile_id', 'email_id', 'logo_picture_id', 'price_per_kilo', 'price_per_pound',
-								'price_per_other', 'country_ids', 'handling_per_unit', 'region_ids', 'opening', 'closing',
-								'days_id', 'rating', 'votes', 'created', 'updated', 'actioned') as $id => $key) {
+				foreach (array(	'discount_id','type','item_id','percentage','min_quanity','shipping_id','timed','start', 
+								'end', 'opening', 'closing', 'days_id', 'created', 'updated', 'actioned') as $id => $key) {
 					$GLOBALS['xshoTpl']->assign(strtolower(str_replace('-','_',$key).'_th'), '<a href="'.$_SERVER['PHP_SELF'].'?start='.$start.'&limit='.$limit.'&sort='.str_replace('_','-',$key).'&order='.((str_replace('_','-',$key)==$sort)?($order=='DESC'?'ASC':'DESC'):$order).'&op='.$op.'">'.(defined('_SHOP_AM_TH_'.strtoupper(str_replace('-','_',$key)))?constant('_SHOP_AM_TH_'.strtoupper(str_replace('-','_',$key))):'_SHOP_AM_TH_'.strtoupper(str_replace('-','_',$key))).'</a>');
 				}
 					
@@ -337,7 +336,7 @@
 		
 				foreach (array(	'contact_id','last_sales_id','last_broker_id','last_cat_id','last_product_id','last_manu_id', 
 								'last_shipping_id', 'last_order_id', 'type', 'citation', 'name', 'value',
-								'price_per_other', 'country_ids', 'days_id', 'opening', 'closing', 'timezone',
+								'days_id', 'opening', 'closing', 'timezone',
 								'country_code', 'area_code', 'created', 'updated', 'actioned') as $id => $key) {
 					$GLOBALS['xshoTpl']->assign(strtolower(str_replace('-','_',$key).'_th'), '<a href="'.$_SERVER['PHP_SELF'].'?start='.$start.'&limit='.$limit.'&sort='.str_replace('_','-',$key).'&order='.((str_replace('_','-',$key)==$sort)?($order=='DESC'?'ASC':'DESC'):$order).'&op='.$op.'">'.(defined('_SHOP_AM_TH_'.strtoupper(str_replace('-','_',$key)))?constant('_SHOP_AM_TH_'.strtoupper(str_replace('-','_',$key))):'_SHOP_AM_TH_'.strtoupper(str_replace('-','_',$key))).'</a>');
 				}
@@ -479,7 +478,7 @@
 				include_once $GLOBALS['xoops']->path( "/class/template.php" );
 				$GLOBALS['xshoTpl'] = new XoopsTpl();
 				
-				$items_handler =& xoops_getmodulehandler('items', 'xshop');
+				$items_handler =& xoops_getmodulehandler('items_digest', 'xshop');
 					
 				$ttl = $items_handler->getCount(NULL);
 				$limit = !empty($_REQUEST['limit'])?intval($_REQUEST['limit']):30;

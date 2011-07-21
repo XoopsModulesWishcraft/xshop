@@ -163,87 +163,49 @@ $modversion['config'][$i]['default'] = '.pdf';
 // Templates
 $i = 0;
 $i++;
-$modversion['templates'][$i]['file'] = 'xpayment_help.html';
-$modversion['templates'][$i]['description'] = 'payment help screen!';
+$modversion['templates'][$i]['file'] = 'xshop_cpanel_shops_list.html';
+$modversion['templates'][$i]['description'] = '';
 $i++;
-$modversion['templates'][$i]['file'] = 'xpayment_invoice.html';
-$modversion['templates'][$i]['description'] = 'blank invoice template!';
+$modversion['templates'][$i]['file'] = 'xshop_cpanel_category_list.html';
+$modversion['templates'][$i]['description'] = '';
 $i++;
-$modversion['templates'][$i]['file'] = 'xpayment_payment.html';
-$modversion['templates'][$i]['description'] = 'Payment Invoice Display!';
+$modversion['templates'][$i]['file'] = 'xshop_cpanel_products_list.html';
+$modversion['templates'][$i]['description'] = '';
 $i++;
-$modversion['templates'][$i]['file'] = 'xpayment_payment_pdf.html';
-$modversion['templates'][$i]['description'] = 'Payment Invoice PDF Display!';
+$modversion['templates'][$i]['file'] = 'xshop_cpanel_orders_list.html';
+$modversion['templates'][$i]['description'] = '';
 $i++;
-$modversion['templates'][$i]['file'] = 'xpayment_return.html';
-$modversion['templates'][$i]['description'] = 'Payment Return Display!';
+$modversion['templates'][$i]['file'] = 'xshop_cpanel_manufactures_list.html';
+$modversion['templates'][$i]['description'] = '';
 $i++;
-$modversion['templates'][$i]['file'] = 'xpayment_cancel.html';
-$modversion['templates'][$i]['description'] = 'Payment Cancel Display!';
+$modversion['templates'][$i]['file'] = 'xshop_cpanel_shipping_list.html';
+$modversion['templates'][$i]['description'] = '';
 $i++;
-$modversion['templates'][$i]['file'] = 'xpayment_invoice_list.html';
-$modversion['templates'][$i]['description'] = 'Payment Invoice Display!';
+$modversion['templates'][$i]['file'] = 'xshop_cpanel_discounts_list.html';
+$modversion['templates'][$i]['description'] = '';
 $i++;
-$modversion['templates'][$i]['file'] = 'xpayment_invoice_view.html';
-$modversion['templates'][$i]['description'] = 'Payment Invoice Display!';
+$modversion['templates'][$i]['file'] = 'xshop_cpanel_contacts_list.html';
+$modversion['templates'][$i]['description'] = '';
 $i++;
-$modversion['templates'][$i]['file'] = 'xpayment_transactions_list.html';
-$modversion['templates'][$i]['description'] = 'Transaction Return Display!';
+$modversion['templates'][$i]['file'] = 'xshop_cpanel_addresses_list.html';
+$modversion['templates'][$i]['description'] = '';
 $i++;
-$modversion['templates'][$i]['file'] = 'xpayment_transactions_view.html';
-$modversion['templates'][$i]['description'] = 'Transaction Display!';
+$modversion['templates'][$i]['file'] = 'xshop_cpanel_country_list.html';
+$modversion['templates'][$i]['description'] = '';
 $i++;
-$modversion['templates'][$i]['file'] = 'xpayment_cpanel_invoice_list.html';
-$modversion['templates'][$i]['description'] = 'Payment Invoice Display Control Panel!';
+$modversion['templates'][$i]['file'] = 'xshop_cpanel_region_list.html';
+$modversion['templates'][$i]['description'] = '';
 $i++;
-$modversion['templates'][$i]['file'] = 'xpayment_cpanel_invoice_view.html';
-$modversion['templates'][$i]['description'] = 'Payment Invoice Display  Control Panel!';
+$modversion['templates'][$i]['file'] = 'xshop_cpanel_items_list.html';
+$modversion['templates'][$i]['description'] = '';
 $i++;
-$modversion['templates'][$i]['file'] = 'xpayment_cpanel_transactions_list.html';
-$modversion['templates'][$i]['description'] = 'Transaction Return Display Control Panel!';
+$modversion['templates'][$i]['file'] = 'xshop_cpanel_gallery_list.html';
+$modversion['templates'][$i]['description'] = '';
 $i++;
-$modversion['templates'][$i]['file'] = 'xpayment_cpanel_transactions_view.html';
-$modversion['templates'][$i]['description'] = 'Transaction Display Control Panel!';
+$modversion['templates'][$i]['file'] = 'xshop_cpanel_autotax_list.html';
+$modversion['templates'][$i]['description'] = '';
 $i++;
-$modversion['templates'][$i]['file'] = 'xpayment_cpanel_gateways_list.html';
-$modversion['templates'][$i]['description'] = 'Gateway Display Control Panel!';
-$i++;
-$modversion['templates'][$i]['file'] = 'xpayment_cpanel_gateways_options.html';
-$modversion['templates'][$i]['description'] = 'Gateway Options Display Control Panel!';
-$i++;
-$modversion['templates'][$i]['file'] = 'xpayment_cpanel_groups.html';
-$modversion['templates'][$i]['description'] = 'Groups Rules Display Control Panel!';
-$i++;
-$modversion['templates'][$i]['file'] = 'xpayment_cpanel_groups_edit.html';
-$modversion['templates'][$i]['description'] = 'Groups Rules Display Form Control Panel!';
-$i++;
-$modversion['templates'][$i]['file'] = 'xpayment_cpanel_tax_list.html';
-$modversion['templates'][$i]['description'] = 'Auto Tax List Form Control Panel!';
-
-
-$i=0;
-if ($GLOBALS['xoopsUser']) {
-	$module_handler =& xoops_gethandler('module');
-	$config_handler =& xoops_gethandler('config');
-	$xoMod = $module_handler->getByDirname('xpayment');
-	if (is_object($xoMod)) {
-		$xoConfig = $config_handler->getConfigList($xoMod->getVar('mid'));
-		if (in_array($xoConfig['brokers'], $GLOBALS['xoopsUser']->getGroups())) {
-			$i++;
-			$modversion['sub'][$i]['name'] = _SHOP_MI_MNU_BROKER;
-			$modversion['sub'][$i]['url'] = "broker.php";
-		}
-		if (in_array($xoConfig['accounts'], $GLOBALS['xoopsUser']->getGroups())) {
-			$i++;
-			$modversion['sub'][$i]['name'] = _SHOP_MI_MNU_ACCOUNTS;
-			$modversion['sub'][$i]['url'] = "accounts.php";
-		}
-		if (in_array($xoConfig['officers'], $GLOBALS['xoopsUser']->getGroups())) {
-			$i++;
-			$modversion['sub'][$i]['name'] = _SHOP_MI_MNU_OFFICERS;
-			$modversion['sub'][$i]['url'] = "officers.php";
-		}
-	}
-}
+$modversion['templates'][$i]['file'] = 'xshop_cpanel_downloads_list.html';
+$modversion['templates'][$i]['description'] = '';
 
 ?>

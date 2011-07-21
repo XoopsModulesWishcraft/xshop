@@ -1,0 +1,58 @@
+<h1><{$smarty.const._SHOP_AM_SHOPS_LIST_H1}></h1>
+<p><{$smarty.const._SHOP_AM_SHOPS_LIST_P}></p>
+<div style="float:right;"><{$pagenav}></div>
+<form action="<{$php_self}>" method="post">
+<table>
+	<tr class="head">
+		<th><{$shop_id_th}></th>
+		<th><{$type_th}></th>
+		<th><{$owner_id_th}></th>
+		<th><{$admin_uids_th}></th>
+		<th><{$broker_uids_th}></th>
+		<th><{$sales_uids_th}></th>
+		<th><{$timed_th}></th>
+		<th><{$start_th}></th>
+		<th><{$end_th}></th>
+		<th><{$opening_th}></th>
+		<th><{$closed_th}></th>
+		<th><{$24hours_online_th}></th>
+		<th><{$24hours_ordering_th}></th>
+		<th><{$smarty.const._SHOP_AM_TH_RANK}></th>
+		<th><{$created_th}></th>
+		<th><{$updated_th}></th>
+		<th><{$actioned_th}></th>
+		<th><{$smarty.const._SHOP_AM_TH_ACTIONS}></th>
+	</tr>
+	<{foreach item=item from=$shops}>
+	<tr class="<{cycle values="even,odd"}>">
+		<td align='center'><{$item.shop_id}><{$item.form.shop_id}></td>
+		<td align='center'><{$item.type}></td>
+		<td align='center'><{$item.owner}></td>
+		<td align='center'><{$item.admins}></td>
+		<td align='center'><{$item.brokers}></td>
+		<td align='right'><{$item.sales}></td>
+		<td align='right'><{$item.form.timed}></td>
+		<td align='right'><{$item.form.start}></td>
+		<td align='right'><{$item.form.end}></td>
+		<td align='right'><{$item.form.opening}></td>
+		<td align='right'><{$item.form.closed}></td>
+		<td align='right'><{$item.form.24hours_online}></td>
+		<td align='right'><{$item.form.24hours_ordering}></td>
+		<td align='right'><{$item.rank}></td>
+		<td align='center'><{$item.when.created}></td>
+		<td align='center'><{$item.when.updated}></td>
+		<td align='center'><{$item.when.actioned}></td>
+		<td align='center'><a href='<{$php_self}>?id=<{$item.shop_id}>&op=edit&fct=shops'><{$smarty.const._EDIT}></a>&nbsp;|&nbsp;
+							<a href='<{$php_self}>?id=<{$item.shop_id}>&op=delete&fct=shops'><{$smarty.const._DELETE}></a></td>
+	</tr>
+	<{/foreach}>
+	<tr class="foot">
+		<td colspan="17"><input type="submit" name="submit" value="<{$smarty.const._SUBMIT}>"/></td>
+	</tr>
+</table>
+<input type="hidden" name="op" value="savelist"/>
+<input type="hidden" name="fct" value="shops"/>
+</form>
+<h1><{$smarty.const._SHOP_AM_SHOPS_NEW_H1}></h1>
+<p><{$smarty.const._SHOP_AM_SHOPS_NEW_P}></p>
+<{$form}>
