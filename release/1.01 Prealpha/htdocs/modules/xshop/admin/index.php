@@ -26,8 +26,74 @@
 	$fct = isset($_REQUEST['fct'])?$_REQUEST['fct']:"";
 	
 	switch($op) {
-	case 'lists':
+	case 'savelist':
+		xoops_loadLanguage('admin', 'xshop');
+		$object_handler =& xoops_getmodulehandler($fct, 'xshop');
+		foreach($_POST['id'] as $id) {
+			$object = $object_handler->get($id);
+			if (is_object($object)) {
+				$object->setVars($_POST[$id]);
+				$object_handler->insert($object);
+			}
+		}	
+		
+		$limit = !empty($_REQUEST['limit'])?intval($_REQUEST['limit']):30;
+		$start = !empty($_REQUEST['start'])?intval($_REQUEST['start']):0;
+		$order = !empty($_REQUEST['order'])?$_REQUEST['order']:'DESC';
+		$sort = !empty($_REQUEST['sort'])?''.$_REQUEST['sort'].'':'created';
+		$url = $_SERVER["PHP_SELF"].'?op=list&fct='.$fct.'&limit='.$limit.'&start='.$start.'&order='.$order.'&sort='.$sort;
+		redirect_header($url, 10, _SHOP_AM_MSG_LISTWASSAVEDOKEY);
+		exit(0);
+		break;
+
+	case 'save':
+		xoops_loadLanguage('admin', 'xshop');		
+		$object_handler =& xoops_getmodulehandler($fct, 'xshop');
+		$object = $object_handler->get($_POST['id']);
+		if (is_object($object)) {
+			$object->setVars($_POST);
+			$object_handler->insert($object);
+		}
+		$url = $_SERVER["PHP_SELF"].'?op=list&fct='.$fct;
+		redirect_header($url, 10, _SHOP_AM_MSG_ITEMWASSAVEDOKEY);
+		exit(0);
+		break;
+
+	case 'delete':
+		xoops_loadLanguage('admin', 'xshop');		
+		if (!isset($_POST['confirmed'])) {
+			xoops_confirm(array('id'=>$_GET['id'], 'op'=>'delete', 'fct'=>$fct, 'confirm'=>true), $_SERVER['PHP_SELF'], _SHOP_AM_MSG_DELETEITEM, _SUBMIT);
+		} else {
+			$object_handler =& xoops_getmodulehandler($fct, 'xshop');
+			$object = $object_handler->get($_POST['id']);
+			if (is_object($object)) {
+				$object_handler->delete($object);
+			}
+			$url = $_SERVER["PHP_SELF"].'?op=list&fct='.$fct;
+			redirect_header($url, 10, _SHOP_AM_MSG_ITEMWASDELETED);
+			exit(0);
+		}
+		break;
+
+	case 'edit':
+		xoops_loadLanguage('admin', 'xshop');
+
+		include_once $GLOBALS['xoops']->path( "/class/template.php" );
+		$GLOBALS['xshoTpl'] = new XoopsTpl();
+
+		$GLOBALS['xshoTpl']->assign('php_self', $_SERVER['PHP_SELF']);
+		
+		$object_handler =& xoops_getmodulehandler($fct, 'xshop');
+		$object = $object_handler->get($_GET['id']);
+		if (is_object($object)) {
+			$GLOBALS['xshoTpl']->assign('form', $object->getForm($_SERVER['QUERY_STRING']));
+		}
+
+		$GLOBALS['xshoTpl']->display('db:xshop_cpanel_edit.html');
+		break;		
 				
+	default:
+	case 'lists':
 		switch ($fct) {
 			default:
 			case 'shops':
@@ -48,7 +114,13 @@
 				
 				$pagenav = new XoopsPageNav($ttl, $limit, $start, 'start', 'limit='.$limit.'&sort='.$sort.'&order='.$order.'&op='.$op);
 				$GLOBALS['xshoTpl']->assign('pagenav', $pagenav->renderNav());
-		
+
+				$GLOBALS['xshoTpl']->assign('php_self', $_SERVER['PHP_SELF']);
+				$GLOBALS['xshoTpl']->assign('limit', $limit);
+				$GLOBALS['xshoTpl']->assign('start', $start);
+				$GLOBALS['xshoTpl']->assign('order', $order);
+				$GLOBALS['xshoTpl']->assign('sort', $sort);
+				
 				foreach (array(	'shop_id','type','owner_uid','admin_uids','broker_uids','sales_uid','shop_email_id','address_id',
 								'phone_id','mobile_id','fax_id','item_id', 'logo_picture_id', 'delievery_id', 
 								'express_id', 'sms_id', 'serviced_id', 'days_id', 'start', 'end', 'opening', 'closed', 'sales_in_store',
@@ -90,7 +162,13 @@
 				
 				$pagenav = new XoopsPageNav($ttl, $limit, $start, 'start', 'limit='.$limit.'&sort='.$sort.'&order='.$order.'&op='.$op);
 				$GLOBALS['xshoTpl']->assign('pagenav', $pagenav->renderNav());
-		
+
+				$GLOBALS['xshoTpl']->assign('php_self', $_SERVER['PHP_SELF']);
+				$GLOBALS['xshoTpl']->assign('limit', $limit);
+				$GLOBALS['xshoTpl']->assign('start', $start);
+				$GLOBALS['xshoTpl']->assign('order', $order);
+				$GLOBALS['xshoTpl']->assign('sort', $sort);
+				
 				foreach (array(	'cat_id','parent_id','item_id','logo_picture_id','uid','rating','votes', 'created', 'updated') as $id => $key) {
 					$GLOBALS['xshoTpl']->assign(strtolower(str_replace('-','_',$key).'_th'), '<a href="'.$_SERVER['PHP_SELF'].'?start='.$start.'&limit='.$limit.'&sort='.str_replace('_','-',$key).'&order='.((str_replace('_','-',$key)==$sort)?($order=='DESC'?'ASC':'DESC'):$order).'&op='.$op.'">'.(defined('_SHOP_AM_TH_'.strtoupper(str_replace('-','_',$key)))?constant('_SHOP_AM_TH_'.strtoupper(str_replace('-','_',$key))):'_SHOP_AM_TH_'.strtoupper(str_replace('-','_',$key))).'</a>');
 				}
@@ -128,7 +206,13 @@
 				
 				$pagenav = new XoopsPageNav($ttl, $limit, $start, 'start', 'limit='.$limit.'&sort='.$sort.'&order='.$order.'&op='.$op);
 				$GLOBALS['xshoTpl']->assign('pagenav', $pagenav->renderNav());
-		
+
+				$GLOBALS['xshoTpl']->assign('php_self', $_SERVER['PHP_SELF']);
+				$GLOBALS['xshoTpl']->assign('limit', $limit);
+				$GLOBALS['xshoTpl']->assign('start', $start);
+				$GLOBALS['xshoTpl']->assign('order', $order);
+				$GLOBALS['xshoTpl']->assign('sort', $sort);
+				
 				foreach (array(	'product_id','stock','type','uid','shop_id','cat_id','manu_id', 'item_id', 'currency_id',
 								'shipping_id', 'feature_picture_id', 'discount_id', 'wholesale_discount_id', 'cat_number', 
 								'sub_model', 'cat_prefix', 'cat_subfix', 'unit_price', 'unit_wholesale_price', 'weight_per_unit',
@@ -168,6 +252,12 @@
 				$start = !empty($_REQUEST['start'])?intval($_REQUEST['start']):0;
 				$order = !empty($_REQUEST['order'])?$_REQUEST['order']:'DESC';
 				$sort = !empty($_REQUEST['sort'])?''.$_REQUEST['sort'].'':'created';
+
+				$GLOBALS['xshoTpl']->assign('php_self', $_SERVER['PHP_SELF']);
+				$GLOBALS['xshoTpl']->assign('limit', $limit);
+				$GLOBALS['xshoTpl']->assign('start', $start);
+				$GLOBALS['xshoTpl']->assign('order', $order);
+				$GLOBALS['xshoTpl']->assign('sort', $sort);
 				
 				$pagenav = new XoopsPageNav($ttl, $limit, $start, 'start', 'limit='.$limit.'&sort='.$sort.'&order='.$order.'&op='.$op);
 				$GLOBALS['xshoTpl']->assign('pagenav', $pagenav->renderNav());
@@ -214,7 +304,13 @@
 				
 				$pagenav = new XoopsPageNav($ttl, $limit, $start, 'start', 'limit='.$limit.'&sort='.$sort.'&order='.$order.'&op='.$op);
 				$GLOBALS['xshoTpl']->assign('pagenav', $pagenav->renderNav());
-		
+
+				$GLOBALS['xshoTpl']->assign('php_self', $_SERVER['PHP_SELF']);
+				$GLOBALS['xshoTpl']->assign('limit', $limit);
+				$GLOBALS['xshoTpl']->assign('start', $start);
+				$GLOBALS['xshoTpl']->assign('order', $order);
+				$GLOBALS['xshoTpl']->assign('sort', $sort);
+				
 				foreach (array(	'manu_id','ordering','type','broker_uid','item_id','address_id','contact_id',
 								'mobile_id', 'email_id', 'last_order_id','logo_picture_id', 'rating', 'votes', 
 								'created', 'updated', 'actioned') as $id => $key) {
@@ -254,6 +350,12 @@
 				
 				$pagenav = new XoopsPageNav($ttl, $limit, $start, 'start', 'limit='.$limit.'&sort='.$sort.'&order='.$order.'&op='.$op);
 				$GLOBALS['xshoTpl']->assign('pagenav', $pagenav->renderNav());
+
+				$GLOBALS['xshoTpl']->assign('php_self', $_SERVER['PHP_SELF']);
+				$GLOBALS['xshoTpl']->assign('limit', $limit);
+				$GLOBALS['xshoTpl']->assign('start', $start);
+				$GLOBALS['xshoTpl']->assign('order', $order);
+				$GLOBALS['xshoTpl']->assign('sort', $sort);
 		
 				foreach (array(	'shipping_id','type','method','broker_uids','uid','item_id','address_id', 
 								'contact_id', 'mobile_id', 'email_id', 'logo_picture_id', 'price_per_kilo', 'price_per_pound',
@@ -295,7 +397,13 @@
 				
 				$pagenav = new XoopsPageNav($ttl, $limit, $start, 'start', 'limit='.$limit.'&sort='.$sort.'&order='.$order.'&op='.$op);
 				$GLOBALS['xshoTpl']->assign('pagenav', $pagenav->renderNav());
-		
+
+				$GLOBALS['xshoTpl']->assign('php_self', $_SERVER['PHP_SELF']);
+				$GLOBALS['xshoTpl']->assign('limit', $limit);
+				$GLOBALS['xshoTpl']->assign('start', $start);
+				$GLOBALS['xshoTpl']->assign('order', $order);
+				$GLOBALS['xshoTpl']->assign('sort', $sort);
+				
 				foreach (array(	'discount_id','type','item_id','percentage','min_quanity','shipping_id','timed','start', 
 								'end', 'opening', 'closing', 'days_id', 'created', 'updated', 'actioned') as $id => $key) {
 					$GLOBALS['xshoTpl']->assign(strtolower(str_replace('-','_',$key).'_th'), '<a href="'.$_SERVER['PHP_SELF'].'?start='.$start.'&limit='.$limit.'&sort='.str_replace('_','-',$key).'&order='.((str_replace('_','-',$key)==$sort)?($order=='DESC'?'ASC':'DESC'):$order).'&op='.$op.'">'.(defined('_SHOP_AM_TH_'.strtoupper(str_replace('-','_',$key)))?constant('_SHOP_AM_TH_'.strtoupper(str_replace('-','_',$key))):'_SHOP_AM_TH_'.strtoupper(str_replace('-','_',$key))).'</a>');
@@ -333,7 +441,13 @@
 				
 				$pagenav = new XoopsPageNav($ttl, $limit, $start, 'start', 'limit='.$limit.'&sort='.$sort.'&order='.$order.'&op='.$op);
 				$GLOBALS['xshoTpl']->assign('pagenav', $pagenav->renderNav());
-		
+
+				$GLOBALS['xshoTpl']->assign('php_self', $_SERVER['PHP_SELF']);
+				$GLOBALS['xshoTpl']->assign('limit', $limit);
+				$GLOBALS['xshoTpl']->assign('start', $start);
+				$GLOBALS['xshoTpl']->assign('order', $order);
+				$GLOBALS['xshoTpl']->assign('sort', $sort);
+				
 				foreach (array(	'contact_id','last_sales_id','last_broker_id','last_cat_id','last_product_id','last_manu_id', 
 								'last_shipping_id', 'last_order_id', 'type', 'citation', 'name', 'value',
 								'days_id', 'opening', 'closing', 'timezone',
@@ -374,7 +488,13 @@
 				
 				$pagenav = new XoopsPageNav($ttl, $limit, $start, 'start', 'limit='.$limit.'&sort='.$sort.'&order='.$order.'&op='.$op);
 				$GLOBALS['xshoTpl']->assign('pagenav', $pagenav->renderNav());
-		
+
+				$GLOBALS['xshoTpl']->assign('php_self', $_SERVER['PHP_SELF']);
+				$GLOBALS['xshoTpl']->assign('limit', $limit);
+				$GLOBALS['xshoTpl']->assign('start', $start);
+				$GLOBALS['xshoTpl']->assign('order', $order);
+				$GLOBALS['xshoTpl']->assign('sort', $sort);
+				
 				foreach (array(	'address_id','manu_id','shop_id','order_id','type','remittion', 
 								'care_of', 'address_line_1', 'address_line_2', 'suburb', 'city', 'region_id',
 								'country_id', 'postcode', 'created', 'updated', 'actioned') as $id => $key) {
@@ -410,11 +530,17 @@
 				$limit = !empty($_REQUEST['limit'])?intval($_REQUEST['limit']):30;
 				$start = !empty($_REQUEST['start'])?intval($_REQUEST['start']):0;
 				$order = !empty($_REQUEST['order'])?$_REQUEST['order']:'DESC';
-				$sort = !empty($_REQUEST['sort'])?''.$_REQUEST['sort'].'':'created';
+				$sort = !empty($_REQUEST['sort'])?''.$_REQUEST['sort'].'':'name';
 				
 				$pagenav = new XoopsPageNav($ttl, $limit, $start, 'start', 'limit='.$limit.'&sort='.$sort.'&order='.$order.'&op='.$op);
 				$GLOBALS['xshoTpl']->assign('pagenav', $pagenav->renderNav());
-		
+
+				$GLOBALS['xshoTpl']->assign('php_self', $_SERVER['PHP_SELF']);
+				$GLOBALS['xshoTpl']->assign('limit', $limit);
+				$GLOBALS['xshoTpl']->assign('start', $start);
+				$GLOBALS['xshoTpl']->assign('order', $order);
+				$GLOBALS['xshoTpl']->assign('sort', $sort);
+				
 				foreach (array(	'country_id','alpha2','alpha3','name') as $id => $key) {
 					$GLOBALS['xshoTpl']->assign(strtolower(str_replace('-','_',$key).'_th'), '<a href="'.$_SERVER['PHP_SELF'].'?start='.$start.'&limit='.$limit.'&sort='.str_replace('_','-',$key).'&order='.((str_replace('_','-',$key)==$sort)?($order=='DESC'?'ASC':'DESC'):$order).'&op='.$op.'">'.(defined('_SHOP_AM_TH_'.strtoupper(str_replace('-','_',$key)))?constant('_SHOP_AM_TH_'.strtoupper(str_replace('-','_',$key))):'_SHOP_AM_TH_'.strtoupper(str_replace('-','_',$key))).'</a>');
 				}
@@ -447,11 +573,17 @@
 				$limit = !empty($_REQUEST['limit'])?intval($_REQUEST['limit']):30;
 				$start = !empty($_REQUEST['start'])?intval($_REQUEST['start']):0;
 				$order = !empty($_REQUEST['order'])?$_REQUEST['order']:'DESC';
-				$sort = !empty($_REQUEST['sort'])?''.$_REQUEST['sort'].'':'created';
+				$sort = !empty($_REQUEST['sort'])?''.$_REQUEST['sort'].'':'name';
 				
 				$pagenav = new XoopsPageNav($ttl, $limit, $start, 'start', 'limit='.$limit.'&sort='.$sort.'&order='.$order.'&op='.$op);
 				$GLOBALS['xshoTpl']->assign('pagenav', $pagenav->renderNav());
-		
+
+				$GLOBALS['xshoTpl']->assign('php_self', $_SERVER['PHP_SELF']);
+				$GLOBALS['xshoTpl']->assign('limit', $limit);
+				$GLOBALS['xshoTpl']->assign('start', $start);
+				$GLOBALS['xshoTpl']->assign('order', $order);
+				$GLOBALS['xshoTpl']->assign('sort', $sort);
+				
 				foreach (array(	'region_id','name','longitude','latitude') as $id => $key) {
 					$GLOBALS['xshoTpl']->assign(strtolower(str_replace('-','_',$key).'_th'), '<a href="'.$_SERVER['PHP_SELF'].'?start='.$start.'&limit='.$limit.'&sort='.str_replace('_','-',$key).'&order='.((str_replace('_','-',$key)==$sort)?($order=='DESC'?'ASC':'DESC'):$order).'&op='.$op.'">'.(defined('_SHOP_AM_TH_'.strtoupper(str_replace('-','_',$key)))?constant('_SHOP_AM_TH_'.strtoupper(str_replace('-','_',$key))):'_SHOP_AM_TH_'.strtoupper(str_replace('-','_',$key))).'</a>');
 				}
@@ -488,8 +620,14 @@
 				
 				$pagenav = new XoopsPageNav($ttl, $limit, $start, 'start', 'limit='.$limit.'&sort='.$sort.'&order='.$order.'&op='.$op);
 				$GLOBALS['xshoTpl']->assign('pagenav', $pagenav->renderNav());
-		
-				foreach (array(	'item_id','uid','product_id','manu_id','cat_id','discount_id','shipping_id','days_id',
+
+				$GLOBALS['xshoTpl']->assign('php_self', $_SERVER['PHP_SELF']);
+				$GLOBALS['xshoTpl']->assign('limit', $limit);
+				$GLOBALS['xshoTpl']->assign('start', $start);
+				$GLOBALS['xshoTpl']->assign('order', $order);
+				$GLOBALS['xshoTpl']->assign('sort', $sort);
+				
+				foreach (array(	'item_id','uid','product_id','manu_id','cat_id','discount_id','shipping_id','days_id','language', 'lang_item_id'
 								'picture_id', 'order_id', 'currency_id', 'shop_id', 'type', 'menu_title', 'created', 'updated', 'actioned') as $id => $key) {
 					$GLOBALS['xshoTpl']->assign(strtolower(str_replace('-','_',$key).'_th'), '<a href="'.$_SERVER['PHP_SELF'].'?start='.$start.'&limit='.$limit.'&sort='.str_replace('_','-',$key).'&order='.((str_replace('_','-',$key)==$sort)?($order=='DESC'?'ASC':'DESC'):$order).'&op='.$op.'">'.(defined('_SHOP_AM_TH_'.strtoupper(str_replace('-','_',$key)))?constant('_SHOP_AM_TH_'.strtoupper(str_replace('-','_',$key))):'_SHOP_AM_TH_'.strtoupper(str_replace('-','_',$key))).'</a>');
 				}
@@ -502,10 +640,10 @@
 					
 				$itemss = $items_handler->getObjects($criteria, true);
 				foreach($itemss as $id => $items) {
-					$GLOBALS['xshoTpl']->append('items', $items->toArray());
+					$GLOBALS['xshoTpl']->append('items_digest', $items->toArray());
 				}
 						
-				$GLOBALS['xshoTpl']->display('db:xshop_cpanel_items_list.html');
+				$GLOBALS['xshoTpl']->display('db:xshop_cpanel_items_digest_list.html');
 				break;	
  			case 'gallery':
 
@@ -526,7 +664,13 @@
 				
 				$pagenav = new XoopsPageNav($ttl, $limit, $start, 'start', 'limit='.$limit.'&sort='.$sort.'&order='.$order.'&op='.$op);
 				$GLOBALS['xshoTpl']->assign('pagenav', $pagenav->renderNav());
-		
+
+				$GLOBALS['xshoTpl']->assign('php_self', $_SERVER['PHP_SELF']);
+				$GLOBALS['xshoTpl']->assign('limit', $limit);
+				$GLOBALS['xshoTpl']->assign('start', $start);
+				$GLOBALS['xshoTpl']->assign('order', $order);
+				$GLOBALS['xshoTpl']->assign('sort', $sort);
+				
 				foreach (array(	'picture_id','type','shipping_id','product_id','cat_id','manu_id','shop_id','item_id',
 								'weight', 'path', 'filename', 'width', 'height', 'extension', 'created', 'updated', 'actioned') as $id => $key) {
 					$GLOBALS['xshoTpl']->assign(strtolower(str_replace('-','_',$key).'_th'), '<a href="'.$_SERVER['PHP_SELF'].'?start='.$start.'&limit='.$limit.'&sort='.str_replace('_','-',$key).'&order='.((str_replace('_','-',$key)==$sort)?($order=='DESC'?'ASC':'DESC'):$order).'&op='.$op.'">'.(defined('_SHOP_AM_TH_'.strtoupper(str_replace('-','_',$key)))?constant('_SHOP_AM_TH_'.strtoupper(str_replace('-','_',$key))):'_SHOP_AM_TH_'.strtoupper(str_replace('-','_',$key))).'</a>');
@@ -560,11 +704,17 @@
 				$limit = !empty($_REQUEST['limit'])?intval($_REQUEST['limit']):30;
 				$start = !empty($_REQUEST['start'])?intval($_REQUEST['start']):0;
 				$order = !empty($_REQUEST['order'])?$_REQUEST['order']:'DESC';
-				$sort = !empty($_REQUEST['sort'])?''.$_REQUEST['sort'].'':'created';
+				$sort = !empty($_REQUEST['sort'])?''.$_REQUEST['sort'].'':'country';
 				
 				$pagenav = new XoopsPageNav($ttl, $limit, $start, 'start', 'limit='.$limit.'&sort='.$sort.'&order='.$order.'&op='.$op);
 				$GLOBALS['xshoTpl']->assign('pagenav', $pagenav->renderNav());
-		
+
+				$GLOBALS['xshoTpl']->assign('php_self', $_SERVER['PHP_SELF']);
+				$GLOBALS['xshoTpl']->assign('limit', $limit);
+				$GLOBALS['xshoTpl']->assign('start', $start);
+				$GLOBALS['xshoTpl']->assign('order', $order);
+				$GLOBALS['xshoTpl']->assign('sort', $sort);
+				
 				foreach (array(	'id','country','code','rate') as $id => $key) {
 					$GLOBALS['xshoTpl']->assign(strtolower(str_replace('-','_',$key).'_th'), '<a href="'.$_SERVER['PHP_SELF'].'?start='.$start.'&limit='.$limit.'&sort='.str_replace('_','-',$key).'&order='.((str_replace('_','-',$key)==$sort)?($order=='DESC'?'ASC':'DESC'):$order).'&op='.$op.'">'.(defined('_SHOP_AM_TH_'.strtoupper(str_replace('-','_',$key)))?constant('_SHOP_AM_TH_'.strtoupper(str_replace('-','_',$key))):'_SHOP_AM_TH_'.strtoupper(str_replace('-','_',$key))).'</a>');
 				}
@@ -601,7 +751,13 @@
 				
 				$pagenav = new XoopsPageNav($ttl, $limit, $start, 'start', 'limit='.$limit.'&sort='.$sort.'&order='.$order.'&op='.$op);
 				$GLOBALS['xshoTpl']->assign('pagenav', $pagenav->renderNav());
-		
+
+				$GLOBALS['xshoTpl']->assign('php_self', $_SERVER['PHP_SELF']);
+				$GLOBALS['xshoTpl']->assign('limit', $limit);
+				$GLOBALS['xshoTpl']->assign('start', $start);
+				$GLOBALS['xshoTpl']->assign('order', $order);
+				$GLOBALS['xshoTpl']->assign('sort', $sort);
+				
 				foreach (array(	'download_id','product_id','path','filename','mimetype','hits','created', 'updated') as $id => $key) {
 					$GLOBALS['xshoTpl']->assign(strtolower(str_replace('-','_',$key).'_th'), '<a href="'.$_SERVER['PHP_SELF'].'?start='.$start.'&limit='.$limit.'&sort='.str_replace('_','-',$key).'&order='.((str_replace('_','-',$key)==$sort)?($order=='DESC'?'ASC':'DESC'):$order).'&op='.$op.'">'.(defined('_SHOP_AM_TH_'.strtoupper(str_replace('-','_',$key)))?constant('_SHOP_AM_TH_'.strtoupper(str_replace('-','_',$key))):'_SHOP_AM_TH_'.strtoupper(str_replace('-','_',$key))).'</a>');
 				}

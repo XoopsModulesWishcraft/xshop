@@ -160,6 +160,10 @@
 	define('_SHOP_AM_TH_DOWNLOAD_ID', 'Download');
 	define('_SHOP_AM_TH_MIMETYPE', 'Mimetype');
 	define('_SHOP_AM_TH_HITS', 'Hits');
-	
+	define('_SHOP_AM_TH_ACTIONS', 'Actions');
+	define('_SHOP_AM_TH_RANK', 'Rank');
+	define('_SHOP_AM_TH_THUMBNAIL', 'Thumbnail');
+	define('_SHOP_AM_TH_LANGUAGE', 'Language');
+	define('_SHOP_AM_TH_LANG_ITEM_ID', 'Language Pointer');
 ?>
 	

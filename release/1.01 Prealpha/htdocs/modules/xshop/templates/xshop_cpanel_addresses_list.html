@@ -1,0 +1,61 @@
+<h1><{$smarty.const._SHOP_AM_ADDRESSES_LIST_H1}></h1>
+<p><{$smarty.const._SHOP_AM_ADDRESSES_LIST_P}></p>
+<div style='clear:both; height:60px;'>
+	<div style="float:right;"><{$pagenav}></div>
+</div>
+<form method="post" action='<{$php_self}>'>
+<table>
+	<tr class="head">
+		<th><{$address_id_th}></th>
+		<th><{$type_th}></th>
+		<th><{$remittion_th}></th>
+		<th><{$manu_id_th}></th>
+		<th><{$shop_id_th}></th>
+		<th><{$order_id_th}></th>
+		<th><{$care_of_th}></th>
+		<th><{$address_line_1_th}></th>
+		<th><{$address_line_2_th}></th>
+		<th><{$suburb_th}></th>
+		<th><{$city_th}></th>
+		<th><{$region_id_th}></th>
+		<th><{$country_id_th}></th>
+		<th><{$postcode_th}></th>
+		<th><{$created_th}></th>
+		<th><{$updated_th}></th>
+		<th><{$actioned_th}></th>
+		<th><{$smarty.const._SHOP_AM_TH_ACTIONS}></th>
+	</tr>
+	<{foreach item=item from=$addresses}>
+	<tr class="<{cycle values="even,odd"}>">
+		<td align='center'><{$item.address_id}><{$item.form.address_id}></td>
+		<td align='right'><{$item.form.type}></td>
+		<td align='right'><{$item.form.remittion}></td>
+		<td align='right'><{$item.manu_id}></td>
+		<td align='right'><{$item.shop_id}></td>
+		<td align='right'><{$item.order_id}></td>
+		<td align='right'><{$item.form.care_of}></td>
+		<td align='right'><{$item.form.address_line_1}></td>
+		<td align='right'><{$item.form.address_line_2}></td>
+		<td align='right'><{$item.form.suburb}></td>
+		<td align='right'><{$item.form.city}></td>
+		<td align='right'><{$item.form.region_id}></td>
+		<td align='right'><{$item.form.country_id}></td>
+		<td align='right'><{$item.form.postcode}></td>
+		<td align='right'><{$item.when.created}></td>
+		<td align='right'><{$item.when.updated}></td>
+		<td align='right'><{$item.when.actioned}></td>
+		<td align='center'><a href='<{$php_self}>?id=<{$item.address_id}>&op=edit&fct=addresses'><{$smarty.const._EDIT}></a>&nbsp;|&nbsp;
+							<a href='<{$php_self}>?id=<{$item.address_id}>&op=delete&fct=addresses'><{$smarty.const._DELETE}></a></td>
+	</tr>
+	<{/foreach}>
+	<tr class="foot">
+		<td colspan="18"><input type='submit' value="<{$smarty.const._SUBMIT}>" name="submit"/></td>
+	</tr>
+</table>
+<input type='hidden' value="savelist" name="op"/>
+<input type='hidden' value="addresses" name="fct"/>
+<input type='hidden' value="<{$limit}>" name="limit"/>
+<input type='hidden' value="<{$start}>" name="start"/>
+<input type='hidden' value="<{$order}>" name="order"/>
+<input type='hidden' value="<{$sort}>" name="sort"/>
+</form>

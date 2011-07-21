@@ -1,11 +1,14 @@
 <h1><{$smarty.const._SHOP_AM_PRODUCTS_LIST_H1}></h1>
 <p><{$smarty.const._SHOP_AM_PRODUCTS_LIST_P}></p>
-<div style="float:right;"><{$pagenav}></div>
+<div style='clear:both; height:60px;'>
+	<div style="float:right;"><{$pagenav}></div>
+</div>
 <form action="<{$php_self}>" method="post">
 <table>
 	<tr class="head">
 		<th><{$product_id_th}></th>
 		<th><{$cat_num_th}></th>
+		<th><{$item_id_th}></th>
 		<th><{$type_th}></th>
 		<th><{$stock_th}></th>
 		<th><{$uid_th}></th>
@@ -29,6 +32,7 @@
 	<tr class="<{cycle values="even,odd"}>">
 		<td align='center'><{$item.product_id}><{$item.form.product_id}></td>
 		<td align='center'><{if $item.cat_prefix}><{$item.cat_prefix}>-<{/if}><{if $item.cat_num}><{$item.cat_num}>-<{/if}><{if $item.cat_subfix}><{$item.cat_subfix}><{/if}><{if $item.sub_model}>/<{$item.sub_model}><{/if}></td>
+		<td align='center'><{$item.item.menu_title}></td>
 		<td align='center'><{$item.form.type}></td>
 		<td align='center'><{$item.form.stock}></td>
 		<td align='center'><{$item.user.uid}></td>
@@ -51,11 +55,15 @@
 	</tr>
 	<{/foreach}>
 	<tr class="foot">
-		<td colspan="20"><input type="submit" name="submit" value="<{$smarty.const._SUBMIT}>"/></td>
+		<td colspan="21"><input type="submit" name="submit" value="<{$smarty.const._SUBMIT}>"/></td>
 	</tr>
 </table>
 <input type="hidden" name="op" value="savelist"/>
 <input type="hidden" name="fct" value="products"/>
+<input type='hidden' value="<{$limit}>" name="limit"/>
+<input type='hidden' value="<{$start}>" name="start"/>
+<input type='hidden' value="<{$order}>" name="order"/>
+<input type='hidden' value="<{$sort}>" name="sort"/>
 </form>
 <h1><{$smarty.const._SHOP_AM_PRODUCTS_NEW_H1}></h1>
 <p><{$smarty.const._SHOP_AM_PRODUCTS_NEW_P}></p>

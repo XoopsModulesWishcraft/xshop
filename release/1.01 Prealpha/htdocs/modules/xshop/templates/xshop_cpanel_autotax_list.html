@@ -1,0 +1,31 @@
+<h1><{$smarty.const._SHOP_AM_TAX_LIST_H1}></h1>
+<p><{$smarty.const._SHOP_AM_TAX_LIST_P}></p>
+<div style='clear:both; height:60px;'>
+	<div style="float:right;"><{$pagenav}></div>
+</div>
+<form method="post" action='<{$php_self}>'>
+<table>
+	<tr class="head">
+		<th><{$country_th}></th>
+		<th><{$code_th}></th>
+		<th><{$rate_th}></th>
+	</tr>
+	<{foreach item=rate from=$rates}>
+	<tr class="<{cycle values="even,odd"}>">
+		<td align='center'><{$rate.form.id}><{$rate.form.country}></td>
+		<td align='right'><{$rate.form.code}></td>
+		<td align='right'><{$rate.form.rate}></td>
+	</tr>
+	<{/foreach}>
+	<tr class="foot">
+		<td colspan="3"><input type='submit' value="<{$smarty.const._SUBMIT}>" name="submit"/></td>
+	</tr>
+</table>
+<input type='hidden' value="savelist" name="op"/>
+<input type='hidden' value="autotax" name="fct"/>
+<input type='hidden' value="<{$limit}>" name="limit"/>
+<input type='hidden' value="<{$start}>" name="start"/>
+<input type='hidden' value="<{$order}>" name="order"/>
+<input type='hidden' value="<{$sort}>" name="sort"/>
+
+</form>
