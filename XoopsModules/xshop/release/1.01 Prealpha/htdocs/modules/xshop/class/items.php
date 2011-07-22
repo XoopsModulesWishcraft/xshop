@@ -17,12 +17,19 @@ class xshopItems extends XoopsObject
         
     }
     
+    function toArray() {
+    	$ret = parent::toArray();
+    	$ret['when'] = get_when_associative($this);
+    	return $ret;
+    }
+    
+    
     function retrieveDigest($language) {
     	$criteria = new CriteriaCompo(new Criteria('item_id', $this->getVar('item_id')));
     	if (in_array($language, $this->getVar('languages'))) {
     		$criteria->getVar('language', $language);
     	} else {
-    		$criteria->getVar('language', $GLOBALS['xoopsModuleConfig']['default_language']);
+    		$criteria->getVar('language', $GLOBALS['xoopsModuleConfig']['language']);
     	}
     	$itemdigest_handler =& xoops_getmodulehandler('items_digest', 'xshop');
     	$obj = $itemdigest_handler->getObjects($criteria, false);

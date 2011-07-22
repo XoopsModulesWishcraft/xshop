@@ -24,6 +24,22 @@ class xshopDays extends XoopsObject
         
     }
     
+    function toArray() {
+    	$ret = parent::toArray();
+    	$ret['when'] = get_when_associative($this);
+    	$ret['item'] = get_item_id($this->getVar('item_id'));
+    	$frms = $this->getForm($_SERVER['QUERY_STRING'], false, false, 'base', array());
+    	foreach($frms as $key => $value) {
+    		if ($key!='required') {
+   	 			foreach($value as $field => $valueb) {
+	    		    $ret['forms'][$key][$field] = $frms[$key][$field]->render();
+    			}
+    		}
+    	}
+    	return $ret;
+    }
+    
+    
     function getFormTray($querystring, $captions=true, $index='', $mode=false) {
     	xoops_loadLanguage('forms', 'xshop');
    		if (!empty($index))
@@ -277,6 +293,20 @@ class xshopDaysHandler extends XoopsPersistableObjectHandler
     		return $this->create();
     	else 
     		return $this->get($days_id);
+    }
+    
+	function get($id=0, $fields='*') {
+    	$obj = parent::get($id, $fields);
+    	@$obj->runPostGetPlugin();
+    	return $obj;
+    }
+    
+    function getObject($criteria, $id_as_key=false, $object=true) {
+    	$objs = parent::getObjects($criteria, $id_as_key=false, $object=true);
+    	foreach($objs as $key => $obj) {
+    		@$objs[$key]->runPostGetPlugin();
+    	}
+    	return $objs;
     }
 }
 ?>

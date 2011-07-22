@@ -21,6 +21,20 @@ class xshopDownloads extends XoopsObject
         
     }
     
+    function toArray() {
+    	$ret = parent::toArray();
+    	$ret['when'] = get_when_associative($this);
+       	$frms = $this->getForm($_SERVER['QUERY_STRING'], false, false, 'base', array());
+    	foreach($frms as $key => $value) {
+    		if ($key!='required') {
+   	 			foreach($value as $field => $valueb) {
+	    		    $ret['forms'][$key][$field] = $frms[$key][$field]->render();
+    			}
+    		}
+    	}
+    	return $ret;
+    }
+    
     function getForm($querystring, $captions = true, $render = true, $index = '', $cursor = 'form', $frmobj = array()) {
     
     	xoops_loadLanguage('forms', 'xshop');

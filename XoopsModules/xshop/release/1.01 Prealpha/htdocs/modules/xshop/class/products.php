@@ -47,6 +47,33 @@ class xshopProducts extends XoopsObject
         $this->initVar('actioned', XOBJ_DTYPE_INT);
     }
     
+    function toArray() {
+    	$ret = parent::toArray();
+    	$ret['when'] = get_when_associative($this);
+    	$ret['users']['uid'] = get_users_id($this->getVar('uid'));
+    	$ret['users']['broker'] = get_users_id($this->getVar('broker_uid'));
+    	$ret['users']['sales'] = get_users_id($this->getVar('sales_uid'));
+    	$ret['shop'] = get_shop_id($this->getVar('shop_id'));
+    	$ret['cat'] = get_cat_id($this->getVar('cat_id'));
+    	$ret['manu'] = get_manufacture_id($this->getVar('manu_id'));
+    	$ret['item'] = get_item_id($this->getVar('item_id'));
+    	$ret['shipping'] = get_shipping_id($this->getVar('shipping_id'));
+    	$ret['currency'] = get_currency_id($this->getVar('currency_id'));
+    	$ret['discount'] = get_discount_id($this->getVar('discount_id'));
+    	$ret['picture'] = get_picture_id($this->getVar('feature_picture_id'));
+    	$ret['rank'] = number_format($this->getVar('rating')/$this->getVar('votes')*100,2).'%';
+    	$frms = $this->getForm($_SERVER['QUERY_STRING'], false, false, 'base', array());
+    	foreach($frms as $key => $value) {
+    		if ($key!='required') {
+   	 			foreach($value as $field => $valueb) {
+	    		    $ret['forms'][$key][$field] = $frms[$key][$field]->render();
+    			}
+    		}
+    	}
+    	return $ret;
+    }
+    
+    
     function getForm($querystring, $captions = true, $render = true, $index = '', $cursor = 'form', $frmobj = array()) {
     	xoops_loadLanguage('forms', 'xshop');
     	    	
@@ -284,6 +311,20 @@ class xshopProductsHandler extends XoopsPersistableObjectHandler
 		} else {
 			return parent::insert($object, $force);
 		}
+    }
+    
+	function get($id=0, $fields='*') {
+    	$obj = parent::get($id, $fields);
+    	@$obj->runPostGetPlugin();
+    	return $obj;
+    }
+    
+    function getObject($criteria, $id_as_key=false, $object=true) {
+    	$objs = parent::getObjects($criteria, $id_as_key=false, $object=true);
+    	foreach($objs as $key => $obj) {
+    		@$objs[$key]->runPostGetPlugin();
+    	}
+    	return $objs;
     }
 }
 ?>

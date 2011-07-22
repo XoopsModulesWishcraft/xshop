@@ -15,6 +15,12 @@ class xshopCountry extends XoopsObject
         
     }
     
+	function toArray() {
+    	$ret = parent::toArray();
+    	return $ret;
+    }
+    
+    
     function getForm($querystring, $captions = true, $render = true, $index = '', $cursor = 'form', $frmobj = array()) {
         xoops_loadLanguage('forms', 'xshop');
     	
