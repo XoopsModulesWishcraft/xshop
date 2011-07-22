@@ -23,6 +23,24 @@ class xshopOrders_connote extends XoopsObject
         $this->initVar('actioned', XOBJ_DTYPE_INT);                
     }
     
+    function toArray() {
+    	$ret = parent::toArray();
+    	$ret['when'] = get_when_associative($this);
+    	$ret['users']['assigned'] = get_users_id($this->getVar('assigned_uid'));
+    	$ret['shipping'] = get_shipping_id($this->getVar('shipping_id'));
+    	$ret['address'] = get_address_id($this->getVar('address_id'));
+    	$ret['contact'] = get_contact_id($this->getVar('contact_id'));
+    	$frms = $this->getForm($_SERVER['QUERY_STRING'], false, false, 'base', array());
+    	foreach($frms as $key => $value) {
+    		if ($key!='required') {
+   	 			foreach($value as $field => $valueb) {
+	    		    $ret['forms'][$key][$field] = $frms[$key][$field]->render();
+    			}
+    		}
+    	}
+    	return $ret;
+    }
+    
     function runPreInsertPlugin() {
 		
 		include_once($GLOBALS['xoops']->path('/modules/xshop/plugin/'.basename(__FILE__)));
@@ -109,6 +127,20 @@ class xshopOrders_connoteHandler extends XoopsPersistableObjectHandler
 		} else {
 			return parent::insert($object, $force);
 		}
+    }
+    
+	function get($id=0, $fields='*') {
+    	$obj = parent::get($id, $fields);
+    	@$obj->runPostGetPlugin();
+    	return $obj;
+    }
+    
+    function getObject($criteria, $id_as_key=false, $object=true) {
+    	$objs = parent::getObjects($criteria, $id_as_key=false, $object=true);
+    	foreach($objs as $key => $obj) {
+    		@$objs[$key]->runPostGetPlugin();
+    	}
+    	return $objs;
     }
 }
 ?>

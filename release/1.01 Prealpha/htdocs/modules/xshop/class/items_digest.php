@@ -40,6 +40,31 @@ class xshopItems_disgest extends XoopsObject
         
     }
     
+    function toArray() {
+    	$ret = parent::toArray();
+    	$ret['when'] = get_when_associative($this);
+    	$ret['item'] = get_item_id($this->getVar('item_id'));
+    	$ret['users']['uid'] = get_users_id($this->getVar('uid'));
+    	$ret['product'] = get_product_id($this->getVar('product_id'));
+    	$ret['manu'] = get_manufacture_id($this->getVar('manu_id'));
+    	$ret['cat'] = get_cat_id($this->getVar('cat_id'));
+    	$ret['discount'] = get_discount_id($this->getVar('discount_id'));
+    	$ret['shipping'] = get_shipping_id($this->getVar('shipping_id'));
+    	$ret['picture'] = get_picture_id($this->getVar('picture_id'));
+    	$ret['order'] = get_order_id($this->getVar('order_id'));
+    	$ret['currency'] = get_currency_id($this->getVar('currency_id'));
+    	$ret['shop'] = get_shop_id($this->getVar('shop_id'));
+    	$frms = $this->getForm($_SERVER['QUERY_STRING'], false, false, 'base', array());
+    	foreach($frms as $key => $value) {
+    		if ($key!='required') {
+   	 			foreach($value as $field => $valueb) {
+	    		    $ret['forms'][$key][$field] = $frms[$key][$field]->render();
+    			}
+    		}
+    	}
+    	return $ret;
+    }
+    
     function getForm($querystring, $captions = true, $render = true, $index = '', $cursor = 'form', $frmobj = array()) {
     
         xoops_loadLanguage('forms', 'xshop');
@@ -401,6 +426,20 @@ class xshopItems_disgestHandler extends XoopsPersistableObjectHandler
     			return $obj;
 	    	}
     	}
+    }
+    
+	function get($id=0, $fields='*') {
+    	$obj = parent::get($id, $fields);
+    	@$obj->runPostGetPlugin();
+    	return $obj;
+    }
+    
+    function getObject($criteria, $id_as_key=false, $object=true) {
+    	$objs = parent::getObjects($criteria, $id_as_key=false, $object=true);
+    	foreach($objs as $key => $obj) {
+    		@$objs[$key]->runPostGetPlugin();
+    	}
+    	return $objs;
     }
 }
 ?>

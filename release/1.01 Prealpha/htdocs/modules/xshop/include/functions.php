@@ -1,26 +1,407 @@
 <?php
 
-	function xshop_md5calc($object) {
-		if (is_object($object)&&isset($object->vars)) {
-			foreach($object->vars as $key => $item) {
-				if (!in_array($key, array('md5', 'created', 'updated', 'actioned')))
-					$ret .= md5($item['value']);
-			}
-			return md5($ret);
+function get_users_id($mixed) {
+	$handler = xoops_gethandler('user');
+	if (empty($mixed)||$mixed=0) {
+		return '';
+	} elseif (is_numeric($mixed)) {
+		$obj = $handler->get($mixed);
+		if (is_object($obj)) {
+			$out = array();
+			$out['data'] = $obj->toArray();
+			$out['html'] = '<a href="'.XOOPS_URL.'/userinfo.php?uid='.$obj->getVar('uid').'">'.$obj->getVar('uname').'</a>';
+			return $out; 
 		} else {
-			return md5($object);
+			return '';
 		}
-	}
-	
-	function filter_querystring($string, $element) {
-		foreach(explode('&', $string) as $component) {
-			$value = explode('=', $component);
-			if (strtolower($value[0])!=strtolower($element))
-				$ret[] = $component;
+	} elseif (is_array($mixed)) {
+		$ret = array();
+		foreach($mixed as $id) {
+			$obj = $handler->get($id);
+			if (is_object($obj)) {
+				$out = array();
+				$out['data'] = $obj->toArray();
+				$out['html'] = '<a href="'.XOOPS_URL.'/userinfo.php?uid='.$obj->getVar('uid').'">'.$obj->getVar('uname').'</a>';
+				$ret[$id] = $out; 
+			}
 		}
-		return implode('&', $ret);
+		return $ret;
 	}
-	
+}
+
+function get_item_id($mixed) {
+	$handler = xoops_getmodulehandler('items', 'xshop');
+	if (empty($mixed)||$mixed=0) {
+		return '';
+	} elseif (is_numeric($mixed)) {
+		$obj = $handler->get($mixed);
+		if (is_object($obj)) {
+			$digest = $obj->retrieveDigest($GLOBALS['xoopsConfig']['language']);
+			return $digest->toArray(); 
+		} else {
+			return '';
+		}
+	} elseif (is_array($mixed)) {
+		$ret = array();
+		foreach($mixed as $id) {
+			$obj = $handler->get($id);
+			if (is_object($obj)) {
+				$digest = $obj->retrieveDigest($GLOBALS['xoopsConfig']['language']);
+				$ret[$id] = $digest->toArray(); 
+			}
+		}
+		return $ret;
+	}
+}
+
+function get_address_id($mixed) {
+	$handler = xoops_getmodulehandler('addresses', 'xshop');
+	if (empty($mixed)||$mixed=0) {
+		return '';
+	} elseif (is_numeric($mixed)) {
+		$obj = $handler->get($mixed);
+		if (is_object($obj)) {
+			return $obj->toArray(); 
+		} else {
+			return '';
+		}
+	} elseif (is_array($mixed)) {
+		$ret = array();
+		foreach($mixed as $id) {
+			$obj = $handler->get($id);
+			if (is_object($obj)) {
+				$ret[$id] = $obj->toArray(); 
+			}
+		}
+		return $ret;
+	}
+}
+
+function get_contact_id($mixed) {
+	$handler = xoops_getmodulehandler('contacts', 'xshop');
+	if (empty($mixed)||$mixed=0) {
+		return '';
+	} elseif (is_numeric($mixed)) {
+		$obj = $handler->get($mixed);
+		if (is_object($obj)) {
+			return $obj->toArray(); 
+		} else {
+			return '';
+		}
+	} elseif (is_array($mixed)) {
+		$ret = array();
+		foreach($mixed as $id) {
+			$obj = $handler->get($id);
+			if (is_object($obj)) {
+				$ret[$id] = $obj->toArray(); 
+			}
+		}
+		return $ret;
+	}
+}
+
+function get_picture_id($mixed) {
+	$handler = xoops_getmodulehandler('gallery', 'xshop');
+	if (empty($mixed)||$mixed=0) {
+		return '';
+	} elseif (is_numeric($mixed)) {
+		$obj = $handler->get($mixed);
+		if (is_object($obj)) {
+			$ret = array();
+			$ret['html']['thumbnail'] = "<img src='".XOOPS_UPLOAD_URL.$obj->getVar('thumbnail_path').$obj->getVar('filename').'" />';
+			$ret['html']['orginal'] = "<img src='".XOOPS_UPLOAD_URL.$obj->getVar('path').$obj->getVar('filename')."' />";
+			$ret['direct']['thumbnail'] = XOOPS_UPLOAD_PATH.$obj->getVar('thumbnail_path').$obj->getVar('filename');
+			$ret['direct']['orginal'] = XOOPS_UPLOAD_PATH.$obj->getVar('path').$obj->getVar('filename');
+			$ret['url']['thumbnail'] = XOOPS_UPLOAD_URL.$obj->getVar('thumbnail_path').$obj->getVar('filename');
+			$ret['url']['orginal'] = XOOPS_UPLOAD_URL.$obj->getVar('path').$obj->getVar('filename');
+			return $ret; 
+		} else {
+			return '';
+		}
+	} elseif (is_array($mixed)) {
+		$ret = array();
+		foreach($mixed as $id) {
+			$obj = $handler->get($id);
+			if (is_object($obj)) {
+				$out = array();
+				$out['html']['thumbnail'] = "<img src='".XOOPS_UPLOAD_URL.$obj->getVar('thumbnail_path').$obj->getVar('filename').'" />';
+				$out['html']['orginal'] = "<img src='".XOOPS_UPLOAD_URL.$obj->getVar('path').$obj->getVar('filename')."' />";
+				$out['direct']['thumbnail'] = XOOPS_UPLOAD_PATH.$obj->getVar('thumbnail_path').$obj->getVar('filename');
+				$out['direct']['orginal'] = XOOPS_UPLOAD_PATH.$obj->getVar('path').$obj->getVar('filename');
+				$out['url']['thumbnail'] = XOOPS_UPLOAD_URL.$obj->getVar('thumbnail_path').$obj->getVar('filename');
+				$out['url']['orginal'] = XOOPS_UPLOAD_URL.$obj->getVar('path').$obj->getVar('filename');
+				$ret[$id] = $out; 
+			}
+		}
+		return $ret;
+	}
+}
+
+function get_cat_id($mixed) {
+	$handler = xoops_getmodulehandler('category', 'xshop');
+	if (empty($mixed)||$mixed=0) {
+		return '';
+	} elseif (is_numeric($mixed)) {
+		$obj = $handler->get($mixed);
+		if (is_object($obj)) {
+			return $obj->toArray(); 
+		} else {
+			return '';
+		}
+	} elseif (is_array($mixed)) {
+		$ret = array();
+		foreach($mixed as $id) {
+			$obj = $handler->get($id);
+			if (is_object($obj)) {
+				$ret[$id] = $obj->toArray(); 
+			}
+		}
+		return $ret;
+	}
+}
+
+function get_manufacture_id($mixed) {
+	$handler = xoops_getmodulehandler('manufactures', 'xshop');
+	if (empty($mixed)||$mixed=0) {
+		return '';
+	} elseif (is_numeric($mixed)) {
+		$obj = $handler->get($mixed);
+		if (is_object($obj)) {
+			return $obj->toArray(); 
+		} else {
+			return '';
+		}
+	} elseif (is_array($mixed)) {
+		$ret = array();
+		foreach($mixed as $id) {
+			$obj = $handler->get($id);
+			if (is_object($obj)) {
+				$ret[$id] = $obj->toArray(); 
+			}
+		}
+		return $ret;
+	}
+}
+
+function get_shipping_id($mixed) {
+	$handler = xoops_getmodulehandler('shipping', 'xshop');
+	if (empty($mixed)||$mixed=0) {
+		return '';
+	} elseif (is_numeric($mixed)) {
+		$obj = $handler->get($mixed);
+		if (is_object($obj)) {
+			return $obj->toArray(); 
+		} else {
+			return '';
+		}
+	} elseif (is_array($mixed)) {
+		$ret = array();
+		foreach($mixed as $id) {
+			$obj = $handler->get($id);
+			if (is_object($obj)) {
+				$ret[$id] = $obj->toArray(); 
+			}
+		}
+		return $ret;
+	}
+}
+
+function get_currency_id($mixed) {
+	$handler = xoops_getmodulehandler('currency', 'xshop');
+	if (empty($mixed)||$mixed=0) {
+		return '';
+	} elseif (is_numeric($mixed)) {
+		$obj = $handler->get($mixed);
+		if (is_object($obj)) {
+			return $obj->toArray(); 
+		} else {
+			return '';
+		}
+	} elseif (is_array($mixed)) {
+		$ret = array();
+		foreach($mixed as $id) {
+			$obj = $handler->get($id);
+			if (is_object($obj)) {
+				$ret[$id] = $obj->toArray(); 
+			}
+		}
+		return $ret;
+	}
+}
+
+function get_discount_id($mixed) {
+	$handler = xoops_getmodulehandler('discounts', 'xshop');
+	if (empty($mixed)||$mixed=0) {
+		return '';
+	} elseif (is_numeric($mixed)) {
+		$obj = $handler->get($mixed);
+		if (is_object($obj)) {
+			return $obj->toArray(); 
+		} else {
+			return '';
+		}
+	} elseif (is_array($mixed)) {
+		$ret = array();
+		foreach($mixed as $id) {
+			$obj = $handler->get($id);
+			if (is_object($obj)) {
+				$ret[$id] = $obj->toArray(); 
+			}
+		}
+		return $ret;
+	}
+}
+
+function get_product_id($mixed) {
+	$handler = xoops_getmodulehandler('products', 'xshop');
+	if (empty($mixed)||$mixed=0) {
+		return '';
+	} elseif (is_numeric($mixed)) {
+		$obj = $handler->get($mixed);
+		if (is_object($obj)) {
+			return $obj->toArray(); 
+		} else {
+			return '';
+		}
+	} elseif (is_array($mixed)) {
+		$ret = array();
+		foreach($mixed as $id) {
+			$obj = $handler->get($id);
+			if (is_object($obj)) {
+				$ret[$id] = $obj->toArray(); 
+			}
+		}
+		return $ret;
+	}
+}
+
+function get_order_id($mixed) {
+	$handler = xoops_getmodulehandler('orders', 'xshop');
+	if (empty($mixed)||$mixed=0) {
+		return '';
+	} elseif (is_numeric($mixed)) {
+		$obj = $handler->get($mixed);
+		if (is_object($obj)) {
+			return $obj->toArray(); 
+		} else {
+			return '';
+		}
+	} elseif (is_array($mixed)) {
+		$ret = array();
+		foreach($mixed as $id) {
+			$obj = $handler->get($id);
+			if (is_object($obj)) {
+				$ret[$id] = $obj->toArray(); 
+			}
+		}
+		return $ret;
+	}
+}
+
+function get_shop_id($mixed) {
+	$handler = xoops_getmodulehandler('shops', 'xshop');
+	if (empty($mixed)||$mixed=0) {
+		return '';
+	} elseif (is_numeric($mixed)) {
+		$obj = $handler->get($mixed);
+		if (is_object($obj)) {
+			return $obj->toArray(); 
+		} else {
+			return '';
+		}
+	} elseif (is_array($mixed)) {
+		$ret = array();
+		foreach($mixed as $id) {
+			$obj = $handler->get($id);
+			if (is_object($obj)) {
+				$ret[$id] = $obj->toArray(); 
+			}
+		}
+		return $ret;
+	}
+}
+
+function xshop_md5calc($object) {
+	if (is_object($object)&&isset($object->vars)) {
+		foreach($object->vars as $key => $item) {
+			if (!in_array($key, array('md5', 'created', 'updated', 'actioned')))
+				$ret .= md5($item['value']);
+		}
+		return md5($ret);
+	} else {
+		return md5($object);
+	}
+}
+
+function filter_querystring($string, $element) {
+	foreach(explode('&', $string) as $component) {
+		$value = explode('=', $component);
+		if (strtolower($value[0])!=strtolower($element))
+			$ret[] = $component;
+	}
+	return implode('&', $ret);
+}
+
+function get_when_associative($object) {
+	if ($object->getVar('created')==0)
+		$ret['created'] = '';
+	else 
+		$ret['created'] = date(_DATESTRING, $object->getVar('created'));
+	if ($object->getVar('updated')==0)
+		$ret['updated'] = '';
+	else 
+		$ret['updated'] = date(_DATESTRING, $object->getVar('updated'));
+	if ($object->getVar('actioned')==0)
+		$ret['actioned'] = '';
+	else 
+		$ret['actioned'] = date(_DATESTRING, $object->getVar('actioned'));
+	if ($object->getVar('dispatched')==0)
+		$ret['dispatched'] = '';
+	else 
+		$ret['dispatched'] = date(_DATESTRING, $object->getVar('dispatched'));
+	if ($object->getVar('returned')==0)
+		$ret['returned'] = '';
+	else 
+		$ret['returned'] = date(_DATESTRING, $object->getVar('returned'));
+	if ($object->getVar('paid')==0)
+		$ret['paid'] = '';
+	else 
+		$ret['paid'] = date(_DATESTRING, $object->getVar('paid'));
+	if ($object->getVar('shipped')==0)
+		$ret['shipped'] = '';
+	else 
+		$ret['shipped'] = date(_DATESTRING, $object->getVar('shipped'));
+	if ($object->getVar('ended')==0)
+		$ret['ended'] = '';
+	else 
+		$ret['ended'] = date(_DATESTRING, $object->getVar('ended'));
+	if ($object->getVar('started')==0)
+		$ret['started'] = '';
+	else 
+		$ret['started'] = date(_DATESTRING, $object->getVar('started'));		
+	if ($object->getVar('offline')==0)
+		$ret['offline'] = '';
+	else 
+		$ret['offline'] = date(_DATESTRING, $object->getVar('offline'));								
+	if ($object->getVar('end')==0)
+		$ret['end'] = '';
+	else 
+		$ret['end'] = date(_DATESTRING, $object->getVar('end'));
+	if ($object->getVar('start')==0)
+		$ret['start'] = '';
+	else 
+		$ret['start'] = date(_DATESTRING, $object->getVar('start'));		
+	if ($object->getVar('last_ordered')==0)
+		$ret['last_ordered'] = '';
+	else 
+		$ret['last_ordered'] = date(_DATESTRING, $object->getVar('last_ordered'));
+	if ($object->getVar('shippment_arrived')==0)
+		$ret['shippment_arrived'] = '';
+	else 
+		$ret['shippment_arrived'] = date(_DATESTRING, $object->getVar('shippment_arrived'));	
+	return $ret;
+}
+
 if (!function_exists("xshop_adminMenu")) {
   function xshop_adminMenu ($currentoption = 0)  {
 		$module_handler = xoops_gethandler('module');

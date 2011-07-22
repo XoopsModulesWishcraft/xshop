@@ -254,4 +254,43 @@
 	define('_SHOP_FRM_PRODUCTS_QUANITY_TO_ORDER', 'Quanity to order');
 	define('_SHOP_FRM_PRODUCTS_QUANITY_TO_ORDER_DESC', '');
 	
+	//Region
+	define('_SHOP_FRM_NEW_REGION', 'New Region');
+	define('_SHOP_FRM_EDIT_REGION', 'Edit Region');
+	define('_SHOP_FRM_REGION_NAME', 'Region Name');
+	define('_SHOP_FRM_REGION_NAME_DESC', '');
+	define('_SHOP_FRM_REGION_LONGITUDE', 'Longitude');
+	define('_SHOP_FRM_REGION_LONGITUDE_DESC', '');
+	define('_SHOP_FRM_REGION_LATITUDE', 'Latitude');
+	define('_SHOP_FRM_REGION_LATITUDE_DESC', '');
+	
+	//Shipping
+	define('_SHOP_FRM_NEW_SHIPPING', 'New Shipping Company');
+	define('_SHOP_FRM_EDIT_SHIPPING', 'Edit Shipping Company');
+	define('_SHOP_FRM_SHIPPING_TYPE', 'Shipping Type');
+	define('_SHOP_FRM_SHIPPING_TYPE_DESC', '');
+	define('_SHOP_FRM_SHIPPING_METHOD', 'Shipping Method');
+	define('_SHOP_FRM_SHIPPING_METHOD_DESC', '');
+	define('_SHOP_FRM_SHIPPING_BROKERS', 'Brokers');
+	define('_SHOP_FRM_SHIPPING_BROKERS_DESC', '');
+	define('_SHOP_FRM_SHIPPING_PRICE_PER_KILO', 'Price per Kilo');
+	define('_SHOP_FRM_SHIPPING_PRICE_PER_KILO_DESC', '');
+	define('_SHOP_FRM_SHIPPING_PRICE_PER_POUND', 'Price per Pound');
+	define('_SHOP_FRM_SHIPPING_PRICE_PER_POUND_DESC', '');
+	define('_SHOP_FRM_SHIPPING_PRICE_PER_OTHER', 'Price per Other');
+	define('_SHOP_FRM_SHIPPING_PRICE_PER_OTHER_DESC', '');
+	define('_SHOP_FRM_SHIPPING_HANDLING_PER_UNIT', 'Handling per unit');
+	define('_SHOP_FRM_SHIPPING_HANDLING_PER_UNIT_DESC', '');
+	define('_SHOP_FRM_SHIPPING_COUNTRIES', 'Countries Supported');
+	define('_SHOP_FRM_SHIPPING_COUNTRIES_DESC', '');
+	define('_SHOP_FRM_SHIPPING_REGIONS', 'Regions Supported');
+	define('_SHOP_FRM_SHIPPING_SHIPPINGS_DESC', '');
+	define('_SHOP_FRM_SHIPPINGS_OPENING', 'Opens At');
+	define('_SHOP_FRM_SHIPPINGS_OPENING_DESC', '');
+	define('_SHOP_FRM_SHIPPINGS_CLOSING', 'Closes At');
+	define('_SHOP_FRM_SHIPPINGS_CLOSING_DESC', '');
+	define('_SHOP_FRM_SHIPPINGS_DAYS_DESC', '');
+	define('_SHOP_FRM_SHIPPING_UPLOAD_LOGO', 'Upload or Replace Logo');
+	define('_SHOP_FRM_SHIPPING_UPLOAD_LOGO_DESC', '');
+	
 ?>

@@ -1,0 +1,35 @@
+<?php
+
+	xoops_load('xoopsformloader');
+	include('formselectaddressremittion.php');
+	include('formselectaddresstype.php');
+	include('formselectcategory.php');
+	include('formselectcontactstype.php');
+	include('formselectcountry.php');
+	include('formselectcurrency.php');
+	include('formselectdays.php');
+	include('formselectdiscount.php');
+	include('formselectdiscounttype.php');
+	include('formselectgallerytype.php');
+	include('formselectitemdigesttype.php');
+	include('formselectlanguage.php');
+	include('formselectmanufactures.php');
+	include('formselectmanufacturesordering.php');
+	include('formselectmanufacturestype.php');
+	include('formselectmeasurement.php');
+	include('formselectordersmode.php');
+	include('formselectordersremittion.php');
+	include('formselectproduct.php');
+	include('formselectproductsstock.php');
+	include('formselectproductstype.php');
+	include('formselectregion.php');
+	include('formselectshipping.php');
+	include('formselectshippingmethod.php');
+	include('formselectshippingtype.php');
+	include('formselectshop.php');
+	include('formselectshoptype.php');
+	include('formselecttime.php');
+	include('formselecttimezone.php');
+	include('formselectuser.php');
+	
+	?>

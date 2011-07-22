@@ -53,6 +53,35 @@ class xshopOrders extends XoopsObject
         $this->initVar('actioned', XOBJ_DTYPE_INT);                
     }
 
+    function toArray() {
+    	$ret = parent::toArray();
+    	$ret['when'] = get_when_associative($this);
+    	$ret['users']['assigned'] = get_users_id($this->getVar('assigned_uid'));
+    	$ret['users']['broker'] = get_users_id($this->getVar('broker_uids'));
+    	$ret['users']['sales'] = get_users_id($this->getVar('sales_uids'));
+    	$ret['shipping'] = get_shipping_id($this->getVar('shipping_id'));
+    	$ret['currency'] = get_currency_id($this->getVar('currency_id'));
+    	$ret['address']['shipping'] = get_address_id($this->getVar('shipping_address_id'));
+    	$ret['contact']['shipping'] = get_contact_id($this->getVar('shipping_contact_id'));
+    	$ret['mobile']['shipping'] = get_contact_id($this->getVar('shipping_mobile_id'));
+    	$ret['email']['shipping'] = get_contact_id($this->getVar('shipping_email_id'));
+    	$ret['fax']['shipping'] = get_contact_id($this->getVar('shipping_fax_id'));
+    	$ret['address']['billing'] = get_address_id($this->getVar('billing_address_id'));
+    	$ret['contact']['billing'] = get_contact_id($this->getVar('billing_contact_id'));
+    	$ret['mobile']['billing'] = get_contact_id($this->getVar('billing_mobile_id'));
+    	$ret['email']['billing'] = get_contact_id($this->getVar('billing_email_id'));
+    	$ret['fax']['billing'] = get_contact_id($this->getVar('billing_fax_id'));
+    	$frms = $this->getForm($_SERVER['QUERY_STRING'], false, false, 'base', array());
+    	foreach($frms as $key => $value) {
+    		if ($key!='required') {
+   	 			foreach($value as $field => $valueb) {
+	    		    $ret['forms'][$key][$field] = $frms[$key][$field]->render();
+    			}
+    		}
+    	}
+    	return $ret;
+    }
+    
     function getForm($querystring, $captions = true, $render = true, $index = '', $cursor = 'form', $frmobj = array()) {
     	xoops_loadLanguage('forms', 'xshop');
     	    	
@@ -298,6 +327,20 @@ class xshopOrdersHandler extends XoopsPersistableObjectHandler
 		} else {
 			return parent::insert($object, $force);
 		}
+    }
+    
+	function get($id=0, $fields='*') {
+    	$obj = parent::get($id, $fields);
+    	@$obj->runPostGetPlugin();
+    	return $obj;
+    }
+    
+    function getObject($criteria, $id_as_key=false, $object=true) {
+    	$objs = parent::getObjects($criteria, $id_as_key=false, $object=true);
+    	foreach($objs as $key => $obj) {
+    		@$objs[$key]->runPostGetPlugin();
+    	}
+    	return $objs;
     }
 }
 ?>
