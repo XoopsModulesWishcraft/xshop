@@ -10,15 +10,13 @@ class xshopDownloads extends XoopsObject
     {
         $this->initVar('download_id', XOBJ_DTYPE_INT);
         $this->initVar('product_id', XOBJ_DTYPE_INT);
-        $this->initVar('path', XOBJ_DTYPE_TXTBOX, false, 255);
+        $this->initVar('path', XOBJ_DTYPE_TXTBOX, DS.$GLOBALS['xoopsModule']->getVar('dirname').DS.md5(microtime()).DS, 255);
         $this->initVar('filename', XOBJ_DTYPE_TXTBOX, false, 255);
         $this->initVar('mimetype', XOBJ_DTYPE_TXTBOX, false, 128);
         $this->initVar('hits', XOBJ_DTYPE_INT);
         $this->initVar('md5', XOBJ_DTYPE_TXTBOX, '', 32);
         $this->initVar('created', XOBJ_DTYPE_INT);
         $this->initVar('updated', XOBJ_DTYPE_INT);
-        
-        
     }
     
     function toArray() {
@@ -35,7 +33,7 @@ class xshopDownloads extends XoopsObject
     	return $ret;
     }
     
-    function getForm($querystring, $captions = true, $render = true, $index = '', $cursor = 'form', $frmobj = array()) {
+    function getForm($querystring, $captions = true, $render = true, $index = '', $cursor = 'form', $frmobj = '') {
     
     	xoops_loadLanguage('forms', 'xshop');
     	    	
@@ -127,5 +125,11 @@ class xshopDownloadsHandler extends XoopsPersistableObjectHandler
     	
     	return parent::insert($object, $force);
 	}
+	
+    function delete($object, $force=true) {
+    	unlink(XOOPS_VAR_PATH.$object->getVar('path').$object->getVar('filename'));
+    	rmdir(XOOPS_VAR_PATH.$object->getVar('path'));
+    	return parent::delete($object, $force);
+    }
 }
 ?>

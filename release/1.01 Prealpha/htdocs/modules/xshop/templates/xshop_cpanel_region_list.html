@@ -13,10 +13,10 @@
 	</tr>
 	<{foreach item=item from=$region}>
 	<tr class="<{cycle values="even,odd"}>">
-		<td align='center'><{$item.region_id}><{$item.form.region_id}></td>
-		<td align='right'><{$item.form.name}></td>
-		<td align='right'><{$item.form.longitude}></td>
-		<td align='right'><{$item.form.latitude}></td>
+		<td align='center'><{$item.region_id}><{$item.forms.base.region_id}></td>
+		<td align='right'><{$item.forms.base.name}></td>
+		<td align='right'><{$item.forms.base.longitude}></td>
+		<td align='right'><{$item.forms.base.latitude}></td>
 	</tr>
 	<{/foreach}>
 	<tr class="foot">

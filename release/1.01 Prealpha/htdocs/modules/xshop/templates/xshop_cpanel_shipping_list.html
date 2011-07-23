@@ -27,19 +27,19 @@
 	</tr>
 	<{foreach item=item from=$shipping}>
 	<tr class="<{cycle values="even,odd"}>">
-		<td align='center'><{$item.shipping_id}><{$item.form.shipping_id}></td>
-		<td align='center'><{$item.form.type}></td>
-		<td align='center'><{$item.form.method}></td>
-		<td align='center'><{$item.form.broker_uids}></td>
+		<td align='center'><{$item.shipping_id}><{$item.forms.base.shipping_id}></td>
+		<td align='center'><{$item.forms.base.type}></td>
+		<td align='center'><{$item.forms.base.method}></td>
+		<td align='center'><{$item.forms.base.broker_uids}></td>
 		<td align='center'><{$item.user.uid}></td>		
 		<td align='center'><{$item.item.menu_title}></td>		
-		<td align='center'><{$item.form.price_per_kilo}></td>
-		<td align='center'><{$item.form.price_per_pound}></td>
-		<td align='center'><{$item.form.price_per_other}></td>
-		<td align='center'><{$item.form.handling_per_unit}></td>
-		<td align='center'><{$item.form.country_ids}></td>
-		<td align='center'><{$item.form.opening}></td>
-		<td align='center'><{$item.form.closing}></td>
+		<td align='center'><{$item.forms.base.price_per_kilo}></td>
+		<td align='center'><{$item.forms.base.price_per_pound}></td>
+		<td align='center'><{$item.forms.base.price_per_other}></td>
+		<td align='center'><{$item.forms.base.handling_per_unit}></td>
+		<td align='center'><{$item.forms.base.country_ids}></td>
+		<td align='center'><{$item.forms.base.opening}></td>
+		<td align='center'><{$item.forms.base.closing}></td>
 		<td align='center'><{$item.rank}></td>
 		<td align='center'><{$item.when.created}></td>
 		<td align='center'><{$item.when.updated}></td>

@@ -21,10 +21,10 @@
 	</tr>
 	<{foreach item=item from=$shops}>
 	<tr class="<{cycle values="even,odd"}>">
-		<td align='center'><{$item.manu_id}><{$item.form.manu_id}></td>
-		<td align='center'><{$item.form.ordering}></td>
-		<td align='center'><{$item.form.type}></td>
-		<td align='center'><{$item.form.broker}></td>
+		<td align='center'><{$item.manu_id}><{$item.forms.base.manu_id}></td>
+		<td align='center'><{$item.forms.base.ordering}></td>
+		<td align='center'><{$item.forms.base.type}></td>
+		<td align='center'><{$item.forms.base.broker}></td>
 		<td align='center'><{$item.item.menu_title}></td>
 		<td align='right'><{$item.when.last_order}></td>
 		<td align='right'><{$item.picture.thumbnail}></td>

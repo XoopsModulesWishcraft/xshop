@@ -27,19 +27,19 @@
 	</tr>
 	<{foreach item=item from=$shops}>
 	<tr class="<{cycle values="even,odd"}>">
-		<td align='center'><{$item.shop_id}><{$item.form.shop_id}></td>
+		<td align='center'><{$item.shop_id}><{$item.forms.base.shop_id}></td>
 		<td align='center'><{$item.type}></td>
 		<td align='center'><{$item.owner}></td>
 		<td align='center'><{$item.admins}></td>
 		<td align='center'><{$item.brokers}></td>
 		<td align='right'><{$item.sales}></td>
-		<td align='right'><{$item.form.timed}></td>
-		<td align='right'><{$item.form.start}></td>
-		<td align='right'><{$item.form.end}></td>
-		<td align='right'><{$item.form.opening}></td>
-		<td align='right'><{$item.form.closed}></td>
-		<td align='right'><{$item.form.24hours_online}></td>
-		<td align='right'><{$item.form.24hours_ordering}></td>
+		<td align='right'><{$item.forms.base.timed}></td>
+		<td align='right'><{$item.forms.base.start}></td>
+		<td align='right'><{$item.forms.base.end}></td>
+		<td align='right'><{$item.forms.base.opening}></td>
+		<td align='right'><{$item.forms.base.closed}></td>
+		<td align='right'><{$item.forms.base.24hours_online}></td>
+		<td align='right'><{$item.forms.base.24hours_ordering}></td>
 		<td align='right'><{$item.rank}></td>
 		<td align='center'><{$item.when.created}></td>
 		<td align='center'><{$item.when.updated}></td>

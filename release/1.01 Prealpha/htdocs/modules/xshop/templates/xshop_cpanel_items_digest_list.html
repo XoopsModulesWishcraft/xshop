@@ -28,7 +28,7 @@
 	</tr>
 	<{foreach item=item from=$items_digest}>
 	<tr class="<{cycle values="even,odd"}>">
-		<td align='right'><{$item.lang_item_id}><{$item.form.lang_item_id}></td>
+		<td align='right'><{$item.lang_item_id}><{$item.forms.base.lang_item_id}></td>
 		<td align='right'><{$item.item_id}></td>
 		<td align='center'><{$item.users.uid}></td>
 		<td align='right'><{$item.product_id}></td>
@@ -41,7 +41,7 @@
 		<td align='right'><{$item.order_id}></td>
 		<td align='right'><{$item.currency_id}></td>
 		<td align='right'><{$item.shop_id}></td>
-		<td align='center'><{$item.form.type}></td>
+		<td align='center'><{$item.forms.base.type}></td>
 		<td align='center'><{$item.menu_title}></td>
 		<td align='center'><{$item.when.created}></td>
 		<td align='center'><{$item.when.updated}></td>

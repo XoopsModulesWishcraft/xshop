@@ -24,17 +24,17 @@
 	</tr>
 	<{foreach item=item from=$discounts}>
 	<tr class="<{cycle values="even,odd"}>">
-		<td align='center'><{$item.discount_id}><{$item.form.discount_id}></td>
-		<td align='center'><{$item.form.type}></td>
+		<td align='center'><{$item.discount_id}><{$item.forms.base.discount_id}></td>
+		<td align='center'><{$item.forms.base.type}></td>
 		<td align='center'><{$item.item.menu_title}></td>
-		<td align='center'><{$item.form.percentage}></td>
-		<td align='center'><{$item.form.min_quanity}></td>		
-		<td align='center'><{$item.form.shipping_id}></td>		
-		<td align='center'><{$item.form.timed}></td>
-		<td align='center'><{$item.form.start}></td>
-		<td align='center'><{$item.form.end}></td>
-		<td align='center'><{$item.form.opening}></td>
-		<td align='center'><{$item.form.closing}></td>
+		<td align='center'><{$item.forms.base.percentage}></td>
+		<td align='center'><{$item.forms.base.min_quanity}></td>		
+		<td align='center'><{$item.forms.base.shipping_id}></td>		
+		<td align='center'><{$item.forms.base.timed}></td>
+		<td align='center'><{$item.forms.base.start}></td>
+		<td align='center'><{$item.forms.base.end}></td>
+		<td align='center'><{$item.forms.base.opening}></td>
+		<td align='center'><{$item.forms.base.closing}></td>
 		<td align='center'><{$item.when.created}></td>
 		<td align='center'><{$item.when.updated}></td>
 		<td align='center'><{$item.when.actioned}></td>
@@ -53,3 +53,6 @@
 <input type='hidden' value="<{$order}>" name="order"/>
 <input type='hidden' value="<{$sort}>" name="sort"/>
 </form>
+<h1><{$smarty.const._SHOP_AM_DISCOUNTS_NEW_H1}></h1>
+<p><{$smarty.const._SHOP_AM_DISCOUNTS_NEW_P}></p>
+<{$form}>

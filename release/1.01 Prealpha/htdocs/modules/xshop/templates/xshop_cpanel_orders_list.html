@@ -28,14 +28,14 @@
 	</tr>
 	<{foreach item=item from=$orders}>
 	<tr class="<{cycle values="even,odd"}>">
-		<td align='center'><{$item.order_id}><{$item.form.order_id}></td>
-		<td align='center'><{$item.form.mode}></td>
-		<td align='center'><{$item.form.remittion}></td>
+		<td align='center'><{$item.order_id}><{$item.forms.base.order_id}></td>
+		<td align='center'><{$item.forms.base.mode}></td>
+		<td align='center'><{$item.forms.base.remittion}></td>
 		<td align='center'><{$item.key}></td>
 		<td align='center'><{$item.users.uid}></td>
 		<td align='center'><{$item.users.brokers}></td>
 		<td align='right'><{$item.users.sales}></td>
-		<td align='right'><{$item.form.shipping_id}></td>
+		<td align='right'><{$item.forms.base.shipping_id}></td>
 		<td align='right'><{$item.total}></td>
 		<td align='right'><{$item.tax}></td>
 		<td align='right'><{$item.shipping}></td>

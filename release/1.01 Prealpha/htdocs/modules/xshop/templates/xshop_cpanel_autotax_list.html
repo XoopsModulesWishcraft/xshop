@@ -12,9 +12,9 @@
 	</tr>
 	<{foreach item=rate from=$rates}>
 	<tr class="<{cycle values="even,odd"}>">
-		<td align='center'><{$rate.form.id}><{$rate.form.country}></td>
-		<td align='right'><{$rate.form.code}></td>
-		<td align='right'><{$rate.form.rate}></td>
+		<td align='center'><{$rate.forms.base.id}><{$rate.forms.base.country}></td>
+		<td align='right'><{$rate.forms.base.code}></td>
+		<td align='right'><{$rate.forms.base.rate}></td>
 	</tr>
 	<{/foreach}>
 	<tr class="foot">

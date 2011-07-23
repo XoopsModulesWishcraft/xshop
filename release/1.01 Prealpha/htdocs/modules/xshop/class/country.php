@@ -21,7 +21,7 @@ class xshopCountry extends XoopsObject
     }
     
     
-    function getForm($querystring, $captions = true, $render = true, $index = '', $cursor = 'form', $frmobj = array()) {
+    function getForm($querystring, $captions = true, $render = true, $index = '', $cursor = 'form', $frmobj='') {
         xoops_loadLanguage('forms', 'xshop');
     	
     	$frmobj['required'][] = 'alpha2';
