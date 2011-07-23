@@ -20,13 +20,13 @@
 	</tr>
 	<{foreach item=item from=$contacts}>
 	<tr class="<{cycle values="even,odd"}>">
-		<td align='center'><{$item.contact_id}><{$item.form.contact_id}></td>
-		<td align='center'><{$item.form.type}></td>
-		<td align='center'><{$item.form.citation}></td>
-		<td align='center'><{$item.form.name}></td>
-		<td align='center'><{$item.form.country_code}></td>		
-		<td align='center'><{$item.form.area_code}></td>		
-		<td align='center'><{$item.form.value}></td>
+		<td align='center'><{$item.contact_id}><{$item.forms.base.contact_id}></td>
+		<td align='center'><{$item.forms.base.type}></td>
+		<td align='center'><{$item.forms.base.citation}></td>
+		<td align='center'><{$item.forms.base.name}></td>
+		<td align='center'><{$item.forms.base.country_code}></td>		
+		<td align='center'><{$item.forms.base.area_code}></td>		
+		<td align='center'><{$item.forms.base.value}></td>
 		<td align='center'><{$item.when.created}></td>
 		<td align='center'><{$item.when.updated}></td>
 		<td align='center'><{$item.when.actioned}></td>

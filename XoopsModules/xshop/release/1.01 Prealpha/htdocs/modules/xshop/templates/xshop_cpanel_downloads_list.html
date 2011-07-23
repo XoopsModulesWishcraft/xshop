@@ -18,8 +18,8 @@
 	</tr>
 	<{foreach item=item from=$downloads}>
 	<tr class="<{cycle values="even,odd"}>">
-		<td align='center'><{$item.download_id}><{$item.form.download_id}></td>
-		<td align='center'><{$item.form.product_id}></td>
+		<td align='center'><{$item.download_id}><{$item.forms.base.download_id}></td>
+		<td align='center'><{$item.forms.base.product_id}></td>
 		<td align='center'><{$item.path}></td>
 		<td align='center'><{$item.filename}></td>
 		<td align='center'><{$item.mimetype}></td>

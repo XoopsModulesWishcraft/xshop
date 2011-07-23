@@ -74,7 +74,7 @@ class xshopProducts extends XoopsObject
     }
     
     
-    function getForm($querystring, $captions = true, $render = true, $index = '', $cursor = 'form', $frmobj = array()) {
+    function getForm($querystring, $captions = true, $render = true, $index = '', $cursor = 'form', $frmobj = '') {
     	xoops_loadLanguage('forms', 'xshop');
     	    	
     	$addresses_handler =& xoops_getmodulehandler('addresses', 'xshop');

@@ -27,20 +27,20 @@
 	</tr>
 	<{foreach item=item from=$addresses}>
 	<tr class="<{cycle values="even,odd"}>">
-		<td align='center'><{$item.address_id}><{$item.form.address_id}></td>
-		<td align='right'><{$item.form.type}></td>
-		<td align='right'><{$item.form.remittion}></td>
+		<td align='center'><{$item.address_id}><{$item.forms.base.address_id}></td>
+		<td align='right'><{$item.forms.base.type}></td>
+		<td align='right'><{$item.forms.base.remittion}></td>
 		<td align='right'><{$item.manu_id}></td>
 		<td align='right'><{$item.shop_id}></td>
 		<td align='right'><{$item.order_id}></td>
-		<td align='right'><{$item.form.care_of}></td>
-		<td align='right'><{$item.form.address_line_1}></td>
-		<td align='right'><{$item.form.address_line_2}></td>
-		<td align='right'><{$item.form.suburb}></td>
-		<td align='right'><{$item.form.city}></td>
-		<td align='right'><{$item.form.region_id}></td>
-		<td align='right'><{$item.form.country_id}></td>
-		<td align='right'><{$item.form.postcode}></td>
+		<td align='right'><{$item.forms.base.care_of}></td>
+		<td align='right'><{$item.forms.base.address_line_1}></td>
+		<td align='right'><{$item.forms.base.address_line_2}></td>
+		<td align='right'><{$item.forms.base.suburb}></td>
+		<td align='right'><{$item.forms.base.city}></td>
+		<td align='right'><{$item.forms.base.region_id}></td>
+		<td align='right'><{$item.forms.base.country_id}></td>
+		<td align='right'><{$item.forms.base.postcode}></td>
 		<td align='right'><{$item.when.created}></td>
 		<td align='right'><{$item.when.updated}></td>
 		<td align='right'><{$item.when.actioned}></td>

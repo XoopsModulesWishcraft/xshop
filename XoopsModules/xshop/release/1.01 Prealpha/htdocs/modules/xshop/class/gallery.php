@@ -17,8 +17,8 @@ class xshopGallery extends XoopsObject
         $this->initVar('shop_id', XOBJ_DTYPE_INT, 0);
         $this->initVar('item_id', XOBJ_DTYPE_INT, 0);
         $this->initVar('weight', XOBJ_DTYPE_INT, 0);
-        $this->initVar('path', XOBJ_DTYPE_TXTBOX, false, 255);
-        $this->initVar('thumbnail_path', XOBJ_DTYPE_TXTBOX, false, 255);
+        $this->initVar('path', XOBJ_DTYPE_TXTBOX, DS.$GLOBALS['xoopsModule']->getVar('dirname').DS.md5(microtime()).DS.'orginal'.DS, 255);
+        $this->initVar('thumbnail_path', XOBJ_DTYPE_TXTBOX, DS.$GLOBALS['xoopsModule']->getVar('dirname').DS.md5(microtime()).DS.'thumbnaill'.DS, 255);
         $this->initVar('filename', XOBJ_DTYPE_TXTBOX, false, 255);
         $this->initVar('width', XOBJ_DTYPE_INT, 0);
         $this->initVar('height', XOBJ_DTYPE_INT, 0);
@@ -38,6 +38,7 @@ class xshopGallery extends XoopsObject
     	$ret['manu'] = get_manufacture_id($this->getVar('manu_id'));
     	$ret['shop'] = get_shop_id($this->getVar('shop_id'));
     	$ret['item'] = get_item_id($this->getVar('item_id'));
+    	$ret['picture'] = get_picture_id($this->getVar('picture_id'));
     	$frms = $this->getForm($_SERVER['QUERY_STRING'], false, false, 'base', array());
     	foreach($frms as $key => $value) {
     		if ($key!='required') {
@@ -49,7 +50,7 @@ class xshopGallery extends XoopsObject
     	return $ret;
     }    
 
-    function getForm($querystring, $captions = true, $render = true, $index = '', $cursor = 'form', $frmobj = array()) {
+    function getForm($querystring, $captions = true, $render = true, $index = '', $cursor = 'form', $frmobj = '') {
     
     	xoops_loadLanguage('forms', 'xshop');
     	    	
@@ -234,6 +235,16 @@ class xshopGalleryHandler extends XoopsPersistableObjectHandler
     		@$objs[$key]->runPostGetPlugin();
     	}
     	return $objs;
+    }
+    
+    function delete($object, $force=true) {
+    	unlink(XOOPS_UPLOAD_PATH.$object->getVar('path').$object->getVar('filename'));
+    	unlink(XOOPS_UPLOAD_PATH.$object->getVar('thumbnail_path').$object->getVar('filename'));
+    	rmdir(XOOPS_UPLOAD_PATH.$object->getVar('thumbnail_path'));
+    	rmdir(XOOPS_UPLOAD_PATH.$object->getVar('path'));
+    	rmdir(basename(XOOPS_UPLOAD_PATH.$object->getVar('path')));
+    	rmdir(basename(basename(XOOPS_UPLOAD_PATH.$object->getVar('path'))));
+    	return parent::delete($object, $force);
     }
 }
 ?>

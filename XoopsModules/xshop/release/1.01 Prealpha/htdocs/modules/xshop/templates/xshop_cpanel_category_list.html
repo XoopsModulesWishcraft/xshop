@@ -18,8 +18,8 @@
 	</tr>
 	<{foreach item=item from=$category}>
 	<tr class="<{cycle values="even,odd"}>">
-		<td align='center'><{$item.cat_id}><{$item.form.cat_id}></td>
-		<td align='center'><{$item.form.parent_id}></td>
+		<td align='center'><{$item.cat_id}><{$item.forms.base.cat_id}></td>
+		<td align='center'><{$item.forms.base.parent_id}></td>
 		<td align='center'><{$item.item.menu_title}></td>
 		<td align='center'><{$item.picture.thumbnail}></td>
 		<td align='center'><{$item.uid}></td>

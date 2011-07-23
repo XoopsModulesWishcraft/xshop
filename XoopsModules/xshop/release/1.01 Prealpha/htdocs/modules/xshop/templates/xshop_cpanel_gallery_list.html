@@ -29,15 +29,15 @@
 	<{foreach item=item from=$gallery}>
 	<tr class="<{cycle values="even,odd"}>">
 		<td align='center'><{$item.picture.thumbnail}></td>
-		<td align='center'><{$item.picture_id}><{$item.form.picture_id}></td>
-		<td align='center'><{$item.form.type}></td>
-		<td align='center'><{$item.form.shipping_id}></td>
-		<td align='center'><{$item.form.product_id}></td>
-		<td align='center'><{$item.form.cat_id}></td>
-		<td align='center'><{$item.form.manu_id}></td>
-		<td align='right'><{$item.form.shop_id}></td>
+		<td align='center'><{$item.picture_id}><{$item.forms.base.picture_id}></td>
+		<td align='center'><{$item.forms.base.type}></td>
+		<td align='center'><{$item.forms.base.shipping_id}></td>
+		<td align='center'><{$item.forms.base.product_id}></td>
+		<td align='center'><{$item.forms.base.cat_id}></td>
+		<td align='center'><{$item.forms.base.manu_id}></td>
+		<td align='right'><{$item.forms.base.shop_id}></td>
 		<td align='right'><{$item.item.menu_title}></td>
-		<td align='right'><{$item.form.weight}></td>
+		<td align='right'><{$item.forms.base.weight}></td>
 		<td align='right'><{$item.path}></td>
 		<td align='right'><{$item.filename}></td>
 		<td align='right'><{$item.width}></td>

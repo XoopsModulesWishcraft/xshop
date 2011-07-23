@@ -30,22 +30,22 @@
 	</tr>
 	<{foreach item=item from=$products}>
 	<tr class="<{cycle values="even,odd"}>">
-		<td align='center'><{$item.product_id}><{$item.form.product_id}></td>
+		<td align='center'><{$item.product_id}><{$item.forms.base.product_id}></td>
 		<td align='center'><{if $item.cat_prefix}><{$item.cat_prefix}>-<{/if}><{if $item.cat_num}><{$item.cat_num}>-<{/if}><{if $item.cat_subfix}><{$item.cat_subfix}><{/if}><{if $item.sub_model}>/<{$item.sub_model}><{/if}></td>
 		<td align='center'><{$item.item.menu_title}></td>
-		<td align='center'><{$item.form.type}></td>
-		<td align='center'><{$item.form.stock}></td>
+		<td align='center'><{$item.forms.base.type}></td>
+		<td align='center'><{$item.forms.base.stock}></td>
 		<td align='center'><{$item.user.uid}></td>
-		<td align='center'><{$item.form.shop_id}></td>
-		<td align='center'><{$item.form.cat_id}></td>
-		<td align='right'><{$item.form.manu_id}></td>
-		<td align='right'><{$item.form.currency_id}></td>
-		<td align='right'><{$item.form.unit_price}></td>
-		<td align='right'><{$item.form.unit_wholesale_price}></td>
-		<td align='right'><{$item.form.weight_per_unit}></td>
-		<td align='right'><{$item.form.weight_measurement}></td>
-		<td align='right'><{$item.form.quanity_in_unit}></td>
-		<td align='right'><{$item.form.quanity_for_wholesale}></td>
+		<td align='center'><{$item.forms.base.shop_id}></td>
+		<td align='center'><{$item.forms.base.cat_id}></td>
+		<td align='right'><{$item.forms.base.manu_id}></td>
+		<td align='right'><{$item.forms.base.currency_id}></td>
+		<td align='right'><{$item.forms.base.unit_price}></td>
+		<td align='right'><{$item.forms.base.unit_wholesale_price}></td>
+		<td align='right'><{$item.forms.base.weight_per_unit}></td>
+		<td align='right'><{$item.forms.base.weight_measurement}></td>
+		<td align='right'><{$item.forms.base.quanity_in_unit}></td>
+		<td align='right'><{$item.forms.base.quanity_for_wholesale}></td>
 		<td align='right'><{$item.rank}></td>
 		<td align='center'><{$item.when.created}></td>
 		<td align='center'><{$item.when.updated}></td>
