@@ -1,0 +1,36 @@
+<h1><{$smarty.const._XOR_AM_LOG_H1}></h1>
+<p><{$smarty.const._XOR_AM_LOG_P}></p>
+<div style="float:right;"><{$pagenav}></div>
+<table>
+	<tr class="head">
+		<th><{$action_th}></th>
+		<th><{$provider_th}></th>
+		<th><{$date_th}></th>
+		<th><{$uname_th}></th>
+		<th><{$email_th}></th>
+		<th><{$ip4_th}></th>
+		<th><{$ip6_th}></th>
+		<th><{$proxy_ip4_th}></th>
+		<th><{$proxy_ip6_th}></th>
+		<th><{$network_addy_th}></th>
+		<th><{$agent_th}></th>
+	</tr>
+	<{foreach item=item from=$log}>
+	<tr class="<{cycle values="even,odd"}>">
+		<td align='center'><{$item.action}></td>
+		<td align='center'><{$item.provider}></td>
+		<td align='center'><{$item.date_datetime}></td>
+		<td align='center'><{$item.uname}></td>
+		<td align='center'><{$item.email}></td>
+		<td align='right'><{$item.ip4}></td>
+		<td align='right'><{$item.ip6}></td>
+		<td align='right'><{$item.proxy_ip4}></td>
+		<td align='right'><{$item.proxy_ip6}></td>
+		<td align='right'><{$item.network_addy}></td>
+		<td align='right'><{$item.agent}></td>
+	</tr>
+	<{/foreach}>
+	<tr class="foot">
+		<td colspan="11">&nbsp;</td>
+	</tr>
+</table>

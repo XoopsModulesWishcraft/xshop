@@ -1,0 +1,39 @@
+<h1><{$smarty.const._SHOP_AM_COUNTRY_LIST_H1}></h1>
+<p><{$smarty.const._SHOP_AM_COUNTRY_LIST_P}></p>
+<div style='clear:both; height:60px;'>
+	<div style="float:right;"><{$pagenav}></div>
+</div>
+<form method="post" action='<{$php_self}>'>
+<table>
+	<tr class="head">
+		<th><{$country_id_th}></th>
+		<th><{$alpha2_th}></th>
+		<th><{$alpha3_th}></th>
+		<th><{$name_th}></th>
+	</tr>
+	<tr class="head">
+		<th>&nbsp;</th>
+		<th><{$filter_alpha2_th}></th>
+		<th><{$filter_alpha3_th}></th>
+		<th><{$filter_name_th}></th>
+	</tr>	
+	<{foreach item=item from=$country}>
+	<tr class="<{cycle values="even,odd"}>">
+		<td align='center'><{$item.country_id}><{$item.forms.base.country_id}></td>
+		<td align='center'><{$item.forms.base.alpha2}></td>
+		<td align='center'><{$item.forms.base.alpha3}></td>
+		<td align='center'><{$item.forms.base.name}></td>
+	</tr>
+	<{/foreach}>
+	<tr class="foot">
+		<td colspan="4"><input type='submit' value="<{$smarty.const._SUBMIT}>" name="submit"/></td>
+	</tr>
+</table>
+<input type='hidden' value="savelist" name="op"/>
+<input type='hidden' value="country" name="fct"/>
+<input type='hidden' value="<{$limit}>" name="limit"/>
+<input type='hidden' value="<{$start}>" name="start"/>
+<input type='hidden' value="<{$order}>" name="order"/>
+<input type='hidden' value="<{$sort}>" name="sort"/>
+<input type='hidden' value="<{$filter}>" name="filter"/>
+</form>

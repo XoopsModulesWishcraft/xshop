@@ -1,0 +1,94 @@
+<h1><{$smarty.const._SHOP_AM_PRODUCTS_LIST_H1}></h1>
+<p><{$smarty.const._SHOP_AM_PRODUCTS_LIST_P}></p>
+<div style='clear:both; height:60px;'>
+	<div style="float:right;"><{$pagenav}></div>
+</div>
+<form action="<{$php_self}>" method="post">
+<table>
+	<tr class="head">
+		<th><{$product_id_th}></th>
+		<th><{$cat_id_th}></th>
+		<th><{$item_id_th}></th>
+		<th><{$type_th}></th>
+		<th><{$stock_th}></th>
+		<th><{$uid_th}></th>
+		<th><{$shop_id_th}></th>
+		<th><{$cat_id_th}></th>
+		<th><{$manu_id_th}></th>
+		<th><{$currency_id_th}></th>
+		<th><{$unit_price_th}></th>
+		<th><{$unit_wholesale_price_th}></th>
+		<th><{$weight_per_unit_th}></th>
+		<th><{$weight_measurement_th}></th>
+		<th><{$quanity_in_unit_th}></th>
+		<th><{$quanity_for_wholesale_th}></th>
+		<th><{$smarty.const._SHOP_AM_TH_RANK}></th>
+		<th><{$created_th}></th>
+		<th><{$updated_th}></th>
+		<th><{$actioned_th}></th>
+		<th><{$smarty.const._SHOP_AM_TH_ACTIONS}></th>
+	</tr>
+	<tr class="head">
+		<th>&nbsp;</th>
+		<th><{$filter_cat_id_th}></th>
+		<th><{$filter_item_id_th}></th>
+		<th><{$filter_type_th}></th>
+		<th><{$filter_stock_th}></th>
+		<th><{$filter_uid_th}></th>
+		<th><{$filter_shop_id_th}></th>
+		<th><{$filter_cat_id_th}></th>
+		<th><{$filter_manu_id_th}></th>
+		<th><{$filter_currency_id_th}></th>
+		<th><{$filter_unit_price_th}></th>
+		<th><{$filter_unit_wholesale_price_th}></th>
+		<th><{$filter_weight_per_unit_th}></th>
+		<th><{$filter_weight_measurement_th}></th>
+		<th><{$filter_quanity_in_unit_th}></th>
+		<th><{$filter_quanity_for_wholesale_th}></th>
+		<th>&nbsp;</th>
+		<th><{$filter_created_th}></th>
+		<th><{$filter_updated_th}></th>
+		<th><{$filter_actioned_th}></th>
+		<th>&nbsp;</th>
+	</tr>
+	<{foreach item=item from=$products}>
+	<tr class="<{cycle values="even,odd"}>">
+		<td align='center'><{$item.product_id}><{$item.forms.base.product_id}></td>
+		<td align='center'><{if $item.cat_prefix}><{$item.cat_prefix}>-<{/if}><{if $item.cat_num}><{$item.cat_num}>-<{/if}><{if $item.cat_subfix}><{$item.cat_subfix}><{/if}><{if $item.sub_model}>/<{$item.sub_model}><{/if}></td>
+		<td align='center'><{$item.item.menu_title}></td>
+		<td align='center'><{$item.forms.base.type}></td>
+		<td align='center'><{$item.forms.base.stock}></td>
+		<td align='center'><{$item.user.uid}></td>
+		<td align='center'><{$item.forms.base.shop_id}></td>
+		<td align='center'><{$item.forms.base.cat_id}></td>
+		<td align='center'><{$item.forms.base.manu_id}></td>
+		<td align='center'><{$item.forms.base.currency_id}></td>
+		<td align='center'><{$item.forms.base.unit_price}></td>
+		<td align='center'><{$item.forms.base.unit_wholesale_price}></td>
+		<td align='center'><{$item.forms.base.weight_per_unit}></td>
+		<td align='center'><{$item.forms.base.weight_measurement}></td>
+		<td align='center'><{$item.forms.base.quanity_in_unit}></td>
+		<td align='center'><{$item.forms.base.quanity_for_wholesale}></td>
+		<td align='right'><{$item.rank}></td>
+		<td align='center'><{$item.when.created}></td>
+		<td align='center'><{$item.when.updated}></td>
+		<td align='center'><{$item.when.actioned}></td>
+		<td align='center'><a href='<{$php_self}>?id=<{$item.product_id}>&op=edit&fct=products'><{$smarty.const._EDIT}></a>&nbsp;|&nbsp;
+							<a href='<{$php_self}>?id=<{$item.product_id}>&op=delete&fct=products'><{$smarty.const._DELETE}></a></td>
+	</tr>
+	<{/foreach}>
+	<tr class="foot">
+		<td colspan="21"><input type="submit" name="submit" value="<{$smarty.const._SUBMIT}>"/></td>
+	</tr>
+</table>
+<input type="hidden" name="op" value="savelist"/>
+<input type="hidden" name="fct" value="products"/>
+<input type='hidden' value="<{$limit}>" name="limit"/>
+<input type='hidden' value="<{$start}>" name="start"/>
+<input type='hidden' value="<{$order}>" name="order"/>
+<input type='hidden' value="<{$sort}>" name="sort"/>
+<input type='hidden' value="<{$filter}>" name="filter"/>
+</form>
+<h1><{$smarty.const._SHOP_AM_PRODUCTS_NEW_H1}></h1>
+<p><{$smarty.const._SHOP_AM_PRODUCTS_NEW_P}></p>
+<{$form}>
