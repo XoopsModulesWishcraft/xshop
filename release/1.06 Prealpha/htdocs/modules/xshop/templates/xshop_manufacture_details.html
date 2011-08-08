@@ -1,0 +1,34 @@
+<p style="text-align:center;"><{if $maufacture.picture_html_orginal}><a href="<{$php_self}>?manu_id=<{$maufacture.manu_id}>"><{$maufacture.picture_html_orginal}></a><{else}>&nbsp;<{/if}></p>
+<h1><{if $maufacture.item_long_title}><a href="<{$php_self}>?manu_id=<{$maufacture.manu_id}>"><{$maufacture.item_long_title}></a><{else}><{if $maufacture.item_menu_title}><a href="<{$php_self}>?manu_id=<{$maufacture.manu_id}>"><{$maufacture.item_menu_title}></a><{else}>&nbsp;<{/if}><{/if}></h1>
+<h2><{if $maufacture.item_long_subtitle}><a href="<{$php_self}>?manu_id=<{$maufacture.manu_id}>"><{$maufacture.item_long_subtitle}></a><{else}><{if $maufacture.item_menu_subtitle}><a href="<{$php_self}>?manu_id=<{$maufacture.manu_id}>"><{$maufacture.item_menu_subtitle}></a><{else}>&nbsp;<{/if}><{/if}></h2>
+<div style="text-align:justify;"><{if $maufacture.item_long_description}><{$maufacture.item_long_description}></a><{else}><{if $maufacture.item_menu_description}><{$maufacture.item_menu_description}></a><{else}>&nbsp;<{/if}><{/if}></p>
+<table width="90%" align="center">
+	<tr>
+		<td class="even"><{$smarty.const._SHOP_MN_SHOPS_DETAILS_ADDRESS}></td>
+		<td class="odd" align="right">	<{if $maufacture.address_care_of}><{$maufacture.address_care_of}><br/><{/if}>
+							<{if $maufacture.address_address_line_1}><{$maufacture.address_address_line_1}><br/><{/if}>
+							<{if $maufacture.address_address_line_2}><{$maufacture.address_address_line_2}><br/><{/if}>
+							<{if $maufacture.address_suburb}><{$maufacture.address_suburb}>, <{/if}><{if $maufacture.address_city}><{$maufacture.address_city}>, <{/if}><{if $maufacture.address_postcode}><strong><{$maufacture.address_postcode}></strong><{/if}><br/>
+							<{if $maufacture.address_country_name}><{$maufacture.address_country_name}><{/if}>
+		</td>
+	</tr>
+	<tr>
+		<td class="odd"><{$smarty.const._SHOP_MN_SHOPS_DETAILS_CONTACT}></td>
+		<td class="even" align="right">	<{if $maufacture.contact_citation}><{$maufacture.contact_citation}> <{/if}><{if $maufacture.contact_name}><{$maufacture.contact_name}><br/><{/if}>
+							<{if $maufacture.contact_country_code}><{$maufacture.contact_country_code}>&nbsp;<{/if}><{if $maufacture.contact_area_code}><{$maufacture.contact_area_code}>&nbsp;<{/if}><{if $maufacture.contact_value}><{$maufacture.contact_value}><{/if}>
+		</td>
+	</tr>
+	<tr>
+		<td class="odd"><{$smarty.const._SHOP_MN_SHOPS_DETAILS_EMAIL}></td>
+		<td class="even" align="right">	<{if $maufacture.email_citation}><{$maufacture.email_citation}> <{/if}><{if $maufacture.email_name}><{$maufacture.email_name}><br/><{/if}>
+							<{if $maufacture.email_value}><a href="mailto:<{$maufacture.email_value}>?subject=<{if $maufacture.email_name}>ATTN: <{$maufacture.email_name}> - <{/if}><{$xoopsconfig.site_name}> - <{$maufacture.item_menu_title}>"><{$maufacture.email_value}></a><{/if}>
+		</td>
+	</tr>	
+	<tr>
+		<td class="even"><{$smarty.const._SHOP_MN_SHOPS_DETAILS_MOBILE}></td>
+		<td class="odd" align="right">	<{if $maufacture.mobile_citation}><{$maufacture.mobile_citation}> <{/if}><{if $maufacture.mobile_name}><{$maufacture.mobile_name}><br/><{/if}>
+							<{if $maufacture.mobile_country_code}><{$maufacture.mobile_country_code}>&nbsp;<{/if}><{if $maufacture.mobile_area_code}><{$maufacture.mobile_area_code}>&nbsp;<{/if}><{if $maufacture.mobile_value}><{$maufacture.mobile_value}><{/if}>
+		</td>
+	</tr>
+</table>
+<{includeq file="db:xshop_products_list.html" products=$products}>
