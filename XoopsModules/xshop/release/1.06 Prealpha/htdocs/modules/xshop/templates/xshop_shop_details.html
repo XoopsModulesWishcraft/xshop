@@ -1,0 +1,123 @@
+<p style="text-align:center;"><{if $shop.picture_html_orginal}><a href="<{$php_self}>?shop_id=<{$shop.shop_id}>"><{$shop.picture_html_orginal}></a><{else}>&nbsp;<{/if}></p>
+<h1><{if $shop.item_long_title}><a href="<{$php_self}>?shop_id=<{$shop.shop_id}>"><{$shop.item_long_title}></a><{else}><{if $shop.item_menu_title}><a href="<{$php_self}>?shop_id=<{$shop.shop_id}>"><{$shop.item_menu_title}></a><{else}>&nbsp;<{/if}><{/if}></h1>
+<h2><{if $shop.item_long_subtitle}><a href="<{$php_self}>?shop_id=<{$shop.shop_id}>"><{$shop.item_long_subtitle}></a><{else}><{if $shop.item_menu_subtitle}><a href="<{$php_self}>?shop_id=<{$shop.shop_id}>"><{$shop.item_menu_subtitle}></a><{else}>&nbsp;<{/if}><{/if}></h2>
+<div style="text-align:justify;"><{if $shop.item_long_description}><{$shop.item_long_description}></a><{else}><{if $shop.item_menu_description}><{$shop.item_menu_description}></a><{else}>&nbsp;<{/if}><{/if}></p>
+<table width="90%" align="center">
+	<tr>
+		<td class="even"><{$smarty.const._SHOP_MN_SHOPS_DETAILS_ADDRESS}></td>
+		<td class="odd" align="right">	<{if $shop.address_care_of}><{$shop.address_care_of}><br/><{/if}>
+							<{if $shop.address_address_line_1}><{$shop.address_address_line_1}><br/><{/if}>
+							<{if $shop.address_address_line_2}><{$shop.address_address_line_2}><br/><{/if}>
+							<{if $shop.address_suburb}><{$shop.address_suburb}>, <{/if}><{if $shop.address_city}><{$shop.address_city}>, <{/if}><{if $shop.address_postcode}><strong><{$shop.address_postcode}></strong><{/if}><br/>
+							<{if $shop.address_country_name}><{$shop.address_country_name}><{/if}>
+		</td>
+	</tr>
+	<tr>
+		<td class="odd"><{$smarty.const._SHOP_MN_SHOPS_DETAILS_CONTACT}></td>
+		<td class="even" align="right">	<{if $shop.contact_citation}><{$shop.contact_citation}> <{/if}><{if $shop.contact_name}><{$shop.contact_name}><br/><{/if}>
+							<{if $shop.contact_country_code}><{$shop.contact_country_code}>&nbsp;<{/if}><{if $shop.contact_area_code}><{$shop.contact_area_code}>&nbsp;<{/if}><{if $shop.contact_value}><{$shop.contact_value}><{/if}>
+		</td>
+	</tr>
+	<tr>
+		<td class="even"><{$smarty.const._SHOP_MN_SHOPS_DETAILS_FAX}></td>
+		<td class="odd" align="right">	<{if $shop.fax_citation}><{$shop.fax_citation}> <{/if}><{if $shop.fax_name}><{$shop.fax_name}><br/><{/if}>
+							<{if $shop.fax_country_code}><{$shop.fax_country_code}>&nbsp;<{/if}><{if $shop.fax_area_code}><{$shop.fax_area_code}>&nbsp;<{/if}><{if $shop.fax_value}><{$shop.fax_value}><{/if}>
+		</td>
+	</tr>
+	<tr>
+		<td class="odd"><{$smarty.const._SHOP_MN_SHOPS_DETAILS_EMAIL}></td>
+		<td class="even" align="right">	<{if $shop.email_citation}><{$shop.email_citation}> <{/if}><{if $shop.email_name}><{$shop.email_name}><br/><{/if}>
+							<{if $shop.email_value}><a href="mailto:<{$shop.email_value}>?subject=<{if $shop.email_name}>ATTN: <{$shop.email_name}> - <{/if}><{$xoopsconfig.site_name}> - <{$shop.item_menu_title}>"><{$shop.email_value}></a><{/if}>
+		</td>
+	</tr>	
+	<tr>
+		<td class="even"><{$smarty.const._SHOP_MN_SHOPS_DETAILS_MOBILE}></td>
+		<td class="odd" align="right">	<{if $shop.mobile_citation}><{$shop.mobile_citation}> <{/if}><{if $shop.mobile_name}><{$shop.mobile_name}><br/><{/if}>
+							<{if $shop.mobile_country_code}><{$shop.mobile_country_code}>&nbsp;<{/if}><{if $shop.mobile_area_code}><{$shop.mobile_area_code}>&nbsp;<{/if}><{if $shop.mobile_value}><{$shop.mobile_value}><{/if}>
+		</td>
+	</tr>	
+	<tr>
+		<td class="even"><{$smarty.const._SHOP_MN_SHOPS_DETAILS_PAGER}></td>
+		<td class="odd" align="right">	<{if $shop.sms_citation}><{$shop.sms_citation}> <{/if}><{if $shop.sms_name}><{$shop.sms_name}><br/><{/if}>
+							<{if $shop.sms_country_code}><{$shop.sms_country_code}>&nbsp;<{/if}><{if $shop.sms_area_code}><{$shop.sms_area_code}>&nbsp;<{/if}><{if $shop.sms_value}><{$shop.sms_value}><{/if}>
+		</td>
+	</tr>	
+	<tr>
+		<td class="odd"><{$smarty.const._SHOP_MN_SHOPS_DETAILS_DELIVERY}></td>
+		<td class="even" align="right">	<{if $shop.delivery_care_of}><{$shop.delivery_care_of}><br/><{/if}>
+							<{if $shop.delivery_address_line_1}><{$shop.delivery_address_line_1}><br/><{/if}>
+							<{if $shop.delivery_address_line_2}><{$shop.delivery_address_line_2}><br/><{/if}>
+							<{if $shop.delivery_suburb}><{$shop.delivery_suburb}>, <{/if}><{if $shop.delivery_city}><{$shop.delivery_city}>, <{/if}><{if $shop.delivery_postcode}><strong><{$shop.delivery_postcode}></strong><{/if}><br/>
+							<{if $shop.delivery_country_name}><{$shop.delivery_country_name}><{/if}>
+		</td>
+	</tr>
+	<tr>
+		<td class="odd"><{$smarty.const._SHOP_MN_SHOPS_DETAILS_ADMINS}></td>
+		<td class="even" align="right"><{if $shop.admin_uids_html}><{$shop.admin_uids_html}><{/if}></td>
+	</tr>
+	<tr>
+		<td class="even"><{$smarty.const._SHOP_MN_SHOPS_DETAILS_BROKERS}></td>
+		<td class="odd" align="right"><{if $shop.broker_uids_html}><{$shop.broker_uids_html}><{/if}></td>
+	</tr>
+	<tr>
+		<td class="odd"><{$smarty.const._SHOP_MN_SHOPS_DETAILS_SALES}></td>
+		<td class="even" align="right"><{if $shop.sales_uids_html}><{$shop.sales_uids_html}><{/if}></td>
+	</tr>
+	<tr>
+		<td class="even"><{$smarty.const._SHOP_MN_SHOPS_DETAILS_VOTES}></td>
+		<td class="odd" align="right"><{if $shop.votes}><{$shop.votes}><{/if}></td>
+	</tr>
+	<tr>
+		<td class="odd"><{$smarty.const._SHOP_MN_SHOPS_DETAILS_RANK}></td>
+		<td class="even" align="right"><{if $shop.rank}><{$shop.rank}><{/if}></td>
+	</tr>
+	<tr>
+		<td class="even"><{$smarty.const._SHOP_MN_SHOPS_DETAILS_PRODUCTS}></td>
+		<td class="odd" align="right"><{if $shop.count_products}><{$shop.count_products}><{/if}></td>
+	</tr>
+	<tr>
+		<td class="odd"><{$smarty.const._SHOP_MN_SHOPS_DETAILS_MANUFACTURES}></td>
+		<td class="even" align="right"><{if $shop.count_manufactures}><{$shop.count_manufactures}><{/if}></td>
+	</tr>
+	<{if $shop.timed}>
+	<tr>
+		<td class="even"><{$smarty.const._SHOP_MN_SHOPS_DETAILS_END}></td>
+		<td class="odd" align="right"><{if $shop.end_date}><{$shop.end_date}><{/if}></td>
+	</tr>
+	<tr>
+		<td class="odd"><{$smarty.const._SHOP_MN_SHOPS_DETAILS_STARTED}></td>
+		<td class="even" align="right"><{if $shop.start_date}><{$shop.start_date}><{/if}></td>
+	</tr>	
+	<tr>
+		<td class="even"><{$smarty.const._SHOP_MN_SHOPS_DETAILS_OPENING}></td>
+		<td class="odd" align="right"><{if $shop.opening_time}><{$shop.opening_time}><{/if}></td>
+	</tr>
+	<tr>
+		<td class="odd"><{$smarty.const._SHOP_MN_SHOPS_DETAILS_CLOSING}></td>
+		<td class="even" align="right"><{if $shop.closing_time}><{$shop.closing_time}><{/if}></td>
+	</tr>	
+	<tr>
+		<td class="even"><{$smarty.const._SHOP_MN_SHOPS_DETAILS_DAYS}></td>
+		<td class="odd" align="right"><{if $shop.days_html}><{$shop.days_html}><{/if}></td>
+	</tr>	
+	<{/if}>
+	<{if $shop.special_product_id}>
+	<tr>
+		<td class="even"><{$smarty.const._SHOP_MN_SHOPS_DETAILS_SPECIAL_PRODUCT}></td>
+		<td class="odd" align="right"></center><a href="<{$php_self}>?product_id=<{$shop.special_product_id}>&shop_id=<{$shop.shop_id}>"><{if $shop.special_product_picture_html_thumbnail}><{$shop.special_product_picture_html_thumbnail}><br/><{/if}><{$shop.special_product_item_menu_title}></a><center></td>
+	</tr>
+	<{/if}>
+	<{if $shop.special_cat_id}>
+	<tr>
+		<td class="odd"><{$smarty.const._SHOP_MN_SHOPS_DETAILS_SPECIAL_CATEGORY}></td>
+		<td class="even" align="right"></center><a href="<{$php_self}>?product_id=<{$shop.special_cat_id}>&shop_id=<{$shop.shop_id}>"><{if $shop.special_category_picture_html_thumbnail}><{$shop.special_category_picture_html_thumbnail}><br/><{/if}><{$shop.special_category_item_menu_title}></a><center></td>
+	</tr>
+	<{/if}>
+	<{if $shop.special_manu_id}>
+	<tr>
+		<td class="even"><{$smarty.const._SHOP_MN_SHOPS_DETAILS_SPECIAL_MANUFACTURE}></td>
+		<td class="odd" align="right"></center><a href="<{$php_self}>?manu_id=<{$shop.special_manu_id}>&shop_id=<{$shop.shop_id}>"><{if $shop.special_manufacture_picture_html_thumbnail}><{$shop.special_manufacture_picture_html_thumbnail}><br/><{/if}><{$shop.special_manufacture_item_menu_title}></a><center></td>
+	</tr>
+	<{/if}>	
+</table>
+<{includeq file="db:xshop_products_list.html" products=$products}>
