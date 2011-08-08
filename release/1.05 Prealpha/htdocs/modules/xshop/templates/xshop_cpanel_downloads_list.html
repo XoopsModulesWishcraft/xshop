@@ -1,0 +1,58 @@
+<h1><{$smarty.const._SHOP_AM_DOWNLOADS_LIST_H1}></h1>
+<p><{$smarty.const._SHOP_AM_DOWNLOADS_LIST_P}></p>
+<div style='clear:both; height:60px;'>
+	<div style="float:right;"><{$pagenav}></div>
+</div>
+<form action="<{$php_self}>" method="post">
+<table>
+	<tr class="head">
+		<th><{$download_id_th}></th>
+		<th><{$product_id_th}></th>
+		<th><{$path_th}></th>
+		<th><{$filename_th}></th>
+		<th><{$mimetype_th}></th>
+		<th><{$hits_th}></th>
+		<th><{$created_th}></th>
+		<th><{$updated_th}></th>
+		<th><{$smarty.const._SHOP_AM_TH_ACTIONS}></th>
+	</tr>
+	<tr class="head">
+		<th>&nbsp;</th>
+		<th><{$filter_product_id_th}></th>
+		<th><{$filter_path_th}></th>
+		<th><{$filter_filename_th}></th>
+		<th><{$filter_mimetype_th}></th>
+		<th><{$filter_hits_th}></th>
+		<th><{$filter_created_th}></th>
+		<th><{$filter_updated_th}></th>
+		<th>&nbsp;</th>
+	</tr>	
+	<{foreach item=item from=$downloads}>
+	<tr class="<{cycle values="even,odd"}>">
+		<td align='center'><{$item.download_id}><{$item.forms_base_download_id}></td>
+		<td align='center'><{$item.forms_base_product_id}></td>
+		<td align='center'><{$item.path}></td>
+		<td align='center'><{$item.filename}></td>
+		<td align='center'><{$item.mimetype}></td>
+		<td align='right'><{$item.hits}></td>
+		<td align='center'><{$item.when_created}></td>
+		<td align='center'><{$item.when_updated}></td>
+		<td align='center'><a href='<{$php_self}>?id=<{$item.download_id}>&op=edit&fct=downloads'><{$smarty.const._EDIT}></a>&nbsp;|&nbsp;
+							<a href='<{$php_self}>?id=<{$item.download_id}>&op=delete&fct=downloads'><{$smarty.const._DELETE}></a></td>
+	</tr>
+	<{/foreach}>
+	<tr class="foot">
+		<td colspan="9"><input type="submit" name="submit" value="<{$smarty.const._SUBMIT}>"/></td>
+	</tr>
+</table>
+<input type="hidden" name="op" value="savelist"/>
+<input type="hidden" name="fct" value="downloads"/>
+<input type='hidden' value="<{$limit}>" name="limit"/>
+<input type='hidden' value="<{$start}>" name="start"/>
+<input type='hidden' value="<{$order}>" name="order"/>
+<input type='hidden' value="<{$sort}>" name="sort"/>
+<input type='hidden' value="<{$filter}>" name="filter"/>
+</form>
+<h1><{$smarty.const._SHOP_AM_DOWNLOADS_NEW_H1}></h1>
+<p><{$smarty.const._SHOP_AM_DOWNLOADS_NEW_P}></p>
+<{$form}>
