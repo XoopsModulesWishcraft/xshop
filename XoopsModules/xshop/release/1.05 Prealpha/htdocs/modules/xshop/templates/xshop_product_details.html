@@ -1,0 +1,63 @@
+<p style="text-align:center;"><{if $product.picture_html_orginal}><a href="<{$php_self}>?shop_id=<{$product.shop_id}>"><{$product.picture_html_orginal}></a><{else}>&nbsp;<{/if}></p>
+<h1><{if $product.item_long_title}><a href="<{$php_self}>?shop_id=<{$product.shop_id}>"><{$product.item_long_title}></a><{else}><{if $product.item_menu_title}><a href="<{$php_self}>?shop_id=<{$product.shop_id}>"><{$product.item_menu_title}></a><{else}>&nbsp;<{/if}><{/if}></h1>
+<h2><{if $product.item_long_subtitle}><a href="<{$php_self}>?shop_id=<{$product.shop_id}>"><{$product.item_long_subtitle}></a><{else}><{if $product.item_menu_subtitle}><a href="<{$php_self}>?shop_id=<{$product.shop_id}>"><{$product.item_menu_subtitle}></a><{else}>&nbsp;<{/if}><{/if}></h2>
+<div style="text-align:justify;"><{if $product.item_long_description}><{$product.item_long_description}></a><{else}><{if $product.item_menu_description}><{$product.item_menu_description}></a><{else}>&nbsp;<{/if}><{/if}></p>
+<{includeq file="db:xshop_purchase_insert_large.html" product=$product user=$user}>
+<table width="90%" align="center">
+	<tr>
+		<td class="odd"><{$smarty.const._SHOP_MN_PRODUCTS_PRODUCT_CAT_NUM}></td>
+		<td class="even" align="right">	<{if $product.cat_num}><{$product.cat_num}> <{/if}></td>
+	</tr>
+	<tr>
+		<td class="even"><{$smarty.const._SHOP_MN_PRODUCTS_STOCK}></td>
+		<td class="odd" align="right">	<{if $product.stock}><{$product.stock}> <{/if}></td>
+	</tr>
+	<tr>
+		<td class="odd"><{$smarty.const._SHOP_MN_PRODUCTS_TYPE}></td>
+		<td class="even" align="right">	<{if $product.type}><{$product.type}> <{/if}></td>
+	</tr>	
+	<tr>
+		<td class="even"><{$smarty.const._SHOP_MN_PRODUCTS_SALES_UID}></td>
+		<td class="odd" align="right">	<{if $product.user_sales_uid_html}><{$product.user_sales_uid_html}> <{/if}></td>
+	</tr>	
+	<tr>
+		<td class="even"><{$smarty.const._SHOP_MN_PRODUCTS_BROKER_UID}></td>
+		<td class="odd" align="right">	<{if $product.user_broker_uid_html}><{$product.user_broker_uid_html}> <{/if}></td>
+	</tr>	
+	<tr>
+		<td class="odd"><{$smarty.const._SHOP_MN_PRODUCTS_SHOP_ID}></td>
+		<td class="even" align="right">	<{if $product.shop_item_menu_title}><{$product.shop_item_menu_title}><{/if}></td>
+	</tr>
+	<tr>
+		<td class="odd"><{$smarty.const._SHOP_MN_PRODUCTS_CAT_ID}></td>
+		<td class="even" align="right"><{if $product.category_item_menu_title}><{$product.category_item_menu_title}><{/if}></td>
+	</tr>
+	<tr>
+		<td class="even"><{$smarty.const._SHOP_MN_PRODUCTS_MANU_ID}></td>
+		<td class="odd" align="right"><{if $product.manufacture_item_menu_title}><{$product.manufacture_item_menu_title}><{/if}></td>
+	</tr>
+	<tr>
+		<td class="odd"><{$smarty.const._SHOP_MN_PRODUCTS_DISCOUNT}></td>
+		<td class="even" align="right"><{if $product.discount_html}><{$product.discount_html}><{/if}></td>
+	</tr>
+	<tr>
+		<td class="even"><{$smarty.const._SHOP_MN_PRODUCTS_WHOLESALE_DISCOUNT}></td>
+		<td class="odd" align="right"><{if $product.wholesale_discount_html}><{$product.wholesale_discount_html}><{/if}></td>
+	</tr>
+	<tr>
+		<td class="odd"><{$smarty.const._SHOP_MN_PRODUCTS_UNIT_PRICE}></td>
+		<td class="even" align="right"><{if $product.money_unit_price}><{$product.money_unit_price}><{/if}></td>
+	</tr>
+	<tr>
+		<td class="even"><{$smarty.const._SHOP_MN_PRODUCTS_UNIT_WHOLESALE_PRICE}></td>
+		<td class="odd" align="right"><{if $product.money_unit_wholesale_price}><{$product.money_unit_wholesale_price}><{/if}></td>
+	</tr>
+	<tr>
+		<td class="odd"><{$smarty.const._SHOP_MN_PRODUCTS_QUANITY_IN_UNIT}></td>
+		<td class="even" align="right"><{if $product.quanity_in_unit}><{$product.quanity_in_unit}><{/if}></td>
+	</tr>
+	<tr>
+		<td class="even"><{$smarty.const._SHOP_MN_PRODUCTS_QUANITY_FOR_WHOLESALE}></td>
+		<td class="odd" align="right"><{if $product.quanity_for_wholesale}><{$product.quanity_for_wholesale}><{/if}></td>
+	</tr>
+</table>
