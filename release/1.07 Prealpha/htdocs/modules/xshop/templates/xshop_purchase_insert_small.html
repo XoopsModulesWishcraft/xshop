@@ -1,0 +1,6 @@
+<div id="product_purchase_small_<{$product.product_id}>">
+	<span>
+		<input id="quanity_<{$product.product_id}>" name="quanity_<{$product.product_id}>" value="1" type="textbox" size="2" maxlen="19"/>
+		<input name="button_<{$product.product_id}>" value="[+]" type="button" onclick='javascript:doJSON_LodgeCaddy("<{$xoops_url}>", "<{$xoModule.dirname}>", "<{$product.product_id}>", "<{$user.uid}>", "<{$user.md5}>", "<{$user.ip}>", $("#quanity_<{$product.product_id}>").val(), "<{$json_salt}>", "product_purchase_small_<{$product.product_id}>")'/>
+	</span>
+</div>

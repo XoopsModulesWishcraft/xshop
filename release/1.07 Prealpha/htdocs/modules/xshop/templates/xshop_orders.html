@@ -1,0 +1,28 @@
+<h1><{$smarty.const._SHOP_MN_ORDERS_H1}></h1>
+<p><{$smarty.const._SHOP_MN_ORDERS_P}></p>
+<table>
+	<tr style="head">
+		<th align="center"><{$smarty.const._SHOP_MN_ORDER_KEY}></th>
+		<th align="right"><{$smarty.const._SHOP_MN_ORDER_SHIPPING}></th>
+		<th align="right"><{$smarty.const._SHOP_MN_ORDER_HANDLING}></th>
+		<th align="right"><{$smarty.const._SHOP_MN_ORDER_TAX}></th>
+		<th align="right"><{$smarty.const._SHOP_MN_ORDER_DISCOUNT}></th>		
+		<th align="right"><{$smarty.const._SHOP_MN_ORDER_TOTAL}></th>
+		<th align="right"><{$smarty.const._SHOP_MN_ORDER_GRAND}></th>
+		<th align="right"><{$smarty.const._SHOP_MN_ORDER_ITEMS}></th>
+		<th align="right"><{$smarty.const._SHOP_MN_ORDER_ACTION}></th>
+	</tr>
+	<{foreach item=order key=order_id from=$orders}>
+	<tr style="<{cycle value="even,odd"}>">
+		<td align="center"><{$order.key}></td>
+		<td align="right"><{$order.money.shipping}></td>
+		<td align="right"><{$order.money.handling}></td>
+		<td align="right"><{$order.money.tax}></td>
+		<td align="right"><{$order.money.discount}></td>		
+		<td align="right"><{$order.money.total}></td>
+		<td align="right"><{$order.money.grand}></td>
+		<td align="right"><{$order.items}></td>
+		<td align="right"><a href="<{$xoops_url}>/modules/xshop/index.php?op=orders&fct=finalise&order_id=<{$order.order_id}>"><{$smarty.const._SHOP_MN_ORDER_FINALISE}></a></td>
+	</tr>
+	<{/foreach}>
+</table>
