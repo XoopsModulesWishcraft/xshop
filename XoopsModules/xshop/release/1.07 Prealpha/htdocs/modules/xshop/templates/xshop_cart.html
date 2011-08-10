@@ -1,0 +1,105 @@
+<h1><{$smarty.const._SHOP_MN_CART_H1}></h1>
+<p><{$smarty.const._SHOP_MN_CART_P}></p>
+<{if $xoConfig.combine==0}>
+<table>
+	<tr style="head">
+		<th>&nbsp;</th>
+		<th align="right"><{$smarty.const._SHOP_MN_PRODUCTS_SHIPPING}></th>
+		<th align="right"><{$smarty.const._SHOP_MN_PRODUCTS_HANDLING}></th>
+		<th align="right"><{$smarty.const._SHOP_MN_PRODUCTS_TAX}></th>
+		<th align="right"><{$smarty.const._SHOP_MN_PRODUCTS_DISCOUNT}></th>		
+		<th align="right"><{$smarty.const._SHOP_MN_PRODUCTS_TOTAL}></th>
+		<th align="right"><{$smarty.const._SHOP_MN_PRODUCTS_PURCHASE}></th>
+	</tr>	
+	<tr style="foot">
+		<td><{$smarty.const._SHOP_MN_GRANDTOTALS}></th>
+		<td align="right"><div id='shipping_grand'><{$grand_money.shipping}></div></th>
+		<td align="right"><div id='handling_grand'><{$grand_money.handling}></div></th>
+		<td align="right"><div id='tax_grand'><{$grand_money.tax}></div></th>
+		<td align="right"><div id='discount_grand'><{$grand_money.discount}></div></th>		
+		<td align="right"><div id='total_grand'><{$grand_money.total}></div></th>
+		<td align="right"><div id='grand_grand'><{$grand_money.grand}></div></th>
+	</tr>	
+</table>
+<p>&nbsp;</p>
+<{/if}>
+<{if $xoConfig.combine==0}>
+<table>
+	<tr style="head">
+		<th><{$smarty.const._SHOP_MN_PRODUCTS_PICTURE}></th>
+		<th><{$smarty.const._SHOP_MN_PRODUCTS_CAT_NUMBER}></th>
+		<th><{$smarty.const._SHOP_MN_PRODUCTS_MENU_TITLE}></td>
+		<th align="right"><{$smarty.const._SHOP_MN_PRODUCTS_QUANITY}></th>
+		<th align="right"><{$smarty.const._SHOP_MN_PRODUCTS_SHIPPING}></th>
+		<th align="right"><{$smarty.const._SHOP_MN_PRODUCTS_HANDLING}></th>
+		<th align="right"><{$smarty.const._SHOP_MN_PRODUCTS_TAX}></th>
+		<th align="right"><{$smarty.const._SHOP_MN_PRODUCTS_DISCOUNT}></th>		
+		<th align="right"><{$smarty.const._SHOP_MN_PRODUCTS_TOTAL}></th>
+		<th align="right"><{$smarty.const._SHOP_MN_PRODUCTS_PURCHASE}></th>
+	</tr>
+<{/if}>
+<{foreach item=caddy key=shop_id from=$cart}>
+<{if $shop_id <> 'totals'}>
+<div id="shop_<{$shop_id}>">
+<{if $xoConfig.combine}>
+<table>
+	<tr style="head">
+		<th><{$smarty.const._SHOP_MN_PRODUCTS_PICTURE}></th>
+		<th><{$smarty.const._SHOP_MN_PRODUCTS_CAT_NUMBER}></th>
+		<th><{$smarty.const._SHOP_MN_PRODUCTS_MENU_TITLE}></td>
+		<th align="right"><{$smarty.const._SHOP_MN_PRODUCTS_QUANITY}></th>
+		<th align="right"><{$smarty.const._SHOP_MN_PRODUCTS_SHIPPING}></th>
+		<th align="right"><{$smarty.const._SHOP_MN_PRODUCTS_HANDLING}></th>
+		<th align="right"><{$smarty.const._SHOP_MN_PRODUCTS_TAX}></th>
+		<th align="right"><{$smarty.const._SHOP_MN_PRODUCTS_DISCOUNT}></th>		
+		<th align="right"><{$smarty.const._SHOP_MN_PRODUCTS_TOTAL}></th>
+		<th align="right"><{$smarty.const._SHOP_MN_PRODUCTS_PURCHASE}></th>
+	</tr>
+<{/if}>
+	<tr style="head">
+		<th colspan='9'><{if $caddy.data.item_long_title}><{$caddy.data.item_long_title}><{else}><{$caddy.data.item_menu_title}><{/if}></th>
+		<th align='right'/><div id="button_shop_<{$shop_id}>"><input type="button" name="button_shop_<{$shop_id}>" value="<{$smarty.const._SHOP_MN_SHOPS_CREATEORDER}>" onClick='javascript:doJSON_CreateOrder("<{$xoops_url}>", "<{$xoModule.dirname}>", "<{$shop_id}>", "<{$user.uid}>", "<{$user.md5}>", "<{$user.ip}>", "<{$json_salt}>")'/></div></th>
+	</tr>
+	<{foreach item=product key=product_id from=$caddy}>
+	<{if $product_id <> 0 &&  $product_id <> 'totals'}>
+	<div id="product_<{$product_id}>">  
+	<tr style="<{cycle values="even,odd"}>">
+		<td><{$product.data.picture_thumbnail_html}></th>
+		<td><{$product.data.cat_num}></th>
+		<td><{$product.data.item_menu_title}></td>
+		<td align="right"><div id='quanity_<{$product_id}>'><{$product.values.quanity}></div></th>
+		<td align="right"><div id='shipping_<{$product_id}>'><{$product.values.money.shipping}></div></th>
+		<td align="right"><div id='handling_<{$product_id}>'><{$product.values.money.handling}></div></th>
+		<td align="right"><div id='tax_<{$product_id}>'><{$product.values.money.tax}></div></th>
+		<td align="right"><div id='discount_<{$product_id}>'><{$product.values.money.discount}></div></th>		
+		<td align="right"><div id='total_<{$product_id}>'><{$product.values.money.total}></div></th>
+		<td align="right"><{includeq file='db:xshop_cart_insert_small.html' product=$product.data value=$product.values user=$user}></th>
+	</tr>
+	</div>
+	<{/if}>
+	<{/foreach}>
+	<tr style="foot">
+		<td colspan="4"><{$smarty.const._SHOP_MN_SUBTOTALS}></th>
+		<td align="right"><div id='shipping_total_<{$shop_id}>'><{$caddy.money.shipping}></div></th>
+		<td align="right"><div id='handling_total_<{$shop_id}>'><{$caddy.money.handling}></div></th>
+		<td align="right"><div id='tax_total_<{$shop_id}>'><{$caddy.money.tax}></div></th>
+		<td align="right"><div id='discount_total_<{$shop_id}>'><{$caddy.money.discount}></div></th>		
+		<td align="right"><div id='total_total_<{$shop_id}>'><{$caddy.money.total}></div></th>
+		<td align="right"><div id='grand_total_<{$shop_id}>'><{$caddy.money.grand}></div></th>		
+	</tr>
+<{if $xoConfig.combine}></table><p>&nbsp;</p><{/if}>
+</div>
+<{/if}>
+<{/foreach}>
+<{if $xoConfig.combine!=0}>	
+	<tr style="foot">
+		<td colspan="4"><{$smarty.const._SHOP_MN_GRANDTOTALS}></th>
+		<td align="right"><div id='shipping_grand'><{$grand_money.shipping}></div></th>
+		<td align="right"><div id='handling_grand'><{$grand_money.handling}></div></th>
+		<td align="right"><div id='tax_grand'><{$grand_money.tax}></div></th>
+		<td align="right"><div id='discount_grand'><{$grand_money.discount}></div></th>		
+		<td align="right"><div id='total_grand'><{$grand_money.total}></div></th>
+		<td align="right"><div id='grand_grand'><{$grand_money.grand}></div></th>
+	</tr>	
+<{/if}>
+<{if $xoConfig.combine==0}></table><{/if}>
