@@ -1,0 +1,6 @@
+<tr style="<{cycle values="even,odd"}>">
+	<td align="center"><{if $manufacture.picture_html_thumbnail}><a href="<{$php_self}>?manu_id=<{$manufacture.manu_id}>&op=details"><{$manufacture.picture_html_thumbnail}></a><{else}>&nbsp;<{/if}></td>
+	<td align="left"><{if $manufacture.item_menu_title}><a href="<{$php_self}>?manu_id=<{$manufacture.manu_id}>&op=details"><{$manufacture.item_menu_title}></a><{else}>&nbsp;<{/if}></td>
+	<td align="left"><{if $manufacture.item_menu_description}><a href="<{$php_self}>?manu_id=<{$manufacture.manu_id}>&op=details"><{$manufacture.item_menu_description}></a><{else}>&nbsp;<{/if}></td>
+	<td align="center"><{if $manufacture.rank}><a href="<{$php_self}>?manu_id=<{$manufacture.manu_id}>&op=details"><{$manufacture.rank}></a><{else}>0.00%<{/if}></td>
+</tr>

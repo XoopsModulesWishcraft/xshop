@@ -1,0 +1,85 @@
+<h1><{$smarty.const._SHOP_AM_SHIPPING_LIST_H1}></h1>
+<p><{$smarty.const._SHOP_AM_SHIPPING_LIST_P}></p>
+<div style='clear:both; height:60px;'>
+	<div style="float:right;"><{$pagenav}></div>
+</div>
+<form action="<{$php_self}>" method="post">
+<table>
+	<tr class="head">
+		<th><{$shipping_id_th}></th>
+		<th><{$type_th}></th>
+		<th><{$method_th}></th>
+		<th><{$broker_uids_th}></th>
+		<th><{$uid_th}></th>
+		<th><{$item_id_th}></th>
+		<th><{$price_per_kilo_th}></th>
+		<th><{$price_per_pound_th}></th>
+		<th><{$price_per_other_th}></th>
+		<th><{$handling_per_unit_th}></th>
+		<th><{$country_ids_th}></th>
+		<th><{$opening_th}></th>
+		<th><{$closing_th}></th>
+		<th><{$smarty.const._SHOP_AM_TH_RANK}></th>
+		<th><{$created_th}></th>
+		<th><{$updated_th}></th>
+		<th><{$actioned_th}></th>
+		<th><{$smarty.const._SHOP_AM_TH_ACTIONS}></th>
+	</tr>
+	<tr class="head">
+		<th>&nbsp;</th>
+		<th><{$filter_type_th}></th>
+		<th><{$filter_method_th}></th>
+		<th><{$filter_broker_uids_th}></th>
+		<th><{$filter_uid_th}></th>
+		<th><{$filter_item_id_th}></th>
+		<th><{$filter_price_per_kilo_th}></th>
+		<th><{$filter_price_per_pound_th}></th>
+		<th><{$filter_price_per_other_th}></th>
+		<th><{$filter_handling_per_unit_th}></th>
+		<th><{$filter_country_ids_th}></th>
+		<th><{$filter_opening_th}></th>
+		<th><{$filter_closing_th}></th>
+		<th>&nbsp;</th>
+		<th><{$filter_created_th}></th>
+		<th><{$filter_updated_th}></th>
+		<th><{$filter_actioned_th}></th>
+		<th>&nbsp;</th>
+	</tr>
+	<{foreach item=item from=$shipping}>
+	<tr class="<{cycle values="even,odd"}>">
+		<td align='center'><{$item.shipping_id}><{$item.forms_base_shipping_id}></td>
+		<td align='center'><{$item.forms_base_type}></td>
+		<td align='center'><{$item.forms_base_method}></td>
+		<td align='center'><{$item.forms_base_broker_uids}></td>
+		<td align='center'><{$item.user.uid}></td>		
+		<td align='center'><{$item.forms_item_menu_title}><{$item.forms_lang_item_id}></td>		
+		<td align='center'><{$item.forms_base_price_per_kilo}></td>
+		<td align='center'><{$item.forms_base_price_per_pound}></td>
+		<td align='center'><{$item.forms_base_price_per_other}></td>
+		<td align='center'><{$item.forms_base_handling_per_unit}></td>
+		<td align='center'><{$item.forms_base_country_ids}></td>
+		<td align='center'><{$item.forms_base_opening}></td>
+		<td align='center'><{$item.forms_base_closing}></td>
+		<td align='center'><{$item.rank}></td>
+		<td align='center'><{$item.when_created}></td>
+		<td align='center'><{$item.when_updated}></td>
+		<td align='center'><{$item.when_actioned}></td>
+		<td align='center'><a href='<{$php_self}>?id=<{$item.shipping_id}>&op=edit&fct=shipping'><{$smarty.const._EDIT}></a>&nbsp;|&nbsp;
+							<a href='<{$php_self}>?id=<{$item.shipping_id}>&op=delete&fct=shipping'><{$smarty.const._DELETE}></a></td>
+	</tr>
+	<{/foreach}>
+	<tr class="foot">
+		<td colspan="18"><input type="submit" name="submit" value="<{$smarty.const._SUBMIT}>"/></td>
+	</tr>
+</table>
+<input type="hidden" name="op" value="savelist"/>
+<input type="hidden" name="fct" value="shipping"/>
+<input type='hidden' value="<{$limit}>" name="limit"/>
+<input type='hidden' value="<{$start}>" name="start"/>
+<input type='hidden' value="<{$order}>" name="order"/>
+<input type='hidden' value="<{$sort}>" name="sort"/>
+<input type='hidden' value="<{$filter}>" name="filter"/>
+</form>
+<h1><{$smarty.const._SHOP_AM_SHIPPING_NEW_H1}></h1>
+<p><{$smarty.const._SHOP_AM_SHIPPING_NEW_P}></p>
+<{$form}>

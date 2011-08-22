@@ -1,0 +1,6 @@
+<div id="product_cart_small_<{$product.product_id}>">
+	<span>
+		<input name="quanity_input_<{$product.product_id}>" id="quanity_input_<{$product.product_id}>" value="<{$value.quanity}>" type="textbox" size="3" maxlen="19"/>
+		<input name="button_<{$product.product_id}>" value="[+]" type="button" onclick='javascript:doJSON_ChangeCaddy("<{$xoops_url}>", "<{$xoModule.dirname}>", "<{$product.product_id}>", "<{$user.uid}>", "<{$user.md5}>", "<{$user.ip}>", $("#quanity_input_<{$product.product_id}>").val(), "<{$json_salt}>", "product_cart_small_<{$product.product_id}>")'/>
+	</span>
+</div>
