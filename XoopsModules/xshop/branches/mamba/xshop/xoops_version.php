@@ -7,23 +7,35 @@ if (!defined('XOOPS_ROOT_PATH')) {
 
 $modversion['dirname'] 		= basename(dirname(__FILE__));
 $modversion['name'] 		= ucfirst(basename(dirname(__FILE__)));
-$modversion['version']     	= "1.07";
-$modversion['releasedate'] 	= "2011-08-10";
+$modversion['version']     	= "1.08";
+$modversion['releasedate'] 	= "2011-08-22";
 $modversion['status']      	= "RC";
 $modversion['description'] 	= _SHOP_MI_DESCRIPTION;
 $modversion['credits']     	= _SHOP_MI_CREDITS;
 $modversion['author']      	= "Wishcraft";
-$modversion['help']        	= "xshop.html";
-$modversion['license']     	= "GPL 2.0";
+$modversion['help'] = 'page=help';
+$modversion['license'] = 'GNU GPL 2.0';
+$modversion['license_url'] = "www.gnu.org/licenses/gpl-2.0.html/";
 $modversion['official']    	= 1;
 $modversion['image']       	= "images/xshop_slogo.png";
+$modversion['dirmoduleadmin'] = 'Frameworks/moduleclasses';
+$modversion['icons16'] = 'Frameworks/moduleclasses/icons/16';
+$modversion['icons32'] = 'Frameworks/moduleclasses/icons/32';
 
+//about
+$modversion['release_date']     = '2011/08/22';
+$modversion["module_website_url"] = "http://www.xoops.org/";
+$modversion["module_website_name"] = "XOOPS";
+$modversion["release"] = "20-08-2011";
+$modversion["module_status"] = "Beta";
+$modversion["author_website_url"] = "";
+$modversion["author_website_name"] = "";
+$modversion['min_php']='5.2';
+$modversion['min_xoops']="2.5";
 
 // Mysql file
 $modversion['sqlfile']['mysql'] = "sql/mysql.sql";
 
-// Main
-$modversion['hasMain'] = 1;
 
 $i=0;
 $modversion['tables'][$i++] = 'shop_addresses';
@@ -52,6 +64,8 @@ $modversion['tables'][$i++] = 'shop_visibility';
 $modversion['hasAdmin'] = 1;
 $modversion['adminindex'] = "admin/index.php";
 $modversion['adminmenu'] = "admin/menu.php";
+$modversion['hasMain'] = 1;
+$modversion['system_menu'] = 1;
 
 // Install Script
 $modversion['onInstall'] = "include/install.php";
