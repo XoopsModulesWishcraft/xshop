@@ -1,0 +1,7 @@
+<h2><{$smarty.const._SHOP_MN_PURCHASE}></h2>
+<div id="product_purchase_large_<{$product.product_id}>">
+	<span>
+		<font style="font-size:1.35em;"><{$smarty.const._SHOP_MN_QUANITY}>:&nbsp;</font><input style="font-size:1.35em;" id="quanity_<{$product.product_id}>" name="quanity_<{$product.product_id}>" value="1" type="textbox" size="10" maxlen="19"/>
+		<input style="font-size:1.35em;" name="button_<{$product.product_id}>" value="[+]" type="button" onclick='javascript:doJSON_LodgeCaddy("<{$xoops_url}>", "<{$xoModule.dirname}>", "<{$product.product_id}>", "<{$user.uid}>", "<{$user.md5}>", "<{$user.ip}>", $("#quanity_<{$product.product_id}>").val(), "<{$json_salt}>", "product_purchase_large_<{$product.product_id}>")'/>
+	</span>
+</div>

@@ -1,0 +1,26 @@
+<{if $products}>
+<h1><{$smarty.const._SHOP_MN_PRODUCTS_H1}></h1>
+<p><{$smarty.const._SHOP_MN_PRODUCTS_P}></p>
+<p><div style="float:right;"><{$products_pagenav}></div></p>
+<table width="97%" align="center">
+	<tr style="head">
+		<th><{$smarty.const._SHOP_MN_PRODUCTS_PICTURE}></th>
+		<th><{$smarty.const._SHOP_MN_PRODUCTS_CAT_NUMBER}></th>
+		<th><{$smarty.const._SHOP_MN_PRODUCTS_STOCK}></th>
+		<th><{$smarty.const._SHOP_MN_PRODUCTS_TYPE}></th>
+		<th><{$smarty.const._SHOP_MN_PRODUCTS_MENU_TITLE}></td>
+		<th><{$smarty.const._SHOP_MN_PRODUCTS_MENU_DESCRIPTION}></th>
+		<th><{$smarty.const._SHOP_MN_PRODUCTS_UNIT_PRICE}></th>
+		<th><{$smarty.const._SHOP_MN_PRODUCTS_UNIT_WHOLESALE_PRICE}></th>
+		<th><{$smarty.const._SHOP_MN_PRODUCTS_QUANITY_FOR_WHOLESALE}></th>
+		<th><{$smarty.const._SHOP_MN_PRODUCTS_CATEGORY}></th>
+		<th><{$smarty.const._SHOP_MN_PRODUCTS_MANUFACTURE}></th>		
+		<th><{$smarty.const._SHOP_MN_PRODUCTS_RANK}></th>
+		<{if $xoConfig.tags}><th><{$smarty.const._SHOP_MN_PRODUCTS_TAGS}></th><{/if}>
+		<th><{$smarty.const._SHOP_MN_PRODUCTS_PURCHASE}></th>
+	</tr>
+<{foreach item=product from=$products}>
+	<{includeq file="db:xshop_product_item.html" product=$product}>
+<{/foreach}>
+</table>
+<{/if}>
