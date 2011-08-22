@@ -14,6 +14,7 @@
 	define('_SHOP_MI_DOWNLOADS', 'Downloads');
 	
 	// Administrator Menus
+	define('_SHOP_MI_ADMIN_MENU0', 'Home');
 	define('_SHOP_MI_ADMIN_MENU1', 'Shops');
 	define('_SHOP_MI_ADMIN_MENU2', 'Categories');
 	define('_SHOP_MI_ADMIN_MENU3', 'Products');
@@ -35,6 +36,9 @@
 	define('_SHOP_MI_ADMIN_MENU19', 'Consignments');
 	define('_SHOP_MI_ADMIN_MENU20', 'Reports');
 	define('_SHOP_MI_ADMIN_MENU21', 'Log');
+	define('_SHOP_MI_ADMIN_ABOUT', 'About');    
+    
+    
 	
 	// Enumerators
 	define('_SHOP_MI_ADDRESS_MANUFACTURE', 'Manufacture');

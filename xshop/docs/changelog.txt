@@ -1,0 +1,18 @@
+v1.12 2011/06/08 (Mamba) 
+=================================
+- removed all icons files and point them to /Frameworks/moduleclasses
+- updated to the latest ModuleAdmin Class
+
+v1.11 2011/04/15 (Mamba) Internal version
+=================================
+- moved changelog.txt back to /docs
+- added Selenium Tests 
+- added Dashboard
+- added Help
+- changed Edit/Delete text links to Icons
+- updated GUI to XOOPS Standard Module GUI (mamba)
+
+v1.10 Raul Recio (AKA UNFOR)
+=================================
+- Original  
+
