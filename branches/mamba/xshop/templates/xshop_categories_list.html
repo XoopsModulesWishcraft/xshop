@@ -1,0 +1,38 @@
+<{if $categories}>
+<h1><{$smarty.const._SHOP_MN_CATEGORIES_H1}></h1>
+<p><{$smarty.const._SHOP_MN_CATEGORIES_P}></p>
+<{assign var="column" value=1}>
+<table width="97%" align="center">
+<{foreach item=category from=$categories}>
+	<{assign var="justset" value=0}>
+	<{if $column eq 3 and $justset eq 0}>
+		<{includeq file="db:xshop_category_item.html" category=$category}>
+		<{assign var="column" value=1}>
+		<{assign var="justset" value=1}>
+	</tr>
+	<{/if}>
+	<{if $column eq 2 and $justset eq 0}>
+		<{includeq file="db:xshop_category_item.html" category=$category}>
+		<{assign var="column" value=3}>
+		<{assign var="justset" value=1}>
+	<{/if}>
+	<{if $column eq 1 and $justset eq 0}>
+	<tr class="<{cycle values="even,odd"}>">
+		<{includeq file="db:xshop_category_item.html" category=$category}>
+		<{assign var="column" value=2}>
+		<{assign var="justset" value=1}>
+	<{/if}>
+<{/foreach}>
+<{if $column eq 1}>
+<{/if}>
+<{if $column eq 2}>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+</tr>
+<{/if}>
+<{if $column eq 3}>
+	<td>&nbsp;</td>
+</tr>
+<{/if}>		
+</table>
+<{/if}>

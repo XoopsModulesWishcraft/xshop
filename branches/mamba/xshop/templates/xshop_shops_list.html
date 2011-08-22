@@ -1,0 +1,16 @@
+<{if $shops}>
+<h1><{$smarty.const._SHOP_MN_SHOPS_H1}></h1>
+<p><{$smarty.const._SHOP_MN_SHOPS_P}></p>
+<p><div style="float:right;"><{$shops_pagenav}></div></p>
+<table width="97%" align="center">
+	<tr style="head">
+		<th><{$smarty.const._SHOP_MN_SHOPS_LOGO}></th>
+		<th><{$smarty.const._SHOP_MN_SHOPS_MENU_TITLE}></td>
+		<th><{$smarty.const._SHOP_MN_SHOPS_MENU_DESCRIPTION}></th>
+		<th><{$smarty.const._SHOP_MN_SHOPS_RANK}></th>
+	</tr>
+<{foreach item=shop from=$shops}>
+	<{includeq file="db:xshop_shop_item.html" shop=$shop}>
+<{/foreach}>
+</table>
+<{/if}>
